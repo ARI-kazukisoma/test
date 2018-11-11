@@ -49,6 +49,12 @@ pipeline {
           } else {
             echo "not exist file"
           }
+
+          if (fileExists("/tmp/")) {
+            echo "exist file"
+          } else {
+            echo "not exist file"
+          }
         }
       }
 
