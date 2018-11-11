@@ -5,7 +5,7 @@ pipeline {
       steps {
         script {
           slack = load "${pwd()}@../../lib/slack.groovy"
-          slack.notify_message("hello world")
+          slack.notify_message("channel", "token", "hello world")
         }
       }
     }
