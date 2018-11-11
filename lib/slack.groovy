@@ -1,3 +1,4 @@
+@Field
 def _channelCredentialIds = [
   "#hooktest": "test_ari_git",
 ]
