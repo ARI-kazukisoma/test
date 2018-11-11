@@ -8,8 +8,8 @@ def read_json(filePath) {
 }
 
 def write_json(data, filePath) {
-  json = JsonOutPut.toJson(data)
-  writeFile(file: filePath, text: JsonOutPut.prettyPrint(json))
+  json = JsonOutput.toJson(data)
+  writeFile(file: filePath, text: JsonOutput.prettyPrint(json))
 }
 
 return this
