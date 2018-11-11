@@ -38,4 +38,10 @@ public class SLACK {
   ]
 }
 
+def TEST_CLASS = public class TEST_CLASS {
+  public static NUM = 10
+}
+
+def num = 10
+
 return this
