@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+  stages {
+    stage("import library") {
+      steps {
+        script {
+          slack = load "${pwd()}@../lib/slack.groovy"
+          slack.notify_message("hello world")
+        }
+      }
+    }
+    stage("echo message") {
+      steps {
+        echo "aaa"
+      }
+    }
+  }
+}
