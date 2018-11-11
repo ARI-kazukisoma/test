@@ -4,31 +4,31 @@ pipeline {
     stage("import library") {
       steps {
         script {
-          slack = load("${pwd()}/lib/slack.groovy")
+          slack = load("lib/slack.groovy")
           slack.notify_message("#hooktest", "hello world")
         }
       }
     }
-    // stage("echo message") {
-    //   steps {
-    //     echo "aaa"
-    //   }
-    // }
+    stage("echo message") {
+      steps {
+        echo "aaa"
+      }
+    }
 
-    // stage("used json") {
-    //   steps {
-    //     script {
-    //       json = load "${pwd()}/lib/json.groovy"
-    //       data = [
-    //         "param1": [
-    //           "sub_param1": "sub1",
-    //           "sub_param2": "sub2",
-    //         ],
-    //         "param2": "main1"
-    //       ]
-    //       json.write_json(data, "/tmp/sample.json")
-    //     }
-    //   }
-    // }
+    stage("used json") {
+      steps {
+        script {
+          json = load "${pwd()}/lib/json.groovy"
+          data = [
+            "param1": [
+              "sub_param1": "sub1",
+              "sub_param2": "sub2",
+            ],
+            "param2": "main1"
+          ]
+          json.write_json(data, "/tmp/sample.json")
+        }
+      }
+    }
   }
 }
