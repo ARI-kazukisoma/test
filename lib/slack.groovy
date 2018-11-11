@@ -6,7 +6,7 @@ def _channelCredentialIds = [
 ]
 
 def notify_message(channel, message) {
-  def credentialsId = _channelCredentialIds["#hooktest"]
+  def credentialsId = _channelCredentialIds[channel]
 
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
     slackSend channel: channel, token: token, message: message
