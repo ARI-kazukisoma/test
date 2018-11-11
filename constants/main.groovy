@@ -40,3 +40,5 @@ public class Slack {
 
 def num = 10
 def SLACK = Slack
+
+return this
