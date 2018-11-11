@@ -5,9 +5,7 @@ pipeline {
       steps {
         script {
           slack = load "${pwd()}/lib/slack.groovy"
-          withCredentials([string(credentialsId: 'test_ari_git', variable: 'token')]) {
-            slack.notify_message("#hooktest", token, "hello world")
-          }
+          slack.notify_message("#hooktest", "hello world")
         }
       }
     }
