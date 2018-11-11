@@ -4,10 +4,8 @@ pipeline {
     stage("import library") {
       steps {
         script {
-          slack = load "${pwd()}/lib/slack.groovy"
-          // slack.notify_message("#hooktest", "hello world")
-          CONSTS = load("${pwd()}/constants/main.groovy").get_all()
-          echo CONSTS.TEST
+          slack = load("${pwd()}/lib/slack.groovy")
+          slack.notify_message("#hooktest", "hello world")
         }
       }
     }

@@ -1,6 +1,6 @@
 def notify_message(channel, message) {
-  def CONST = load("constants/main.groovy")
-  def credentialsId = CONST.SLACK.CHANNEL_CREDENTIAL_IDS[channel]
+  CONSTS = load("constants/main.groovy").get_all()
+  credentialsId = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channel]
 
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
     slackSend channel: channel, token: token, message: message
