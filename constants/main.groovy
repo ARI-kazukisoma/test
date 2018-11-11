@@ -41,7 +41,7 @@
 // def num = 10
 // def SLACK = Slack
 
-def CONST() {
+def get_all() {
   return [
     'SLACK': [
       'CHANNEL_CREDENTIAL_IDS': [
