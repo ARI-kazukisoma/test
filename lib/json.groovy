@@ -12,4 +12,11 @@ def write(data, filePath) {
   writeFile(file: filePath, text: JsonOutput.prettyPrint(json))
 }
 
+def exists(filePath) {
+  if(fileExists(filePath)) {
+    return true
+  } else {
+    return false
+  }
+}
 return this
