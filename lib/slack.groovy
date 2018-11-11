@@ -2,7 +2,7 @@ import groovy.transform.Field
 
 @Field
 def _channelCredentialIds = [
-  "#hooktest": "test_ari_git",
+  "#hooktest": "approval_slack_token",
 ]
 
 def notify_message(channel, message) {
