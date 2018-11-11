@@ -31,19 +31,14 @@ pipeline {
 */
 
 // Slackに関する定数の定義
-public class SLACK {
+public class Slack {
   // Slackのチャンネルと認証IDの紐づけ情報
   public static final CHANNEL_CREDENTIAL_IDS = [
     "#hooktest": "approval_slack_token",
   ]
 }
 
-Closure TEST_CLASS = {
-  public class TEST_CLASS {
-    public static NUM = 10
-  }
-}
-
 def num = 10
+def SLACK = Slack
 
 return this
