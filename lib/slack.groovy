@@ -1,16 +1,9 @@
-import groovy.transform.Field
-
-@Field
-def _channelCredentialIds = [
-  "#hooktest": "approval_slack_token",
-]
-
 def notify_message(channel, message) {
-  def credentialsId = _channelCredentialIds[channel]
+  def CONST = load("${pwd()}/constants/main.groovy")
+  def credentialsId = CONST.CHANNEL_CREDENTIAL_IDS[channel]
 
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
     slackSend channel: channel, token: token, message: message
   }
 }
-
 return this
