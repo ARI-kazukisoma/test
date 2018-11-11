@@ -4,9 +4,10 @@ pipeline {
     stage("import library") {
       steps {
         script {
-          echo "${pwd()}"
           slack = load "${pwd()}/lib/slack.groovy"
-          slack.notify_message("channel", "token", "hello world")
+          withCredentials([string(credentialsId: 'test_ari_git', variable: 'token')]) {
+            slack.notify_message("#hooktest", token, "hello world")
+          }
         }
       }
     }
