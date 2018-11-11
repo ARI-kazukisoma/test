@@ -6,8 +6,9 @@ pipeline {
         script {
           slack = load "${pwd()}/lib/slack.groovy"
           // slack.notify_message("#hooktest", "hello world")
-          CONST = load("${pwd()}/constants/main.groovy")
-          echo CONST()['TEST']
+          def CONST = load("${pwd()}/constants/main.groovy")
+          def rslt = CONST()
+          echo rslt['TEST']
         }
       }
     }
