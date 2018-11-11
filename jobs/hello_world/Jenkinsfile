@@ -7,7 +7,7 @@ pipeline {
           slack = load "${pwd()}/lib/slack.groovy"
           // slack.notify_message("#hooktest", "hello world")
           c = load "${pwd()}/constants/main.groovy"
-          c = c.get_all()
+          c = c.get_all().TEST
         }
       }
     }
