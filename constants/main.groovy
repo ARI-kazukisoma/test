@@ -37,5 +37,3 @@ public class SLACK {
     "#hooktest": "approval_slack_token",
   ]
 }
-
-return this
