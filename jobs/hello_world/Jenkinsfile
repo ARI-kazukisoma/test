@@ -4,7 +4,8 @@ pipeline {
     stage("import library") {
       steps {
         script {
-          slack = load "${pwd()}@../../lib/slack.groovy"
+          echo "${pwd}"
+          slack = load "${pwd()}@../lib/slack.groovy"
           slack.notify_message("channel", "token", "hello world")
         }
       }
