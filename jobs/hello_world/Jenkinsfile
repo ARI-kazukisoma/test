@@ -26,7 +26,7 @@ pipeline {
             ],
             "param2": "main1"
           ]
-          json.write_json(data, "/tmp/sample.json")
+          json.write(data, "/tmp/sample.json")
         }
       }
     }
@@ -35,7 +35,7 @@ pipeline {
       steps {
         script {
           json = load("lib/json.groovy")
-          data = json.read_json("/tmp/sample.json")
+          data = json.read("/tmp/sample.json")
           echo data.param2
         }
       }
