@@ -44,8 +44,11 @@ pipeline {
     stage("exists json") {
       steps {
         script {
-          json = load("lib/json.groovy")
-          echo json.exists("/tmp/sample.json")
+          if (fileExists("/tmp/sample.json")) {
+            echo "exist file"
+          } else {
+            echo "not exist file"
+          }
         }
       }
 
