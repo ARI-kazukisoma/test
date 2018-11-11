@@ -5,4 +5,5 @@ class SLACK {
   ]
 }
 
+echo SLACK.CHANNEL_CREDENTIAL_IDS["#hooktest"]
 return this
