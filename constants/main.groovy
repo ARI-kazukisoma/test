@@ -51,4 +51,4 @@ def CONST() {
   ]
 }
 
-return this.CONST()
+return this
