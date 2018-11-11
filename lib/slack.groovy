@@ -1,6 +1,6 @@
 def notify_message(channel, message) {
   def CONST = load("${pwd()}/constants/main.groovy")
-  println CONST
+  echo CONST
   // def credentialsId = CONST.SLACK().CHANNEL_CREDENTIAL_IDS[channel]
 
   // withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
