@@ -9,26 +9,26 @@ pipeline {
         }
       }
     }
-    stage("echo message") {
-      steps {
-        echo "aaa"
-      }
-    }
+    // stage("echo message") {
+    //   steps {
+    //     echo "aaa"
+    //   }
+    // }
 
-    stage("used json") {
-      steps {
-        script {
-          json = load "${pwd()}/lib/json.groovy"
-          data = [
-            "param1": [
-              "sub_param1": "sub1",
-              "sub_param2": "sub2",
-            ],
-            "param2": "main1"
-          ]
-          json.write_json(data, "/tmp/sample.json")
-        }
-      }
-    }
+    // stage("used json") {
+    //   steps {
+    //     script {
+    //       json = load "${pwd()}/lib/json.groovy"
+    //       data = [
+    //         "param1": [
+    //           "sub_param1": "sub1",
+    //           "sub_param2": "sub2",
+    //         ],
+    //         "param2": "main1"
+    //       ]
+    //       json.write_json(data, "/tmp/sample.json")
+    //     }
+    //   }
+    // }
   }
 }
