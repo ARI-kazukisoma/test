@@ -47,7 +47,8 @@ def CONST() {
       'CHANNEL_CREDENTIAL_IDS': [
         '#hooktest': 'approval_slack_token'
       ]
-    ]
+    ],
+    'TEST': 'aaa'
   ]
 }
 
