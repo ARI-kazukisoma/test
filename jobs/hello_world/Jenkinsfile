@@ -15,10 +15,10 @@ pipeline {
       }
     }
 
-    stage("used json") {
+    stage("write json") {
       steps {
         script {
-          json = load "${pwd()}/lib/json.groovy"
+          json = load("lib/json.groovy")
           data = [
             "param1": [
               "sub_param1": "sub1",
@@ -27,6 +27,16 @@ pipeline {
             "param2": "main1"
           ]
           json.write_json(data, "/tmp/sample.json")
+        }
+      }
+    }
+
+    stage("read json") {
+      steps {
+        script {
+          json = load("lib/json.groovy")
+          data = json.read_json("/tmp/sample.json")
+          echo data.param2
         }
       }
     }
