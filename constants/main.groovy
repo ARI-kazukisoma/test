@@ -40,9 +40,3 @@ public class Slack {
 
 def num = 10
 def SLACK = Slack
-
-def eee() {
-  echo "eee"
-}
-
-return this
