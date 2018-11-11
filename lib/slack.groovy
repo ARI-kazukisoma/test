@@ -3,8 +3,8 @@ def notify_message(channel, message) {
   println CONST
   // def credentialsId = CONST.SLACK().CHANNEL_CREDENTIAL_IDS[channel]
 
-  withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-    slackSend channel: channel, token: token, message: message
-  }
+  // withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+  //   slackSend channel: channel, token: token, message: message
+  // }
 }
 return this
