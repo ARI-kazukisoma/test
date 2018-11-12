@@ -1,8 +1,8 @@
 pipeline {
   agent any
-  parameters {
-    choice[]
-  }
+  // parameters {
+  //   choice[]
+  // }
   stages {
     stage("入力チェック") {
       steps {
