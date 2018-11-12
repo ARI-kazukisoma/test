@@ -1,13 +1,13 @@
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurperClassic
 
-def read(filePath) {
+Map read(filePath) {
   readJson = readFile(file: filePath)
   data = new JsonSlurperClassic().parseText(readJson)
   return data
 }
 
-def write(data, filePath) {
+void write(data, filePath) {
   json = JsonOutput.toJson(data)
   writeFile(file: filePath, text: JsonOutput.prettyPrint(json))
 }

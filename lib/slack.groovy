@@ -1,4 +1,4 @@
-def notify_message(channel, message) {
+void notify_message(channel, message) {
   CONSTS = load("constant/main.groovy").get_all()
   credentialsId = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channel]
 
