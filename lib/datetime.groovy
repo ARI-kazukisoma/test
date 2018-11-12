@@ -3,10 +3,7 @@
 TIMEZONEの設定は定数で定義されています。
 */
 
-import groovy.transform.Field
 import java.text.SimpleDateFormat
-
-@Field
 
 def string_to_unixtime(dateString, format="yyyy/MM/dd HH:mm:ss") {
   def CONSTS = load("constant/main.groovy").get_all()
