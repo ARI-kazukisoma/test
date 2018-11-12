@@ -12,4 +12,12 @@ void write(data, filePath) {
   writeFile(file: filePath, text: JsonOutput.prettyPrint(json))
 }
 
+Boolean delete(filePath) {
+  if (fileExists(filePath)) {
+    def f = new File(filePath) 
+    f.delete()
+    return true
+  }
+  return false
+}
 return this

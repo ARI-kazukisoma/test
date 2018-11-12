@@ -1,3 +1,4 @@
+def input_param = null
 pipeline {
   agent any
   parameters {
@@ -9,8 +10,9 @@ pipeline {
         script {
           def json = load("lib/json.groovy")
           def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
-          param = json.read(filePath)
-          echo param.request_user
+          input_param = json.read(filePath)
+          echo input_param.request_user
+          json.delete(filePath)
         }
       }
     }
@@ -34,6 +36,17 @@ pipeline {
           echo "アプリバージョン更新"
         }
       }
+    }
+  }
+  post {
+    success {
+        echo "OK"
+    }
+    always {
+        echo "Always"
+    }
+    failure {
+        echo "NG"
     }
   }
 }
