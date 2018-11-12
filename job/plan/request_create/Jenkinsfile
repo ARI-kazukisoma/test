@@ -1,4 +1,6 @@
 def uuid = ''
+def now = null
+
 pipeline {
   agent any
   parameters {
@@ -24,10 +26,7 @@ pipeline {
           def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
           def datetime = load("lib/datetime.groovy")
           now = datetime.now()
-          feature = datetime.string_to_datetime("2019/01/01 10:00:00")
-          echo "${now}"
-          echo "${feature}"
-          echo "${now.compareTo(feature)}"
+          echo now
           
         }
       }
@@ -45,7 +44,7 @@ pipeline {
             def binding = [
               'request_user': BUILD_USER,
               'target_env': params.ENV,
-              'request_datetime': "2018-10-10 10:00:00",
+              'request_datetime': now,
               'branch': params.BRANCH,
               'master_tags': params.MASTER_TAGS,
               'reason': params.REASON,
