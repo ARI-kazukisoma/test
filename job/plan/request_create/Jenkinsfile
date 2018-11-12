@@ -31,7 +31,7 @@ pipeline {
       steps {
         script {
           def slack = load("lib/slack.groovy")
-          def CONSTS = load("constatnt/main.groovy").get_all()
+          def CONSTS = load("constant/main.groovy").get_all()
           def approvalLink = CONSTS.API_URL.APPROVAL_JOB
           def refusalLink = "${env.JENKINS_URL}"
 
