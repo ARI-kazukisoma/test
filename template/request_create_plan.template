@@ -3,7 +3,7 @@
 ===========================================
 申請者： <%= request_user %>
 環境名： <%= target_env %>
-新規申請日時： <% request_datetime %>
+新規申請日時： <%= request_datetime %>
 ブランチ名： <%= branch %>
 マスターデータのタグ： <%= master_tags %>
 
