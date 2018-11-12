@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+  parameters {
+    choice[]
+  }
+  stages {
+    stage("入力チェック") {
+      steps {
+        script {
+          echo "入力チェック"
+        }
+      }
+    }
+    stage("Slackへ申請送信") {
+      steps {
+        script {
+          slack = load("lib/slack.groovy")
+          message = """
+新規払い出しの申請
+申請者：
+環境名：
+新規申請日時：
+アプリバージョン：
+マスターデータのバージョン：
+
+承認
+
+拒否"""
+          slack.notify_message("#hooktest", message)
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ def get_all() {
   return [
     'SLACK': [
       'CHANNEL_CREDENTIAL_IDS': [
-        '#hooktest': 'approval_slack_token'
+        '#hooktest': 'tmp_ari_slack_token'
       ]
     ]
   ]

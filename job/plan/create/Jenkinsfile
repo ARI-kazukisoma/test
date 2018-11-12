@@ -1,0 +1,36 @@
+pipeline {
+  agent any
+  parameters {
+    choice[]
+  }
+  stages {
+    stage("入力チェック") {
+      steps {
+        script {
+          echo "入力チェック"
+        }
+      }
+    }
+    stage("インフラ作成") {
+      steps {
+        script {
+          echo "インフラ作成"
+        }
+      }
+    }
+    stage("マスターデータ更新") {
+      steps {
+        script {
+          echo "マスターデータ更新"
+        }
+      }
+    }
+    stage("アプリバージョン更新") {
+      steps {
+        script {
+          echo "アプリバージョン更新"
+        }
+      }
+    }
+  }
+}
