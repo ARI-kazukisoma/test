@@ -21,7 +21,7 @@ pipeline {
 }
 */
 
-def get_all() {
+def getAll() {
   return [
     'SLACK': [
       'CHANNEL_CREDENTIAL_IDS': [
