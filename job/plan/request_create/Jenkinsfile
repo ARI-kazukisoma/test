@@ -30,6 +30,7 @@ pipeline {
             requestUser = BUILD_USER
           }
 
+          // 実行に必要なパラメータをjsonファイルに保存
           def param = [
             'request_user': requestUser,
             'target_env': params.ENV,
@@ -38,7 +39,6 @@ pipeline {
             'reason': params.REASON,
             'request_datetime': now
           ]
-
           uuid = UUID.randomUUID().toString()
           def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
           def json = load("lib/json.groovy")

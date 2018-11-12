@@ -1,0 +1,25 @@
+def input_param = null
+pipeline {
+  agent any
+  parameters {
+    string(name: 'UUID', description: 'UUID')
+  }
+  stages {
+    stage("jsonファイルからパラメータ取得") {
+      steps {
+        script {
+          def json = load("lib/json.groovy")
+          def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+          json.delete(filePath)
+        }
+      }
+    }
+  }
+  post {
+    always {
+      script {
+        echo "削除"
+      }
+    }
+  }
+}
