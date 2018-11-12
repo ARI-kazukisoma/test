@@ -2,7 +2,6 @@ def uuid = ''
 pipeline {
   agent any
   parameters {
-    string(name: 'REQUEST_USER_NAME', description: '申請者名')
     choice(name: 'ENV', choices: ['PLAN07', 'PLAN08', 'PLAN09', 'PLAN10', 'PLAN11', 'PLAN12', 'PLAN13', 'PLAN14', 'PLAN15', 'PLAN16', 'PLAN17', 'PLAN18', 'PLAN19', 'PLAN20', 'PLAN21', 'PLAN22', 'PLAN23', 'PLAN24', 'PLAN25', 'PLAN26'], description: 'PLAN環境選択')
     string(name: 'BRANCH', description: 'ブランチ名')
     string(name: 'MASTER_TAGS', description: 'マスタータグ')
@@ -23,6 +22,7 @@ pipeline {
         script {
           uuid = UUID.randomUUID().toString()
           def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
+          def data = [
 
         }
       }
@@ -32,13 +32,13 @@ pipeline {
         script {
           def slack = load("lib/slack.groovy")
           def CONSTS = load("constant/main.groovy").get_all()
-          def approvalLink = CONSTS.API_URL.APPROVAL_JOB
-          def refusalLink = "${env.JENKINS_URL}"
+          def approvalLink = CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB
+          def refusalLink = CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB
 
           message = """
 新規払い出しの申請
 ===========================================
-申請者： ${params.REQUEST_USER_NAME}
+申請者： ${env.BUILD_USER_ID}
 環境名： ${params.ENV}
 新規申請日時： "2018-10-10 10:00:00"
 ブランチ名： ${params.BRANCH}
