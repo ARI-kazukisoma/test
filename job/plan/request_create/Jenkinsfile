@@ -1,8 +1,10 @@
 pipeline {
   agent any
-  // parameters {
-  //   choice[]
-  // }
+  parameters {
+    text(name: 'REQUEST_USER_NAME', description: '申請者名'),
+    choice(name: 'ENV', choices: env.PLAN_ENVS, description: 'PLAN環境選択')
+    
+  }
   stages {
     stage("入力チェック") {
       steps {
@@ -26,7 +28,7 @@ pipeline {
 承認
 
 拒否"""
-          slack.notify_message("#hooktest", message)
+          // slack.notify_message("#hooktest", message)
         }
       }
     }
