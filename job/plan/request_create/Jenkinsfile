@@ -1,3 +1,4 @@
+def uuid = ''
 pipeline {
   agent any
   parameters {
@@ -16,9 +17,18 @@ pipeline {
         }
       }
     }
+
+    stage("パラメータファイル作成") {
+      steps {
+        script {
+          uuid = UUID.randomUUID().toString()
+        }
+      }
+    }
     stage("Slackへ申請送信") {
       steps {
         script {
+          echo uuid
           slack = load("lib/slack.groovy")
           message = """
 新規払い出しの申請
