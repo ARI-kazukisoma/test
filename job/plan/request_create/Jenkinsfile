@@ -1,7 +1,7 @@
 pipeline {
   agent any
   parameters {
-    text(name: 'REQUEST_USER_NAME', description: '申請者名'),
+    text(name: 'REQUEST_USER_NAME', description: '申請者名')
     choice(name: 'ENV', choices: env.PLAN_ENVS, description: 'PLAN環境選択')
     
   }
