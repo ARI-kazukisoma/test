@@ -64,7 +64,7 @@ pipeline {
               'master_tags': params.MASTER_TAGS,
               'reason': params.REASON,
               'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-              'refusal_link': CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB
+              'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
             ]
             message = template.toString("${pwd()}/template/request_create_plan.template", binding)
           }

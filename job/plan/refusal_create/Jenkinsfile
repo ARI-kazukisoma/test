@@ -18,7 +18,8 @@ pipeline {
   post {
     always {
       script {
-        echo "削除"
+        def slack = load("lib/slack.groovy")
+        slack.notifyMessage("#hooktest", "申請が却下されました。")
       }
     }
   }
