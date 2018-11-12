@@ -1,8 +1,9 @@
+env.TARGET_PLAN_ENVS = load("constant/main.groovy").get_all().TARGET_PLAN_ENVS
 pipeline {
   agent any
   parameters {
     text(name: 'REQUEST_USER_NAME', description: '申請者名')
-    choice(name: 'ENV', choices: env.PLAN_ENVS, description: 'PLAN環境選択')
+    choice(name: 'ENV', choices: ['PLAN07'], description: 'PLAN環境選択')
     
   }
   stages {

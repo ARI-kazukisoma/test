@@ -27,7 +27,8 @@ def get_all() {
       'CHANNEL_CREDENTIAL_IDS': [
         '#hooktest': 'tmp_ari_slack_token'
       ]
-    ]
+    ],
+    'TARGET_PLAN_ENVS': ['PLAN07', 'PLAN08']
   ]
 }
 
