@@ -22,7 +22,10 @@ pipeline {
         script {
           uuid = UUID.randomUUID().toString()
           def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
-
+          def datetime = load("lib/datetime.groovy")
+          echo "${datetime.now()}"
+          echo "${datetime.now2()}"
+          
         }
       }
     }

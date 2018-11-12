@@ -12,8 +12,8 @@ pipeline {
     stage("定数を取得") {
       steps {
         script {
-          CONSTS = load("constants/main.groovy").get_all()
-          echo CONST.SAMPLE.NUM
+          def CONSTS = load("constant/main.groovy").get_all()
+          echo CONSTS.SAMPLE.NUM
         }
       }
     }
@@ -31,7 +31,8 @@ def get_all() {
     'API_URL': [
       'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}jobs/開発環境新規払い出し/buildWithParameters?token=",
       'REFUSAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}jobs/開発環境新規払い出し拒否/buildWithParameters?token="
-    ]
+    ],
+    'TIMEZONE': 'JST'
   ]
 }
 
