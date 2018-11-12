@@ -57,6 +57,7 @@ pipeline {
           // 実行ユーザ(BUILD_USER)を取得するためwrapする
           wrap([$class: 'BuildUser']) {
             def binding = [
+              'uuid': uuid,
               'request_user': BUILD_USER,
               'target_env': params.ENV,
               'request_datetime': now,

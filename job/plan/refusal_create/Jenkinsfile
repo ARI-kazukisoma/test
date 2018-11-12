@@ -19,7 +19,7 @@ pipeline {
     always {
       script {
         def slack = load("lib/slack.groovy")
-        slack.notifyMessage("#hooktest", "申請が却下されました。")
+        slack.notifyMessage("#hooktest", "申請が却下されました。(申請ID：${params.UUID})")
       }
     }
   }
