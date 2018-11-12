@@ -20,12 +20,11 @@ def now(format="yyyy/MM/dd HH:mm:ss") {
   return sdf.format(date)
 
 }
-def now2(format="yyyy/MM/dd HH:mm:ss") {
+def string_to_datetime(dateString, format="yyyy/MM/dd HH:mm:ss") {
   def CONSTS = load("constant/main.groovy").get_all()
-  def date = new Date()
   def sdf = new SimpleDateFormat(format)
   sdf.setTimeZone(TimeZone.getTimeZone(CONSTS.TIMEZONE))
-  return new Date(sdf.format(date))
+  return sdf.format(dateString)
 }
 
 return this
