@@ -1,10 +1,11 @@
-env.TARGET_PLAN_ENVS = load("constant/main.groovy").get_all().TARGET_PLAN_ENVS
 pipeline {
   agent any
+  environment {
+    PLAN_ENVS = ['PLAN07', 'PLAN08', 'PLAN09', 'PLAN10', 'PLAN11', 'PLAN12', 'PLAN13', 'PLAN14', 'PLAN15', 'PLAN16', 'PLAN17', 'PLAN18', 'PLAN19', 'PLAN20', 'PLAN21', 'PLAN22', 'PLAN23', 'PLAN24', 'PLAN25', 'PLAN26']
+  }
   parameters {
     text(name: 'REQUEST_USER_NAME', description: '申請者名')
-    choice(name: 'ENV', choices: ['PLAN07'], description: 'PLAN環境選択')
-    
+    choice(name: 'ENV', choices: env.PLAN_ENVS, description: 'PLAN環境選択')
   }
   stages {
     stage("入力チェック") {
