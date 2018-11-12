@@ -4,7 +4,7 @@ pipeline {
     string(name: 'REQUEST_USER_NAME', description: '申請者名')
     choice(name: 'ENV', choices: ['PLAN07', 'PLAN08', 'PLAN09', 'PLAN10', 'PLAN11', 'PLAN12', 'PLAN13', 'PLAN14', 'PLAN15', 'PLAN16', 'PLAN17', 'PLAN18', 'PLAN19', 'PLAN20', 'PLAN21', 'PLAN22', 'PLAN23', 'PLAN24', 'PLAN25', 'PLAN26'], description: 'PLAN環境選択')
     string(name: 'BRANCH', description: 'ブランチ名')
-    string(name: 'MASTER_TAGS', description: 'ブランチ名')
+    string(name: 'MASTER_TAGS', description: 'マスタータグ')
     text(name: 'REASON', description: '利用用途')
 
   }
@@ -22,16 +22,21 @@ pipeline {
           slack = load("lib/slack.groovy")
           message = """
 新規払い出しの申請
-申請者：
-環境名：
-新規申請日時：
-アプリバージョン：
-マスターデータのバージョン：
+===========================================
+申請者： ${params.REQUEST_USER_NAME}
+環境名： ${params.ENV}
+新規申請日時： "2018-10-10 10:00:00"
+ブランチ名： ${params.BRANCH}
+マスターデータのタグ： ${params.MASTER_TAGS}
 
-利用用途
+<利用用途>
 
+${params.REASON}
+
+===========================================
 
 <${env.JENKINS_URL}|承認>
+
 
 <${env.JENKINS_URL}|拒否>"""
           slack.notify_message("#hooktest", message)
