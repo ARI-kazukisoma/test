@@ -24,7 +24,7 @@ def string_to_datetime(dateString, format="yyyy/MM/dd HH:mm:ss") {
   def CONSTS = load("constant/main.groovy").get_all()
   def sdf = new SimpleDateFormat(format)
   sdf.setTimeZone(TimeZone.getTimeZone(CONSTS.TIMEZONE))
-  return sdf.format(dateString)
+  return sdf.parse(dateString)
 }
 
 return this
