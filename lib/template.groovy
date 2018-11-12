@@ -1,4 +1,4 @@
-String to_string(filePath, binding) {
+String toString(filePath, binding) {
   def f = new File(filePath)
   def engine = new groovy.text.SimpleTemplateEngine()
   def template = engine.createTemplate(f).make(binding)

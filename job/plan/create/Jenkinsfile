@@ -1,13 +1,16 @@
 pipeline {
   agent any
   parameters {
-    choice[]
+    string(name: 'UUID', description: 'UUID')
   }
   stages {
-    stage("入力チェック") {
+    stage("jsonファイルからパラメータ取得") {
       steps {
         script {
-          echo "入力チェック"
+          def json = load("lib/json.groovy")
+          def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+          param = json.read(filePath)
+          echo param.request_user
         }
       }
     }
