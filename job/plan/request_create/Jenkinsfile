@@ -46,7 +46,7 @@ pipeline {
               'approval_link': CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB,
               'refusal_link': CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB
             ]
-            message = template.to_string("template/request_create_plan.template")
+            message = template.to_string("template/request_create_plan.template", binding)
           }
 
           slack.notify_message("#hooktest", message)
