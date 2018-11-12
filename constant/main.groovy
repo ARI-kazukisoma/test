@@ -28,7 +28,10 @@ def get_all() {
         '#hooktest': 'tmp_ari_slack_token'
       ]
     ],
-    'TARGET_PLAN_ENVS': ['PLAN07', 'PLAN08']
+    'API_URL': [
+      'APPROVAL_JOB': "${env.JENKINS_URL}/jobs/開発環境新規払い出し/buildWithParameters?token="
+      'REFUSAL_JOB': "${env.JENKINS_URL}/jobs/開発環境新規払い出し拒否/buildWithParameters?token="
+    ]
   ]
 }
 

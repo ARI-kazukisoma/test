@@ -22,14 +22,19 @@ pipeline {
       steps {
         script {
           uuid = UUID.randomUUID().toString()
+          def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
+
         }
       }
     }
     stage("Slackへ申請送信") {
       steps {
         script {
-          echo uuid
-          slack = load("lib/slack.groovy")
+          def slack = load("lib/slack.groovy")
+          def CONSTS = load("constatnt/main.groovy").get_all()
+          def approvalLink = CONSTS.API_URL.APPROVAL_JOB
+          def refusalLink "${env.JENKINS_URL}"
+
           message = """
 新規払い出しの申請
 ===========================================
@@ -45,10 +50,10 @@ ${params.REASON}
 
 ===========================================
 
-<${env.JENKINS_URL}|承認>
+<${approvalLink}|承認>
 
 
-<${env.JENKINS_URL}|拒否>"""
+<${refusalLink}|拒否>"""
           slack.notify_message("#hooktest", message)
         }
       }
