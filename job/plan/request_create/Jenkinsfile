@@ -1,10 +1,11 @@
 pipeline {
   agent any
   parameters {
-    text(name: 'REQUEST_USER_NAME', description: '申請者名')
+    string(name: 'REQUEST_USER_NAME', description: '申請者名')
     choice(name: 'ENV', choices: ['PLAN07', 'PLAN08', 'PLAN09', 'PLAN10', 'PLAN11', 'PLAN12', 'PLAN13', 'PLAN14', 'PLAN15', 'PLAN16', 'PLAN17', 'PLAN18', 'PLAN19', 'PLAN20', 'PLAN21', 'PLAN22', 'PLAN23', 'PLAN24', 'PLAN25', 'PLAN26'], description: 'PLAN環境選択')
-    text(name: 'BRANCH', description: 'ブランチ名')
-    text(name: 'マスターデータのタグ(複数指定可)', description: 'ブランチ名')
+    string(name: 'BRANCH', description: 'ブランチ名')
+    string(name: 'MASTER_TAGS', description: 'ブランチ名')
+    text(name: 'REASON', description: '利用用途')
 
   }
   stages {
@@ -26,6 +27,9 @@ pipeline {
 新規申請日時：
 アプリバージョン：
 マスターデータのバージョン：
+
+利用用途
+
 
 <${env.JENKINS_URL}|承認>
 
