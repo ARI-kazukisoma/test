@@ -2,8 +2,8 @@ package org.slack
 
 void notifyMessage(channel, message) {
   def lib = library('auto-deploy').org.slack
-  def CONSTS = lib.Constants.CHANNEL_CREDENTIAL_IDS
-  credentialsId = CONSTS.CHANNEL_CREDENTIAL_IDS[channel]
+  credentialsId = lib.Constants.CHANNEL_CREDENTIAL_IDS[channel]
+  // credentialsId = CONSTS.CHANNEL_CREDENTIAL_IDS[channel]
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
     slackSend channel: channel, token: token, message: message
   }
