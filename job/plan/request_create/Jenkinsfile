@@ -23,7 +23,7 @@ pipeline {
     stage("パラメータファイル作成") {
       steps {
         script {
-          def datetime = org.datetime.Util()
+          def datetime = new org.datetime.Util()
           now = datetime.now()
           echo now
 
