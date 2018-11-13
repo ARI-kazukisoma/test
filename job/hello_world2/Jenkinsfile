@@ -10,7 +10,7 @@ pipeline {
           script {
             def slack = new org.slack.Util()
             def channel = "#hooktest"
-            credentialId = constant.slack.channelCredentialIds channel
+            credentialId = constSlack.channelCredentialIds channel
             slack.notifyMessage('#hooktest', credentialId, "bbbbbb")
           }
         }
