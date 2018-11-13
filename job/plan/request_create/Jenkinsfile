@@ -1,7 +1,5 @@
 @Library('auto-deploy') _
-
-import static org.util.Constants
-
+// @Library('auto-deploy') import static org.util.Constants
 def uuid = ''
 def now = null
 
@@ -56,7 +54,7 @@ pipeline {
         script {
           def slack = new org.slack.Util()
           // def template = new org.template.Util()
-          def API_URL = Constants.API_URL
+          def API_URL = new org.util.Constants().API_URL
           def message = ""
 
           echo API_URL.APPROVAL_CREATE_PLAN_JOB
