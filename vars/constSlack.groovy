@@ -5,5 +5,5 @@ def channelCredentialIds(channel) {
     def settings = [
       '#hooktest': 'tmp_ari_slack_token'
       ]
-    echo settings[channel]
+    return settings[channel]
 }
