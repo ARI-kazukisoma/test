@@ -1,0 +1,51 @@
+def input_param = null
+pipeline {
+  agent any
+  parameters {
+    string(name: 'UUID', description: 'UUID')
+  }
+  stages {
+    stage("jsonファイルからパラメータ取得") {
+      steps {
+        script {
+          def json = load("lib/json.groovy")
+          def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+          input_param = json.read(filePath)
+          json.delete(filePath)
+        }
+      }
+    }
+    stage("インフラ作成") {
+      steps {
+        script {
+          echo "インフラ作成"
+        }
+      }
+    }
+    stage("マスターデータ更新") {
+      steps {
+        script {
+          echo "マスターデータ更新"
+        }
+      }
+    }
+    stage("アプリバージョン更新") {
+      steps {
+        script {
+          echo "アプリバージョン更新"
+        }
+      }
+    }
+  }
+  post {
+    success {
+        echo "OK"
+    }
+    always {
+        echo "Always"
+    }
+    failure {
+        echo "NG"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+pipeline {
+  agent any
+  stages {
+    stage("import library") {
+      steps {
+        script {
+          slack = load("lib/slack.groovy")
+          slack.notify_message("#hooktest", "hello world")
+        }
+      }
+    }
+    stage("echo message") {
+      steps {
+        echo "aaa"
+      }
+    }
+
+    stage("write json") {
+      steps {
+        script {
+          json = load("lib/json.groovy")
+          data = [
+            "param1": [
+              "sub_param1": "sub1",
+              "sub_param2": "sub2",
+            ],
+            "param2": "main1"
+          ]
+          json.write(data, "/tmp/sample.json")
+        }
+      }
+    }
+
+    stage("read json") {
+      steps {
+        script {
+          json = load("lib/json.groovy")
+          data = json.read("/tmp/sample.json")
+          echo data.param2
+        }
+      }
+    }
+
+    stage("exists json") {
+      steps {
+        script {
+          if (fileExists("/tmp/sample.json")) {
+            echo "exist file"
+          } else {
+            echo "not exist file"
+          }
+
+          if (fileExists("/tmp/")) {
+            echo "exist file"
+          } else {
+            echo "not exist file"
+          }
+        }
+      }
+    }
+  }
+}
