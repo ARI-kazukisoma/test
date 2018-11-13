@@ -3,7 +3,7 @@
 // Slack通知に必要なトークン情報はJenkins側で管理
 def channelCredentialIds(channel) {
     def settings = [
-      '#hooktest': 'tmp_ari_slack_token'
+      '#hooktest': 'approval_slack_token'
       ]
     return settings[channel]
 }
