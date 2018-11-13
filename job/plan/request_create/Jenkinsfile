@@ -48,33 +48,34 @@ pipeline {
         }
       }
     }
-    // stage("Slackへ申請送信") {
-    //   steps {
-    //     script {
-    //       def slack = load("lib/slack.groovy")
-    //       def template = load("lib/template.groovy")
-    //       def CONSTS = load("constant/main.groovy").getAll()
-    //       def message = ""
+    stage("Slackへ申請送信") {
+      steps {
+        script {
+          def slack = new org.slack.Util()
+          def template = new org.template.Util()
+          def CONSTS = org.uti.Constants
+          def message = ""
 
-    //       // 実行ユーザ(BUILD_USER)を取得するためwrapする
-    //       wrap([$class: 'BuildUser']) {
-    //         def binding = [
-    //           'uuid': uuid,
-    //           'request_user': BUILD_USER,
-    //           'target_env': params.ENV,
-    //           'request_datetime': now,
-    //           'branch': params.BRANCH,
-    //           'master_tags': params.MASTER_TAGS,
-    //           'reason': params.REASON,
-    //           'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-    //           'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
-    //         ]
-    //         message = template.toString("${pwd()}/template/request_create_plan.template", binding)
-    //       }
+          echo CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB
+          // // 実行ユーザ(BUILD_USER)を取得するためwrapする
+          // wrap([$class: 'BuildUser']) {
+          //   def binding = [
+          //     'uuid': uuid,
+          //     'request_user': BUILD_USER,
+          //     'target_env': params.ENV,
+          //     'request_datetime': now,
+          //     'branch': params.BRANCH,
+          //     'master_tags': params.MASTER_TAGS,
+          //     'reason': params.REASON,
+          //     'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
+          //     'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+          //   ]
+          //   message = template.toString("${pwd()}/template/request_create_plan.template", binding)
+          // }
 
-    //       slack.notifyMessage("#hooktest", message)
-    //     }
-    //   }
-    // }
+          // slack.notifyMessage("#hooktest", message)
+        }
+      }
+    }
   }
 }
