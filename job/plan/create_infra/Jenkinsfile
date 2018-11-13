@@ -9,7 +9,7 @@ pipeline {
       steps {
         node("master") {
           script {
-            def json = load("lib/json.groovy")
+            def json = load("${pwd()}/lib/json.groovy")
             def template = load("lib/template.groovy")
             def CONSTS = load("constant/main.groovy").getAll()
 
