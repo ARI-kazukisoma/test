@@ -32,19 +32,19 @@ pipeline {
             requestUser = BUILD_USER
           }
 
-          // // 実行に必要なパラメータをjsonファイルに保存
-          // def param = [
-          //   'request_user': requestUser,
-          //   'target_env': params.ENV,
-          //   'branch': params.BRANCH,
-          //   'master_tags': params.MASTER_TAGS,
-          //   'reason': params.REASON,
-          //   'request_datetime': now
-          // ]
-          // uuid = UUID.randomUUID().toString()
-          // def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
-          // def json = load("lib/json.groovy")
-          // json.write(param, filePath)
+          // 実行に必要なパラメータをjsonファイルに保存
+          def param = [
+            'request_user': requestUser,
+            'target_env': params.ENV,
+            'branch': params.BRANCH,
+            'master_tags': params.MASTER_TAGS,
+            'reason': params.REASON,
+            'request_datetime': now
+          ]
+          uuid = UUID.randomUUID().toString()
+          def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
+          def json = new org.slack.Util()
+          json.write(param, filePath)
         }
       }
     }
