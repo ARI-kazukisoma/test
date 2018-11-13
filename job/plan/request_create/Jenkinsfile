@@ -1,5 +1,6 @@
-@Library('auto-deploy') _
-// @Library('auto-deploy') import static org.util.Constants
+@Library('auto-deploy')
+import static org.util.Constants.*
+
 def uuid = ''
 def now = null
 
@@ -53,13 +54,10 @@ pipeline {
       steps {
         script {
           def slack = new org.slack.Util()
-          // def template = new org.template.Util()
-          // TODO (m.toga) 静的メンバ変数なのでnewしてはだめ。ちゃんとした方法を調査する
-          def API_URL = new org.util.Constants().API_URL
+          def template = new org.template.Util()
           def message = ""
 
-          echo API_URL.APPROVAL_CREATE_PLAN_JOB
-          // // 実行ユーザ(BUILD_USER)を取得するためwrapする
+          // 実行ユーザ(BUILD_USER)を取得するためwrapする
           // wrap([$class: 'BuildUser']) {
           //   def binding = [
           //     'uuid': uuid,
