@@ -10,4 +10,7 @@ void notifyMessage(channel, message) {
   }
 }
 
+void echoTest(str) {
+  echo str
+}
 return this

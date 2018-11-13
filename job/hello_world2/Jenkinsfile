@@ -8,13 +8,14 @@ pipeline {
         node("master") {
           script {
             def slack = new org.slack.Util()
-            slack.notifyMessage('#hooktest', "bbbbbb")
+            // slack.notifyMessage('#hooktest', "bbbbbb")
+            slack.echoTest("aaaaaaa")
           }
         }
         node("master") {
           script {
             def slack = new org.slack.Util()
-            slack.notifyMessage('#hooktest', "aaaaa")
+            // slack.notifyMessage('#hooktest', "aaaaa")
           }
         }
       }
