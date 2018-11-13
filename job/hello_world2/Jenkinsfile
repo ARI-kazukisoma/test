@@ -1,0 +1,18 @@
+library 'auto-deploy@master'
+import org.slack
+
+pipeline {
+  agent any
+  stages {
+    stage("shared library import test") {
+      steps {
+        node("master") {
+          script {
+            def slack = new slack.Util()
+            slack.testEcho("aaaaaaa")
+          }
+        }
+      }
+    }
+  }
+}
