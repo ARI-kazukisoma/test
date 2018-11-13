@@ -52,7 +52,7 @@ pipeline {
       steps {
         script {
           def slack = new org.slack.Util()
-          def template = new org.template.Util()
+          // def template = new org.template.Util()
           def CONSTS = org.uti.Constants
           def message = ""
 
