@@ -1,6 +1,5 @@
 @Library('auto-deploy') _
-import static org.util.Constants
-n
+@Libarary('auto-deploy') import static org.util.Constants
 def uuid = ''
 def now = null
 
