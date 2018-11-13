@@ -1,4 +1,4 @@
-library 'auto-deploy@master'
+@Library('auto-deploy') _
 
 pipeline {
   agent any
