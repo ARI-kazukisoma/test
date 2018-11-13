@@ -1,7 +1,5 @@
 // 使用したい共有ライブラリの名前を指定。名前はJenkinsのシステム設定上で管理
 @Library('auto-deploy') _
-// vars配下を参照するため
-@Library('utils') _
 
 pipeline {
   agent any
