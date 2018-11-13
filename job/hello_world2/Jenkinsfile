@@ -11,6 +11,12 @@ pipeline {
             slack.testEcho("aaaaaaa")
           }
         }
+        node("master") {
+          script {
+            def slack = new org.slack.Util()
+            slack.notifyMessage('#hooktest', "aaaaa")
+          }
+        }
       }
     }
   }
