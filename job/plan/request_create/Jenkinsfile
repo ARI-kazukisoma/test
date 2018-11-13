@@ -53,7 +53,8 @@ pipeline {
     stage("Slackへ申請送信") {
       steps {
         script {
-          def slack = new org.slack.Util()
+          // def slack = new org.slack.Util()
+          echo "aaaa"
           // def template = new org.template.Util()
           // def message = ""
 
