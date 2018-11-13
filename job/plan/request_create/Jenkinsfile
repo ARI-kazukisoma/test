@@ -69,7 +69,7 @@ pipeline {
             'branch': params.BRANCH,
             'master_tags': params.MASTER_TAGS,
             'reason': params.REASON,
-            'approval_link': "${env.JENKINS_URL}${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
+            'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
             'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
           ]
           def message = template.toString("request_create_plan.template", binding)
