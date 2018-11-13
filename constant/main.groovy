@@ -37,7 +37,7 @@ def getAll() {
       'PROVISIONING': 'provisioning.json',
       'COMMON': 'common.json',
       'DEPLOY_APP': 'deploy_app.json',
-      'UPDATE_DATA': 'update_data.json',
+      'UPDATE_DATA': 'update_data.json'
     ]
   ]
 }

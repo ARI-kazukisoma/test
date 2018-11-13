@@ -1,7 +1,7 @@
 pipeline {
   agent any
   parameters {
-    string(name: 'ENV', description: 'PLANXXを指定')
+    string(name: 'ENV', description: 'PLANxxを指定')
   }
   stages {
     stage("terraform実行") {
