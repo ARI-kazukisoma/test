@@ -8,11 +8,11 @@ pipeline {
       steps {
         node("master") {
           script {
-            def lib = library('auto-deploy').org.slack
-            def CONSTS = lib.Constants.CHANNEL_CREDENTIAL_IDS
-            echo CONSTS["#hooktest"]
-            // def slack = new org.slack.Util()
-            // slack.notifyMessage('#hooktest', "bbbbbb")
+            // def lib = library('auto-deploy').org.slack
+            // def CONSTS = lib.Constants.CHANNEL_CREDENTIAL_IDS
+            // echo CONSTS["#hooktest"]
+            def slack = new org.slack.Util()
+            slack.notifyMessage('#hooktest', "bbbbbb")
           }
         }
         node("master") {
