@@ -39,9 +39,10 @@ pipeline {
       steps {
         node("master") {
           script {
-            def CONSTS = load("constant/main.groovy").getAll()
-            unstash name: 'json_file'
-            sh "mv ${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING} ${env.TMP_ENV_CONFIGURATION_PATH}/${params.ENV}/"
+            echo "aaaa"
+            // def CONSTS = load("constant/main.groovy").getAll()
+            // unstash name: 'json_file'
+            // sh "mv ${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING} ${env.TMP_ENV_CONFIGURATION_PATH}/${params.ENV}/"
           }
         }
       }
