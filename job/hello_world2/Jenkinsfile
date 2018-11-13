@@ -8,7 +8,7 @@ pipeline {
         node("master") {
           script {
             def slack = new org.slack.Util()
-            slack.testEcho("aaaaaaa")
+            slack.notifyMessage('#hooktest', "bbbbbb")
           }
         }
         node("master") {
