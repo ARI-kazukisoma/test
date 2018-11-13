@@ -43,7 +43,7 @@ pipeline {
           ]
           uuid = UUID.randomUUID().toString()
           def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
-          def json = new org.slack.Util()
+          def json = new org.json.Util()
           json.write(param, filePath)
         }
       }
