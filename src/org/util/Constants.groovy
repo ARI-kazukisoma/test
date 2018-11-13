@@ -8,7 +8,12 @@ class Constants {
     'DEPLOY_APP': 'deploy_app.json',
     'UPDATE_DATA': 'update_data.json'
   ]
-  public static final API_URL = [
+  static API_URL = [
+    'APPROVAL_CREATE_PLAN_JOB': "job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
+    'REFUSAL_CREATE_PLAN_JOB': "job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE"
+  ]
+
+  static final API_URL2 = [
     'APPROVAL_CREATE_PLAN_JOB': "job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
     'REFUSAL_CREATE_PLAN_JOB': "job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE"
   ]

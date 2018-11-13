@@ -54,6 +54,7 @@ pipeline {
         script {
           def slack = new org.slack.Util()
           // def template = new org.template.Util()
+          // TODO (m.toga) 静的メンバ変数なのでnewしてはだめ。ちゃんとした方法を調査する
           def API_URL = new org.util.Constants().API_URL
           def message = ""
 
