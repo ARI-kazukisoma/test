@@ -1,4 +1,6 @@
 @Library('auto-deploy') _
+import static org.util.Constants
+n
 def uuid = ''
 def now = null
 
@@ -53,10 +55,10 @@ pipeline {
         script {
           def slack = new org.slack.Util()
           // def template = new org.template.Util()
-          def CONSTS = org.uti.Constants
+          def API_URL = Constants.API_URL
           def message = ""
 
-          echo CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB
+          echo API_URL.APPROVAL_CREATE_PLAN_JOB
           // // 実行ユーザ(BUILD_USER)を取得するためwrapする
           // wrap([$class: 'BuildUser']) {
           //   def binding = [
