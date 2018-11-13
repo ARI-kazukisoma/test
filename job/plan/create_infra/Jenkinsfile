@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+  stages {
+    stage("terraform実行") {
+      // TODO(m.toga) ノードが別なら変更する
+      node("master") {
+        steps {
+          echo "aaaa"
+        }
+      }
+    }
+    stage("ファイルを移動") {
+      node("master") {
+        steps {
+          echo "bbbb"
+        }
+      }
+    }
+  }
+}
