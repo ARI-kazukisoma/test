@@ -18,8 +18,10 @@ pipeline {
         node("master") {
           script {
             def slack = new org.slack.Util()
-            // slack.notifyMessage('#hooktest', "aaaaa")
+            slack.notifyMessage('#hooktest', "aaaaa")
+            build job: 'sub_job'
           }
+
         }
       }
     }
