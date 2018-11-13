@@ -1,5 +1,4 @@
 library 'auto-deploy@master'
-import org.slack
 
 pipeline {
   agent any
@@ -8,7 +7,7 @@ pipeline {
       steps {
         node("master") {
           script {
-            def slack = new slack.Util()
+            def slack = new org.slack.Util()
             slack.testEcho("aaaaaaa")
           }
         }
