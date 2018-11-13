@@ -1,4 +1,4 @@
-package org.slack
+package org.util
 
 class Constants {
 
