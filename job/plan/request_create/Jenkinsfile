@@ -52,7 +52,7 @@ pipeline {
     stage("Slackへ申請送信") {
       steps {
         script {
-          // def template = new org.template.Util()
+          def template = new org.template.Util()
 
           // // 実行ユーザ(BUILD_USER)を取得するためwrapする
           // def requestUser = ''
