@@ -76,8 +76,8 @@ pipeline {
           def channel = "#hooktest"
           def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
           withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-            def message = template.toString("request_create_plan.template", binding)
-            slackSend channel: channel, token: token, message: message
+            // def message = template.toString("request_create_plan.template", binding)
+            slackSend channel: channel, token: token, message: "aaa"
           }
           // def token = slack.getToken(org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel])
         }
