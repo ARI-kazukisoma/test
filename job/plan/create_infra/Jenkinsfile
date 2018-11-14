@@ -8,17 +8,15 @@ pipeline {
       steps {
         script {
           
-          def lock = load("lib/lock.groovy")
-          if (lock.is_locked(params.ENV)) {
-
-            def slack = load("lib/slack.groovy")
-            // TODO (m.toga) 通知先見直す
-            slack.notifyMessage("#hooktest", "すでに${params.Env}は更新中のため新たに実行できません。")
-            error("すでに同環境に更新処理が実行中")
-          }
-
-          lock.do_lock(params.ENV)
-          sh "sleep 10"
+          // TODO (m.toga) ロックサンプル　後で正式に実装する
+          // def lock = load("lib/lock.groovy")
+          // if (lock.is_locked(params.ENV)) {
+          //   def slack = load("lib/slack.groovy")
+          //   // TODO (m.toga) 通知先見直す
+          //   slack.notifyMessage("#hooktest", "すでに${params.ENV}は更新中のため新たに実行できません。")
+          // }
+          // lock.do_lock(params.ENV)
+          // sh "sleep 10"
 
           def json = load("lib/json.groovy")
           def template = load("lib/template.groovy")
@@ -61,8 +59,9 @@ pipeline {
   post {
     always {
       script {
-        def lock = load("lib/lock.groovy")
-        lock.do_unlock(params.ENV)
+        // TODO (m.toga) ロックサンプル　後で正式に実装する
+        // def lock = load("lib/lock.groovy")
+        // lock.do_unlock(params.ENV)
       }
     }
   }
