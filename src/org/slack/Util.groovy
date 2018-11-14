@@ -12,10 +12,12 @@ package org.slack
 // }
 
 String getToken(credentialsId) {
-  def result = ''
-  withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-    result = token
+  script {
+    def result = ''
+    withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+      result = token
+    }
+    return result
   }
-  return result
 }
 return this
