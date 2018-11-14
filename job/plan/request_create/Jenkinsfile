@@ -85,8 +85,8 @@ pipeline {
           def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
           withCredentials([string(credentialsId: credentialsId, variable: 'TOKEN')]) {
 
-            echo "${TOKEN}"
-            // slackSend channel: channel, token: token, message: message
+            // echo "${TOKEN}"
+            slackSend channel: channel, token: token, message: message
           }
         }
       }
