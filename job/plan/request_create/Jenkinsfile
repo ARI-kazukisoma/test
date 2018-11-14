@@ -61,17 +61,17 @@ pipeline {
           }
 
           def API_URL = org.util.Constants.API_URL
-          // def binding = [
-          //   'uuid': uuid,
-          //   'request_user': requestUser,
-          //   'target_env': params.ENV,
-          //   'request_datetime': now,
-          //   'branch': params.BRANCH,
-          //   'master_tags': params.MASTER_TAGS,
-          //   'reason': params.REASON,
-          //   'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-          //   'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
-          // ]
+          def binding = [
+            'uuid': uuid,
+            'request_user': requestUser,
+            'target_env': params.ENV,
+            'request_datetime': now,
+            'branch': params.BRANCH,
+            'master_tags': params.MASTER_TAGS,
+            'reason': params.REASON,
+            'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
+            'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+          ]
           // def messae = template.toString("request_create_plan.template", binding)
 
           // Slack通知
