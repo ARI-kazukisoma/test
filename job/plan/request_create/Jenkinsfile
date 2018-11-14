@@ -13,12 +13,13 @@ pipeline {
 
   }
   stages {
-    stage("入力チェック") {
-      steps {
-        script {
-        }
-      }
-    }
+    // stage("入力チェック") {
+    //   steps {
+    //     script {
+    //       echo "入力チェック"
+    //     }
+    //   }
+    // }
 
     stage("パラメータファイル作成") {
       steps {
@@ -83,8 +84,8 @@ pipeline {
           def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
           withCredentials([string(credentialsId: credentialsId, variable: 'TOKEN')]) {
 
-            // echo "${TOKEN}"
-            slackSend channel: channel, token: token, message: message
+            echo "${TOKEN}"
+            // slackSend channel: channel, token: token, message: message
           }
         }
       }
