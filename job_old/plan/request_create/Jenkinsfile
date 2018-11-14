@@ -1,3 +1,5 @@
+@Library('auto-deploy') _
+
 def uuid = ''
 def now = null
 
@@ -11,18 +13,18 @@ pipeline {
 
   }
   stages {
-    stage("入力チェック") {
-      steps {
-        script {
-          echo "入力チェック"
-        }
-      }
-    }
+    // stage("入力チェック") {
+    //   steps {
+    //     script {
+    //       echo "入力チェック"
+    //     }
+    //   }
+    // }
 
     stage("パラメータファイル作成") {
       steps {
         script {
-          def datetime = load("lib/datetime.groovy")
+          def datetime = new org.datetime.Util()
           now = datetime.now()
 
           def requestUser = ''
@@ -41,7 +43,7 @@ pipeline {
           ]
           uuid = UUID.randomUUID().toString()
           def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
-          def json = load("lib/json.groovy")
+          def json = new org.json.Util()
           json.write(param, filePath)
         }
       }
@@ -49,30 +51,49 @@ pipeline {
     stage("Slackへ申請送信") {
       steps {
         script {
-          def slack = load("lib/slack.groovy")
-          def template = load("lib/template.groovy")
-          def CONSTS = load("constant/main.groovy").getAll()
-          def message = ""
+          def template = new org.template.Util(steps)
+          def slack = new org.slack.Util(steps)
 
           // 実行ユーザ(BUILD_USER)を取得するためwrapする
+          def requestUser = ''
           wrap([$class: 'BuildUser']) {
-            def binding = [
-              'uuid': uuid,
-              'request_user': BUILD_USER,
-              'target_env': params.ENV,
-              'request_datetime': now,
-              'branch': params.BRANCH,
-              'master_tags': params.MASTER_TAGS,
-              'reason': params.REASON,
-              'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-              'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
-            ]
-            message = template.toString("${pwd()}/template/request_create_plan.template", binding)
+            requestUser = BUILD_USER
           }
 
-          slack.notifyMessage("#hooktest", message)
+          def API_URL = org.util.Constants.API_URL
+          def binding = [
+            'uuid': uuid,
+            'request_user': requestUser,
+            'target_env': params.ENV,
+            'request_datetime': now,
+            'branch': params.BRANCH,
+            'master_tags': params.MASTER_TAGS,
+            'reason': params.REASON,
+            'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
+            'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+          ]
+          // Slack通知
+          def channel = "#hooktest"
+          def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
+          def message = template.toString("request_create_plan.template", binding)
+          sendMessage(channel, credentialsId, message)
+          // try {
+          //   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+          //     slackSend channel: channel, token: token, message: message
+          //   }
+          // } catch(NotSerializableException e) {
+          //   // このエラーが何故か出るので無視
+          // }
+          // def token = slack.getToken(org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel])
         }
       }
     }
+  }
+}
+
+@NonCPS
+def sendMessage(channel, credentialsId, message) {
+  withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+    slackSend channel: channel, token: token, message: message
   }
 }

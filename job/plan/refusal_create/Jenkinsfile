@@ -1,5 +1,3 @@
-@Library("auto-deploy") _
-
 def input_param = null
 pipeline {
   agent any
@@ -10,7 +8,7 @@ pipeline {
     stage("jsonファイルからパラメータ取得") {
       steps {
         script {
-          def json = new org.json.Util()
+          def json = load("lib/json.groovy")
           def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
           json.delete(filePath)
         }
@@ -20,7 +18,7 @@ pipeline {
   post {
     always {
       script {
-        def slack = new org.slack.Util()
+        def slack = load("lib/slack.groovy")
         slack.notifyMessage("#hooktest", "申請が却下されました。(申請ID：${params.UUID})")
       }
     }

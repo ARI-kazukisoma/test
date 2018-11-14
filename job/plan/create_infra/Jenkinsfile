@@ -1,6 +1,3 @@
-@Library("auto-deploy")
-import static org.util.Constants.*
-
 pipeline {
   agent any
   parameters {
@@ -12,17 +9,19 @@ pipeline {
       steps {
         node("master") {
           script {
-            def json = new org.json.Util()
-            def template = new org.template.Util()
+            sh "sleep 20"
+            def json = load("lib/json.groovy")
+            def template = load("lib/template.groovy")
+            def CONSTS = load("constant/main.groovy").getAll()
 
             def db_endpoint = template.toString(
-              "plan_db_endpoint.template", ['env': params.ENV])
+              "${pwd()}/template/plan_db_endpoint.template", ['env': params.ENV])
 
             def chache_endpoint = template.toString(
-              "plan_chache_endpoint.template", ['env': params.ENV])
+              "${pwd()}/template/plan_chache_endpoint.template", ['env': params.ENV])
 
             def app_endpoint = template.toString(
-              "plan_app_endpoint.template", ['env': params.ENV])
+              "${pwd()}/template/plan_app_endpoint.template", ['env': params.ENV])
 
             // WORKSPACE/PLANxx/配下にjsonを保存
             sh "mkdir -p ${param.ENV}"
@@ -30,7 +29,7 @@ pipeline {
               'db_endpoint': db_endpoint,
               'cache_endpoint': chache_endpoint,
               'app_endpoint': app_endpoint
-            ], "${pwd()}${param.ENV}/${PLAN_CONF_FILE_NAME.PROVISIONING}")
+            ], "${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
 
             stash name: 'json_file'
           }
@@ -41,8 +40,10 @@ pipeline {
       steps {
         node("master") {
           script {
-            unstash name: 'json_file'
-            sh "mv ${pwd()}${param.ENV}/${PLAN_CONF_FILE_NAME.PROVISIONING} ${env.TMP_ENV_CONFIGURATION_PATH}/${params.ENV}/"
+            echo "aaaa"
+            // def CONSTS = load("constant/main.groovy").getAll()
+            // unstash name: 'json_file'
+            // sh "mv ${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING} ${env.TMP_ENV_CONFIGURATION_PATH}/${params.ENV}/"
           }
         }
       }
