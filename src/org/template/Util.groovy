@@ -6,7 +6,7 @@ String toString(template_name, binding) {
   // def f = new File(filePath)
   def engine = new groovy.text.SimpleTemplateEngine()
   def templateClass = engine.createTemplate(text).make(binding)
-  echo "${templateClass.toString()}"
+  // templateClass.toString()
   // return template.toString()
   return "aaaa"
 }
