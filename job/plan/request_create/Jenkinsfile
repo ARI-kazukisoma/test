@@ -1,4 +1,4 @@
-// @Library('auto-deploy') _
+@Library('auto-deploy') _
 
 def uuid = ''
 def now = null
