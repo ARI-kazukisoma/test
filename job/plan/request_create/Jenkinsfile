@@ -52,7 +52,6 @@ pipeline {
     stage("Slackへ申請送信") {
       steps {
         script {
-          def slack = new org.slack.Util()
           def template = new org.template.Util()
 
           // 実行ユーザ(BUILD_USER)を取得するためwrapする
@@ -78,7 +77,6 @@ pipeline {
           // Slack通知
           def channel = "#hooktest"
           def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
-          echo credentialsId
           withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
             slackSend channel: channel, token: token, message: message
           }
