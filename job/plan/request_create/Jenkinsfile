@@ -60,7 +60,7 @@ pipeline {
             requestUser = BUILD_USER
           }
 
-          // def API_URL = org.util.Constants.API_URL
+          def API_URL = org.util.Constants.API_URL
           // def binding = [
           //   'uuid': uuid,
           //   'request_user': requestUser,
