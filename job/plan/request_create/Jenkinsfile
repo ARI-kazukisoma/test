@@ -71,16 +71,14 @@ pipeline {
             'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
             'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
           ]
-          def message = template.getString("request_create_plan.template", binding)
-
           // Slack通知
           def channel = "#hooktest"
           def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
           withCredentials([string(credentialsId: credentialsId, variable: 'TOKEN')]) {
-
-            echo "${TOKEN}"
-            slackSend channel: channel, token: token, message: message
+            token = TOKEN
           }
+          def message = template.getString("request_create_plan.template", binding)
+          slackSend channel: channel, token: token, message: message
         }
       }
     }
