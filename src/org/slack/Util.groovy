@@ -11,8 +11,15 @@ package org.slack
 //   }
 // }
 
-String getToken(credentialsId) {
-  script {
+class Util implements Serializable {
+
+  def steps
+
+  Util(steps) {
+    this.steps = steps
+  }
+
+  def getToken(credentialsId) {
     def result = ''
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
       result = token
@@ -20,4 +27,14 @@ String getToken(credentialsId) {
     return result
   }
 }
-return this
+
+// String getToken(credentialsId) {
+//   script {
+//     def result = ''
+//     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+//       result = token
+//     }
+//     return result
+//   }
+// }
+// return this
