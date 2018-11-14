@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+  parameters {
+    string(name: 'ENV', description: 'PLANxxを指定')
+    string(name: 'BRANCH', description: 'ブランチを指定')
+    string(name: 'MASTER_TAGS', description: 'マスタータグ')
+  }
+  stages {
+    stage("環境情報の仮保存") {
+      steps {
+        script {
+          def json = load("lib/json.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
+
+          dir(env.TMP_ENV_CONFIGURATION_PATH) {
+            sh "mkdir -p ${params.ENV}"
+            json.write([
+              'master_tags': env.MASTER_TAGS,
+              'branch': env.BRANCH
+            ], "${params.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
+          }
+        }
+      }
+    }
+    stage("ファイルを移動") {
+      steps {
+        // TODO (m.toga) ノードの設定は変更する必要がある
+        node("master") {
+          dir("/home/jenkins/build_shell/") {
+            // TODO (m.toga) タグのフォーマットを現行環境のフォーマットに治す
+            sh "remote_exec.sh ${params.ENV} ./avalon_update_master.sh develop develop ${params.BRANCH} ${MASTER_TAGS}"
+          }
+          
+        }
+      }
+    }
+  }
+}
