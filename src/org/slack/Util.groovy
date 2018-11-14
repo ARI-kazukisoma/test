@@ -13,15 +13,15 @@ package org.slack
 
 class Util implements Serializable {
 
-  // def steps
+  def steps
 
-  // Util(steps) {
-  //   this.steps = steps
-  // }
+  Util(steps) {
+    this.steps = steps
+  }
 
   def getToken(credentialsId) {
     def result = ''
-    withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+    this.steps.withCredentials([this.steps.string(credentialsId: credentialsId, variable: 'token')]) {
       result = token
     }
     return result
