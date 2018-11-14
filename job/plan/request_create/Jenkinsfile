@@ -73,7 +73,7 @@ pipeline {
             'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
           ]
           def message = template.toString("request_create_plan.template", binding)
-          slack.notifyMessage("#hooktest", message)
+          slack.notifyMessage("#hooktest", "aaaaa")
         }
       }
     }
