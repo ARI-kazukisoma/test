@@ -1,8 +1,7 @@
 
 def is_locked(target_env) {
   dir(env.EXECUTE_LOCK_FILE_PATH) {
-    if (fileExists(target_env.toLowerCase())) {
-      echo "aaaaaaa"
+    if (fileExists("${target_env.toLowerCase()}.lock")) {
       return true
     }
     return false
