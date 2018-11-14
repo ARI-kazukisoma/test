@@ -60,8 +60,10 @@ pipeline {
   }
   post {
     always {
-      def lock = load("lib/lock.groovy")
-      lock.do_unlock(params.env)
+      script {
+        def lock = load("lib/lock.groovy")
+        lock.do_unlock(params.env)
+      }
     }
   }
 }
