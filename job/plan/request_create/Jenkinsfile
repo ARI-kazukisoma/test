@@ -52,6 +52,7 @@ pipeline {
       steps {
         script {
           def template = new org.template.Util()
+          def slack = new org.slack.Util()
 
           // 実行ユーザ(BUILD_USER)を取得するためwrapする
           def requestUser = ''
@@ -73,10 +74,8 @@ pipeline {
           ]
           // Slack通知
           def channel = "#hooktest"
-          def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
-          withCredentials([string(credentialsId: credentialsId, variable: 'TOKEN')]) {
-            token = TOKEN
-          }
+          // def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
+          def token = slack.getToken(org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel])
           def message = template.getString("request_create_plan.template", binding)
           slackSend channel: channel, token: token, message: message
         }
