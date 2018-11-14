@@ -73,10 +73,12 @@ pipeline {
             'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
           ]
           // def message = template.getString("request_create_plan.template", binding)
-            def text = libraryResource("org/template/request_create_plan.template")
-            def engine = new groovy.text.SimpleTemplateEngine()
-            def template = engine.createTemplate(text).make(binding)
-            message = template.toString()
+          def text = libraryResource("org/template/request_create_plan.template")
+          def engine = new groovy.text.SimpleTemplateEngine()
+          def template = engine.createTemplate(text).make(binding)
+          message = template.toString()
+          engine = null
+          template = null
 
           // Slack通知
           def channel = "#hooktest"
