@@ -22,7 +22,7 @@ class Util implements Serializable {
   def getToken(credentialsId) {
     def result = ''
     this.steps.withCredentials([this.steps.string(credentialsId: credentialsId, variable: 'token')]) {
-      result = this.steps.token
+      result = "aaaaaa"
     }
     return result
   }
