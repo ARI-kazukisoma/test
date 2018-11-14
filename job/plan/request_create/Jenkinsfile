@@ -60,6 +60,8 @@ pipeline {
           wrap([$class: 'BuildUser']) {
             requestUser = BUILD_USER
           }
+
+          def API_URL = org.slack.Constants.API_URL
           def binding = [
             'uuid': uuid,
             'request_user': requestUser,
