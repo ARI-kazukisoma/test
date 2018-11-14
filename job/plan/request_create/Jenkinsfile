@@ -16,7 +16,6 @@ pipeline {
     stage("入力チェック") {
       steps {
         script {
-          echo "入力チェック"
         }
       }
     }
@@ -26,7 +25,6 @@ pipeline {
         script {
           def datetime = new org.datetime.Util()
           now = datetime.now()
-          echo now
 
           def requestUser = ''
           wrap([$class: 'BuildUser']) {
