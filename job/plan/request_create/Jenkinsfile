@@ -1,5 +1,5 @@
 @Library('auto-deploy')
-import static org.util.Constants.*;
+import static org.util.Constants.*
 import static org.slak.Constants.*
 
 def uuid = ''
