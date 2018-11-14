@@ -1,6 +1,6 @@
 package org.datetime
 
-class Constants {
+class Constants implements Serializable{
 
     public static final TIMEZONE = 'JST'
 }

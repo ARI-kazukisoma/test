@@ -1,6 +1,6 @@
 package org.util
 
-class Constants {
+class Constants implements Serializable{
 
   public static final PLAN_CONF_FILE_NAME = [
     'PROVISIONING': 'provisioning.json',
