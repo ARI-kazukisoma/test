@@ -17,7 +17,7 @@ pipeline {
             error("すでに同環境に更新処理が実行中")
           }
 
-          lock.do_lock(params.env)
+          lock.do_lock(params.ENV)
           sh "sleep 10"
 
           def json = load("lib/json.groovy")
