@@ -51,7 +51,7 @@ pipeline {
     stage("Slackへ申請送信") {
       steps {
         script {
-          // def template = new org.template.Util()
+          def template = new org.template.Util()
 
           // 実行ユーザ(BUILD_USER)を取得するためwrapする
           // def requestUser = ''
@@ -71,13 +71,13 @@ pipeline {
           //   'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
           //   'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
           // ]
-          // def message = template.getString("request_create_plan.template", binding)
-          def text = libraryResource("org/template/plan_app_endpoint.template")
-          def engine = new groovy.text.SimpleTemplateEngine()
-          def template = engine.createTemplate(text).make(['env': 'PLAN10'])
-          message = template.toString()
-          engine = null
-          template = null
+          def message = template.getString("request_create_plan.template", binding)
+          // def text = libraryResource("org/template/plan_app_endpoint.template")
+          // def engine = new groovy.text.SimpleTemplateEngine()
+          // def template = engine.createTemplate(text).make(['env': 'PLAN10'])
+          // message = template.toString()
+          // engine = null
+          // template = null
 
           // Slack通知
           def channel = "#hooktest"
