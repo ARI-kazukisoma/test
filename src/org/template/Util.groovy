@@ -5,6 +5,7 @@ String toString(template_name, binding) {
   def engine = new groovy.text.SimpleTemplateEngine()
   def template = engine.createTemplate(text).make(binding)
   // return template.toString()
+  return "aaaa"
 }
 
 return this

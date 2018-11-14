@@ -80,7 +80,7 @@ pipeline {
           withCredentials([string(credentialsId: credentialsId, variable: 'TOKEN')]) {
 
             echo "${TOKEN}"
-            slackSend channel: channel, token: token, message: "aaaa"
+            slackSend channel: channel, token: token, message: message
           }
         }
       }
