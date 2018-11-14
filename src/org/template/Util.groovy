@@ -2,7 +2,7 @@ package org.template
 
 
 String getString(template_name, binding) {
-  def text = File("src/resource/org/template/${template_name}")
+  def text = new File("src/resource/org/template/${template_name}")
   // def f = new File(filePath)
   def engine = new groovy.text.SimpleTemplateEngine()
   def template = engine.createTemplate(text).make(binding)
