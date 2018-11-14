@@ -17,9 +17,9 @@ pipeline {
             template.toString("plan/rds_instance_endpoint.template", ['env': params.ENV.toLowerCase()])
 
           def cache_primary_endpoint = 
-            template.toString("plan/chache_primary_endpoint.template", ['env': params.ENV.toLowerCase()])
+            template.toString("plan/cache_primary_endpoint.template", ['env': params.ENV.toLowerCase()])
           def cache_second_endpoint = 
-            template.toString("plan/chache_second_endpoint.template", ['env': params.ENV.toLowerCase()])
+            template.toString("plan/cache_second_endpoint.template", ['env': params.ENV.toLowerCase()])
 
           def cname = 
             template.toString("plan/cname.template", ['env': params.ENV.toLowerCase()])
