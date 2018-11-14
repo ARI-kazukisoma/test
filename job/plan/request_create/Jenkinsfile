@@ -72,8 +72,8 @@ pipeline {
             'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
             'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
           ]
-          def messae = template.toString("request_create_plan.template", binding)
-
+          def message = template.toString("request_create_plan.template", binding)
+          
           // Slack通知
           def channel = "#hooktest"
           def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
