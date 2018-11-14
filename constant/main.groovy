@@ -38,6 +38,22 @@ def getAll() {
       'COMMON': 'common.json',
       'DEPLOY_APP': 'deploy_app.json',
       'UPDATE_DATA': 'update_data.json'
+    ],
+    'PLAN_LIST': [
+      'Plan07',
+      'Plan08',
+      'Plan09',
+      'Plan10',
+      'Plan11',
+      'Plan12',
+      'Plan13',
+      'Plan14',
+      'Plan15',
+      'Plan16',
+      'Plan17',
+      'Plan18',
+      'Plan19',
+      'Plan20',
     ]
   ]
 }

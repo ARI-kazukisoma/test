@@ -7,6 +7,7 @@ pipeline {
     stage("環境情報の仮保存") {
       steps {
         script {
+          sh "sleep 20"
           def json = load("lib/json.groovy")
           def template = load("lib/template.groovy")
           def CONSTS = load("constant/main.groovy").getAll()
