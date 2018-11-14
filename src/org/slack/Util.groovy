@@ -11,7 +11,6 @@ package org.slack
 //   }
 // }
 
-@NonCPS
 String getToken(credentialsId) {
   script {
     def result = ''
