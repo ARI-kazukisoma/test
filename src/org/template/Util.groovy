@@ -8,6 +8,7 @@ String toString(template_name, binding) {
   def template = engine.createTemplate(text).make(binding)
   echo "${template.toString()}"
   // return template.toString()
+  return "aaaa"
 }
 
 return this
