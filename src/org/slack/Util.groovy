@@ -7,8 +7,4 @@ void notifyMessage(channel, message) {
     slackSend channel: channel, token: token, message: message
   }
 }
-
-void echoTest(str) {
-  echo str
-}
 return this
