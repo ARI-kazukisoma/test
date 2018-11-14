@@ -77,11 +77,6 @@ pipeline {
           // Slack通知
           def channel = "#hooktest"
           def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
-          withCredentials([string(credentialsId: 'tmp_ari_slack_token', variable: 'token')]) {
-
-            echo token
-            // slackSend channel: channel, token: token, message: message
-          }
         }
       }
     }
