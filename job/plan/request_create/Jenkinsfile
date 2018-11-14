@@ -72,8 +72,7 @@ pipeline {
           //   'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
           // ]
           // def message = template.getString("request_create_plan.template", binding)
-          // def text = libraryResource("org/template/request_create_plan.template")
-          def text = new File("${pwd()}/resources/org/template/plan_app_endpoint.template")
+          def text = libraryResource("org/template/request_create_plan.template")
           def engine = new groovy.text.SimpleTemplateEngine()
           def template = engine.createTemplate(text).make(['env': 'PLAN10'])
           message = template.toString()
