@@ -4,47 +4,36 @@ pipeline {
     string(name: 'ENV', description: 'PLANxxを指定')
   }
   stages {
-    stage("terraform実行") {
+    stage("準備") {
       // TODO(m.toga) ノードが別なら変更する
       steps {
-        node("master") {
-          script {
-            sh "sleep 20"
-            def json = load("lib/json.groovy")
-            def template = load("lib/template.groovy")
-            def CONSTS = load("constant/main.groovy").getAll()
+        script {
+          def json = load("lib/json.groovy")
+          def template = load("lib/template.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
 
-            def db_endpoint = template.toString(
-              "${pwd()}/template/plan_db_endpoint.template", ['env': params.ENV])
+          def db_endpoint = template.toString("plan_db_endpoint.template", ['env': params.ENV])
 
-            def chache_endpoint = template.toString(
-              "${pwd()}/template/plan_chache_endpoint.template", ['env': params.ENV])
+          def chache_endpoint = template.toString("plan_chache_endpoint.template", ['env': params.ENV])
 
-            def app_endpoint = template.toString(
-              "${pwd()}/template/plan_app_endpoint.template", ['env': params.ENV])
+          def app_endpoint = template.toString("plan_app_endpoint.template", ['env': params.ENV])
 
-            // WORKSPACE/PLANxx/配下にjsonを保存
-            sh "mkdir -p ${param.ENV}"
-            json.write([
-              'db_endpoint': db_endpoint,
-              'cache_endpoint': chache_endpoint,
-              'app_endpoint': app_endpoint
-            ], "${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
+          // WORKSPACE/PLANxx/配下にjsonを保存
+          sh "mkdir -p ${param.ENV}"
+          json.write([
+            'db_endpoint': db_endpoint,
+            'cache_endpoint': chache_endpoint,
+            'app_endpoint': app_endpoint
+          ], "${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
 
-            stash name: 'json_file'
-          }
+          stash name: 'json_file'
         }
       }
     }
     stage("ファイルを移動") {
       steps {
         node("master") {
-          script {
-            echo "aaaa"
-            // def CONSTS = load("constant/main.groovy").getAll()
-            // unstash name: 'json_file'
-            // sh "mv ${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING} ${env.TMP_ENV_CONFIGURATION_PATH}/${params.ENV}/"
-          }
+          sh "echo"
         }
       }
     }

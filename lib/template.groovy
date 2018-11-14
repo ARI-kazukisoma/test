@@ -1,5 +1,6 @@
-String toString(filePath, binding) {
-  def f = new File(filePath)
+String toString(fileName, binding) {
+  def template_dir = "${pwd()}/template/"
+  def f = new File(fileName)
   def engine = new groovy.text.SimpleTemplateEngine()
   def template = engine.createTemplate(f).make(binding)
   return template.toString()
