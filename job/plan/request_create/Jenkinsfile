@@ -52,33 +52,34 @@ pipeline {
     stage("Slackへ申請送信") {
       steps {
         script {
-          def template = new org.template.Util()
+          // def template = new org.template.Util()
 
-          // 実行ユーザ(BUILD_USER)を取得するためwrapする
-          def requestUser = ''
-          wrap([$class: 'BuildUser']) {
-            requestUser = BUILD_USER
-          }
+          // // 実行ユーザ(BUILD_USER)を取得するためwrapする
+          // def requestUser = ''
+          // wrap([$class: 'BuildUser']) {
+          //   requestUser = BUILD_USER
+          // }
 
-          def API_URL = org.util.Constants.API_URL
-          def binding = [
-            'uuid': uuid,
-            'request_user': requestUser,
-            'target_env': params.ENV,
-            'request_datetime': now,
-            'branch': params.BRANCH,
-            'master_tags': params.MASTER_TAGS,
-            'reason': params.REASON,
-            'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-            'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
-          ]
-          def messae = template.toString("request_create_plan.template", binding)
+          // def API_URL = org.util.Constants.API_URL
+          // def binding = [
+          //   'uuid': uuid,
+          //   'request_user': requestUser,
+          //   'target_env': params.ENV,
+          //   'request_datetime': now,
+          //   'branch': params.BRANCH,
+          //   'master_tags': params.MASTER_TAGS,
+          //   'reason': params.REASON,
+          //   'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
+          //   'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+          // ]
+          // def messae = template.toString("request_create_plan.template", binding)
 
           // Slack通知
           def channel = "#hooktest"
           // def credentialsId = org.slack.Constants.CHANNEL_CREDENTIAL_IDS[channel]
           withCredentials([string(credentialsId: 'tmp_ari_slack_token', variable: 'TOKEN')]) {
 
+            echo "${TOKEN}"
             // slackSend channel: channel, token: token, message: message
           }
         }
