@@ -52,7 +52,7 @@ pipeline {
       steps {
         script {
           def template = new org.template.Util()
-          def slack = new org.slack.Util(steps)
+          def slack = new org.slack.Util()
 
           // 実行ユーザ(BUILD_USER)を取得するためwrapする
           def requestUser = ''
