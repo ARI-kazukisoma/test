@@ -16,6 +16,6 @@ String getToken(credentialsId) {
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
     result = token
   }
-  return token
+  return result
 }
 return this
