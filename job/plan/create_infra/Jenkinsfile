@@ -19,12 +19,12 @@ pipeline {
           def app_endpoint = template.toString("plan_app_endpoint.template", ['env': params.ENV])
 
           // WORKSPACE/PLANxx/配下にjsonを保存
-          sh "mkdir -p ${param.ENV}"
+          sh "mkdir -p ${params.ENV}"
           json.write([
             'db_endpoint': db_endpoint,
             'cache_endpoint': chache_endpoint,
             'app_endpoint': app_endpoint
-          ], "${pwd()}${param.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
+          ], "${pwd()}${params.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
 
           stash name: 'json_file'
         }
