@@ -21,8 +21,8 @@ class Util implements Serializable {
 
   def getToken(credentialsId) {
     def result = ''
-    this.steps.withCredentials([this.steps.string(credentialsId: credentialsId, variable: 'token')]) {
-      result = "aaaaaa"
+    withCredentials([this.steps.string(credentialsId: credentialsId, variable: 'token')]) {
+      result = token
     }
     return result
   }
