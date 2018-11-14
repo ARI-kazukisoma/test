@@ -1,22 +1,22 @@
 
-def is_locked(env) {
+def is_locked(target_env) {
   dir(env.EXECUTE_LOCK_FILE_PATH) {
-    if (fileExists(env.toLowerCase())) {
+    if (fileExists(target_env.toLowerCase())) {
       return true
     }
     return false
   }
 }
 
-def do_lock(env) {
+def do_lock(target_env) {
   dir(env.EXECUTE_LOCK_FILE_PATH) {
-    touch("${env.toLowerCase}.lock")
+    touch("${target_env.toLowerCase}.lock")
   }
 }
 
-def do_unlock(env) {
+def do_unlock(target_env) {
   dir(env.EXECUTE_LOCK_FILE_PATH) {
-    sh "rm ${env.toLowerCase}.lock"
+    sh "rm ${target_env.toLowerCase}.lock"
   }
 }
 
