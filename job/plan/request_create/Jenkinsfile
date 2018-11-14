@@ -54,23 +54,23 @@ pipeline {
           def template = new org.template.Util()
 
           // 実行ユーザ(BUILD_USER)を取得するためwrapする
-          // def requestUser = ''
-          // wrap([$class: 'BuildUser']) {
-          //   requestUser = BUILD_USER
-          // }
+          def requestUser = ''
+          wrap([$class: 'BuildUser']) {
+            requestUser = BUILD_USER
+          }
 
-          // def API_URL = org.util.Constants.API_URL
-          // def binding = [
-          //   'uuid': uuid,
-          //   'request_user': requestUser,
-          //   'target_env': params.ENV,
-          //   'request_datetime': now,
-          //   'branch': params.BRANCH,
-          //   'master_tags': params.MASTER_TAGS,
-          //   'reason': params.REASON,
-          //   'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-          //   'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
-          // ]
+          def API_URL = org.util.Constants.API_URL
+          def binding = [
+            'uuid': uuid,
+            'request_user': requestUser,
+            'target_env': params.ENV,
+            'request_datetime': now,
+            'branch': params.BRANCH,
+            'master_tags': params.MASTER_TAGS,
+            'reason': params.REASON,
+            'approval_link': "${env.JENKINS_URL}${API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
+            'refusal_link': "${env.JENKINS_URL}${API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+          ]
           def message = template.getString("request_create_plan.template", binding)
           // def text = libraryResource("org/template/plan_app_endpoint.template")
           // def engine = new groovy.text.SimpleTemplateEngine()
