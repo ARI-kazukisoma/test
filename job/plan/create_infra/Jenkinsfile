@@ -57,12 +57,11 @@ pipeline {
         }
       }
     }
-
-    post {
-      always {
-        def lock = load("lib/lock.groovy")
-        lock.do_unlock(params.env)
-      }
+  }
+  post {
+    always {
+      def lock = load("lib/lock.groovy")
+      lock.do_unlock(params.env)
     }
   }
 }
