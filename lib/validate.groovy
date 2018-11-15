@@ -14,6 +14,8 @@ def checkMasterTagFormat(masterTag) {
   def libDatetime = load("lib/datetime.groovy")
   def (success, tagName, strDatetime) = splitMasterTag(masterTag)
 
+  echo "aaaaadfsf"
+  echo success
   if (success) {
     return [false, null, null, null,]
   }
@@ -39,9 +41,6 @@ def splitMasterTag(masterTag) {
   } else if (splitVals.size() == 1) {
     return [true, splitVals[0]]
   }
-  echo "aaaaaaaaaaaaaaaaaa"
-  echo "${splitVals.size()}"
-
 
   return [false, null, null]
 }
