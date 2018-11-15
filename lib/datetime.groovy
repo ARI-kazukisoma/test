@@ -12,7 +12,7 @@ Long stringToUnixtime(dateString, format="yyyy/MM/dd HH:mm:ss") {
   def unixtime = null
   try {
     unixtime = sdf.parse(dateString).time
-  } catch (ParseException e) {
+  } catch (java.text.ParseException e) {
     return null
   }
   return unixtime / 1000
