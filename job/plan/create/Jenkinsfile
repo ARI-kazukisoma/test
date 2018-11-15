@@ -23,7 +23,7 @@ pipeline {
             [
               $class: 'StringParameterValue',
               name: 'ENV',
-              value: input_param.ENV
+              value: input_param.target_env
             ]
 
           ]
