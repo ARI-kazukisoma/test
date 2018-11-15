@@ -15,7 +15,7 @@ def checkMasterTagFormat(masterTag) {
   def (success, tagName, strDatetime) = splitMasterTag(masterTag)
 
   echo "aaaaadfsf"
-  echo success
+  echo "${success}"
   echo tagName
   echo strDatetime
   if (success) {
