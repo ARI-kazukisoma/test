@@ -92,8 +92,8 @@ def checkMasterTagFormat(masterTag) {
 }
 
 def checkTagNameFormat(tagName) {
-  echo tagName
   if (tagName ==~ /te:/) {
+    echo tagName
     // 「te:～」 を「te_～」に変換
     return [true, tagName.replaceFirst(/te:/, 'te_')]
   }
