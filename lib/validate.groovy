@@ -29,8 +29,8 @@ def checkMasterTagFormat(masterTag) {
 def splitMasterTag(masterTag) {
   def CONSTS = load("constant/main.groovy").getAll()
 
-  echo "aaaa ${masterTag}"
-  splitVals = [].push(masterTag.split(CONSTS.MASTER_TAG.DELIIMITER))
+  splitVals = [].push("${masterTag}".split(CONSTS.MASTER_TAG.DELIIMITER))
+  println splitVals
   splitVals = splitVals.flatten()
 
   if (splitVals.length == 2) {
