@@ -20,6 +20,7 @@ pipeline {
             error("すでに申請は承認されたか拒否されております。(UUID: ${params.UUID}")
           }
           input_param = json.read(filePath)
+          // TODO (m.toga) テスト中のため一旦コメントアウト
           // json.delete(filePath)
         }
       }
