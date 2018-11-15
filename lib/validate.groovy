@@ -71,7 +71,7 @@ def checkMasterTagFormat(masterTag) {
     return [false, null, null, null]
   }
 
-  def (tagNameSuccess, transTagName) = checkTagNameFormat()
+  def (tagNameSuccess, transTagName) = checkTagNameFormat(tagname)
 
   if (tagNameSuccess == false) {
     // タグ名の命名がおかしい
