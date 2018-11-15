@@ -16,7 +16,7 @@ pipeline {
         node("master") {
           script {
             echo "入力チェック"
-            // def slack = load("lib/slack.groovy")
+            def slack = load("../${JOB_NAME}/lib/slack.groovy")
             echo "${pwd()}"
             echo WORKSPACE
 
@@ -29,7 +29,7 @@ pipeline {
         node("master") {
           script {
             echo "入力チェック"
-            def template = load("lib/template.groovy")
+            def template = load("../${JOB_NAME}/lib/template.groovy")
             template.now()
           }
         }
