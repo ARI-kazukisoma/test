@@ -22,7 +22,7 @@ pipeline {
           if (success == false) {
             echo "master tag NG"
           }
-          def transMasterTag = _transMasterTag
+          transMasterTag = _transMasterTag
 
           if (parameterValidate.checkPlanEnv(params.ENV) == false) {
             echo "env NG"
