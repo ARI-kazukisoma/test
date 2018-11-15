@@ -18,7 +18,7 @@ def checkMasterTagFormat(masterTag) {
   echo "${success}"
   echo tagName
   echo strDatetime
-  if (success) {
+  if (!success) {
     return [false, null, null, null,]
   }
 
