@@ -53,7 +53,7 @@ def checkMasterTags(text) {
       libDatetime = load("lib/datetime.groovy")
       def now = libDatetime.now("yyyy/MM/dd HH:mm")
       echo now
-      unixtime = libDatetime.stringToUnixtime(now)
+      unixtime = libDatetime.stringToUnixtime(now, "yyyy/MM/dd HH:mm")
     }
 
     resultMasterTags.push("${transTagName}:${unixtime}")
