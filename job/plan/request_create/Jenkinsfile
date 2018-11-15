@@ -32,7 +32,7 @@ pipeline {
             echo "branch NG"
           }
 
-          if (parameterValidate.checkReason(params.REASON)) == false) {
+          if (parameterValidate.checkReason(params.REASON) == false) {
             echo "reson NG"
           }
         }
