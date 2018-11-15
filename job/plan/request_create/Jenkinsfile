@@ -17,6 +17,7 @@ pipeline {
           def parameterValidate = load("lib/validateParameter.groovy")
 
           def (success, transMasterTag) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+          echo transMasterTag
           if (success == false) {
             echo "master tag NG"
           }
