@@ -6,7 +6,11 @@ def inPlan(targetEnv) {
 }
 
 def isNull(val, nullVals=[null, '', ' ']) {
-  return nullValus.contains(val.trim())
+  if (nullValus.contains(val) {
+    return true
+  }
+
+  return nullValus.contains(val.trim()
 }
 
 def checkMasterTagFormat(masterTag) {
