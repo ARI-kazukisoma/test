@@ -82,7 +82,7 @@ def checkPlanEnv(targetEnv) {
 def checkBranch(branch) {
   def validate = load("lib/validate.groovy")
 
-  if (isNull(branch)) {
+  if (validate.isNull(branch)) {
     return false
   }
   return true
@@ -92,7 +92,7 @@ def checkBranch(branch) {
 def checkReason(reason) {
   def validate = load("lib/validate.groovy")
 
-  if (isNull(reason)) {
+  if (validate.isNull(reason)) {
     return false
   }
   return true
