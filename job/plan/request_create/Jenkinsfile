@@ -15,18 +15,14 @@ pipeline {
       steps {
         script {
           def validate = load("lib/validate.groovy")
-          def (success, masterTag, tagName, unixtime) = validate.checkMasterTagFormat(params.MASTER_TAGS)
-          echo "${success}"
-          echo "${masterTag}"
-          echo "${tagName}"
-          echo "${unixtime}"
+          // def (success, masterTag, tagName, unixtime) = validate.checkMasterTagFormat(params.MASTER_TAGS)
 
           // if (validate.isPlan(params.ENV)) {
           //   echo "Ok"
           // }
-          // if (validate.isNull(params.BRANCH)) {
-          //   echo "NULL"
-          // }
+          if (validate.isNull(params.BRANCH)) {
+            echo "NULL"
+          }
           // if (validate.isNull(params.REASON)) {
           //   echo "NULL"
           // }
