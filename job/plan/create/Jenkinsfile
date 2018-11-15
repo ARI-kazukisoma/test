@@ -18,7 +18,15 @@ pipeline {
     stage("インフラ作成") {
       steps {
         script {
-          build job: 'インフラ開発環境構築'
+          def parameters = [
+            [
+              $class: 'StringParameterValue',
+              name: 'ENV',
+              value: input_param.ENV
+            ]
+
+          ]
+          build job: 'インフラ開発環境構築', parameters: parameters
         }
       }
     }
