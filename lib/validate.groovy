@@ -100,7 +100,7 @@ def checkMasterTagFormat(masterTag) {
   }
 
   if (unixtime < 0) {
-    // 1970/01/01 よりも古いとマイナスになるので0とする
+    // 1970/01/01 9時0分0秒よりも古いとマイナスになるので0とする
     unixtime = 0
   }
 
