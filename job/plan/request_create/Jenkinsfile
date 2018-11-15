@@ -14,12 +14,16 @@ pipeline {
     stage("入力チェック") {
       steps {
         script {
-          def validate = load("lib/validate.groovy")
+          def parameterValidate = load("lib/validateParameter.groovy")
 
-          def (success, transMasterTag) = validate.checkMasterTags(env.MASTER_TAGS)
+          def (success, transMasterTag) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+          echo transMasterTag
 
-          echo "${success}"
-          echo "${transMasterTag}"
+          if (parameterValidate.checkPlanEnv(params.ENV)) {
+            echo "OK"
+          }
+
+
 
         }
       }

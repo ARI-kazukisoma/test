@@ -14,57 +14,6 @@ def isNull(val, nullVals=[null, '']) {
 }
 
 
-def checkMasterTags(text) {
-
-  if (isNull(text)) {
-    return [false, null]
-  }
-
-  masterTags = []
-  text.trim().split("\n").toList().collect{
-    // １行ずつマスタータグのフォーマットチェックを行い、分解した情報を格納
-    masterTag -> masterTags.push(checkMasterTagFormat(masterTag))
-  }
-
-  // タグ指定が１つの場合
-  if (masterTags.size() == 1) {
-    def (success, masterTag, tagName, unixtime) = masterTags[0]
-
-    if (success == false) {
-      return [false, null]
-    } 
-
-    if (unixtime) {
-      return [false, null]
-    }
-
-    return [true, tagName]
-
-  }
-
-  // タグ指定が複数の場合
-  def resultMasterTags = []
-  for (masterTag in masterTags) {
-    def success = masterTag[0]
-    def transTagName = masterTag[2]
-    def unixtime = masterTag[3]
-
-    if (success == false) {
-      // １つでもフォーマットにミスがあればエラー
-      return [false, null]
-    }
-
-    if (unixtime == null) {
-      // １つでも日付の指定がなければエラー
-      return [false, null]
-    }
-
-    resultMasterTags.push("${transTagName}:${unixtime}")
-  }
-
-   return [true, resultMasterTags.join(" ")]
-}
-
 /**
 マスタータグ(単体)のフォーマットチェック
 問題なければtrueと変換後の値が返される
