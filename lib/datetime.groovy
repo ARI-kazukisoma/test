@@ -30,7 +30,13 @@ Date stringToDatetime(dateString, format="yyyy/MM/dd HH:mm:ss") {
   def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
   def sdf = new SimpleDateFormat(format)
   sdf.setTimeZone(TimeZone.getTimeZone(CONSTS.TIMEZONE))
-  return sdf.parse(dateString).format(format)
+  
+  def dateteime = null
+  try {
+    return sdf.parse(dateString).format(format)
+  } catch (java.text.ParseException e) {
+    return null
+  }
 }
 
 return this
