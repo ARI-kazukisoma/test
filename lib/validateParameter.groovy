@@ -49,8 +49,10 @@ def checkMasterTags(text) {
     }
 
     if (unixtime == null) {
-      // １つでも日付の指定がなければエラー
-      return [false, null]
+      // unixtimeがなければ現在の時間に合わせる。
+      libDatetime = load("lib/datetime.groovy")
+      def now = libDatetime.now("yyyy/MM/dd HH:mm")
+      unixtime = libDatetime.stringToUnixtime(now)
     }
 
     resultMasterTags.push("${transTagName}:${unixtime}")
@@ -77,5 +79,7 @@ def checkPlanEnv(targetEnv) {
   return false
 }
 
+def checkBranch(branch) {
+}
 
 return this

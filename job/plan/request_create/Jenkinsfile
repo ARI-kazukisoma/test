@@ -17,13 +17,17 @@ pipeline {
           def parameterValidate = load("lib/validateParameter.groovy")
 
           def (success, transMasterTag) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
-          echo transMasterTag
-
-          if (parameterValidate.checkPlanEnv(params.ENV)) {
-            echo "OK"
+          if (success == false) {
+            echo "master tag NG"
           }
 
+          if (parameterValidate.checkPlanEnv(params.ENV) == false) {
+            echo "env NG"
+          }
 
+          if (parameterValidate.checkBranch(params.BRANCH) == false) {
+            echo "branch NG"
+          }
 
         }
       }
