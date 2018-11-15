@@ -12,6 +12,9 @@ pipeline {
           def slack = load("lib/slack.groovy")
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+            input_param = json.read(filePath)
+            // TODO (m.toga) テスト中のため一旦コメントアウト
+            // json.delete(filePath)
           } catch(java.nio.file.NoSuchFileException e) {
             
             // TODO (m.toga) あとでテンプレート化する
@@ -19,9 +22,6 @@ pipeline {
             slack.notifyMessage("#hooktest", message)
             error("すでに申請は承認されたか拒否されております。(UUID: ${params.UUID}")
           }
-          input_param = json.read(filePath)
-          // TODO (m.toga) テスト中のため一旦コメントアウト
-          // json.delete(filePath)
         }
       }
     }
