@@ -55,7 +55,7 @@ def checkMasterTags(text) {
       return [false, null]
     }
 
-    resultMaterTags.push("${tagName:${unixtime}}")
+    resultMaterTags.push("${tagName}:${unixtime}")
   }
 
    return resultMasterTags.join(" ")
