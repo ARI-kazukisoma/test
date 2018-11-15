@@ -52,7 +52,6 @@ def checkMasterTags(text) {
       // unixtimeがなければ現在の時間に合わせる。
       libDatetime = load("lib/datetime.groovy")
       def now = libDatetime.now("yyyy/MM/dd HH:mm")
-      echo now
       unixtime = libDatetime.stringToUnixtime(now, "yyyy/MM/dd HH:mm")
     }
 
@@ -81,6 +80,23 @@ def checkPlanEnv(targetEnv) {
 }
 
 def checkBranch(branch) {
+  def validate = load("lib/validate.groovy")
+
+  if (isNull(branch)) {
+    return false
+  }
+  return true
+
+}
+
+def checkReason(reason) {
+  def validate = load("lib/validate.groovy")
+
+  if (isNull(reason)) {
+    return false
+  }
+  return true
+
 }
 
 return this
