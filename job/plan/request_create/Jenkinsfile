@@ -15,13 +15,11 @@ pipeline {
       steps {
         script {
           def validate = load("lib/validate.groovy")
-          
-          if (validate.isNull(params.BRANCH)) {
-            echo "NULL"
-          }
-          if (validate.isNull(params.REASON)) {
-            echo "NULL"
-          }
+
+          def (success, transMasterTag) = validate.checkMasterTags(env.MASTER_TAGS)
+
+          echo "${success}"
+          echo "${transMasterTag}"
 
         }
       }
