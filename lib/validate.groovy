@@ -28,7 +28,7 @@ def checkMasterTags(text) {
 
   // タグ指定が１つの場合
   if (masterTags.size() == 1) {
-    def (success, masterTag, tagName, unixtime) = masterTag[0]
+    def (success, masterTag, tagName, unixtime) = masterTags[0]
 
     if (unixtime) {
       return [false, null]
