@@ -99,6 +99,11 @@ def checkMasterTagFormat(masterTag) {
     return [false, null, null, null]
   }
 
+  if (unixtime < 0) {
+    // 1970/01/01 よりも古いとマイナスになるので0とする
+    unixtime = 0
+  }
+
   return [true, masterTag, transTagName, unixtime]
 }
 
