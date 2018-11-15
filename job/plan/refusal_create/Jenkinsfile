@@ -7,19 +7,15 @@ pipeline {
   stages {
     stage("jsonファイルからパラメータ取得") {
       steps {
-        script {
-          def json = load("lib/json.groovy")
-          def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
-          json.delete(filePath)
+        node("master") {
+          script {
+            def json = load("../${JOB_NAME}/lib/json.groovy")
+            def slack = load("../${JOB_NAME}/lib/slack.groovy")
+            def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+            json.delete(filePath)
+            slack.notifyMessage("#hooktest", "申請が却下されました。(申請ID：${params.UUID})")
+          }
         }
-      }
-    }
-  }
-  post {
-    always {
-      script {
-        def slack = load("lib/slack.groovy")
-        slack.notifyMessage("#hooktest", "申請が却下されました。(申請ID：${params.UUID})")
       }
     }
   }
