@@ -19,7 +19,7 @@ pipeline {
           echo "${success}"
           echo "${masterTag}"
           echo "${tagName}"
-          echo "${unitxtime}"
+          echo "${unixtime}"
 
           // if (validate.isPlan(params.ENV)) {
           //   echo "Ok"
