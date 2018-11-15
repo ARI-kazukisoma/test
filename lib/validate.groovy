@@ -39,7 +39,7 @@ def checkMasterTags(text) {
   }
 
   // タグ指定が複数の場合
-  def resultMaterTags = []
+  def resultMasterTags = []
   for (masterTag in masterTags) {
     def success = masterTag[0]
     def tagName = masterTag[2]
@@ -55,7 +55,7 @@ def checkMasterTags(text) {
       return [false, null]
     }
 
-    resultMaterTags.push("${tagName}:${unixtime}")
+    resultMasterTags.push("${tagName}:${unixtime}")
   }
 
    return resultMasterTags.join(" ")
