@@ -16,8 +16,6 @@ pipeline {
         node("master") {
           script {
             echo "入力チェック"
-            echo JENKINS_HOME
-
           }
         }
       }
