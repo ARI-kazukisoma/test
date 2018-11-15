@@ -14,7 +14,7 @@ pipeline {
     stage("入力チェック") {
       steps {
         script {
-          def validate = load("validate.groogy")
+          def validate = load("validate.groovy")
           if (validate.in_plan(params.ENV)) {
             echo "OK"
           } else {
