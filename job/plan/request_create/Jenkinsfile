@@ -16,7 +16,10 @@ pipeline {
         node("master") {
           script {
             echo "入力チェック"
-            def slack = load("lib/slack.groovy")
+            // def slack = load("lib/slack.groovy")
+            echo "${pwd()}"
+            echo WORKSPACE
+
           }
         }
       }
