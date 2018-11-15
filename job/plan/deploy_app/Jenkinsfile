@@ -22,7 +22,7 @@ pipeline {
         }
       }
     }
-    stage("実行") {
+    stage("アプリデプロイ実行") {
       steps {
         // TODO (m.toga) ノードの設定は変更する必要がある
         node("master") {
