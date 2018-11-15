@@ -1,5 +1,8 @@
 pipeline {
   agent {node { label 'master' }}
+  parameters {
+    string(name: 'ENV', description: 'PLANxxを指定')
+  }
   stages {
     stage("環境情報の仮保存") {
       steps {
