@@ -9,7 +9,16 @@ pipeline {
       steps {
         script {
           def json = load("lib/json.groovy")
-          def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+          def slack = load("lib/slack.groovy")
+          try {
+            def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+          } catch(java.nio.file.NoSuchFileException e) {
+            
+            // TODO (m.toga) あとでテンプレート化する
+            def message = "すでに申請は承認されたか拒否されております。(UUID: ${params.UUID}" 
+            slack.notifyMessage("#hooktest", message)
+            error("すでに申請は承認されたか拒否されております。(UUID: ${params.UUID}")
+          }
           input_param = json.read(filePath)
           // json.delete(filePath)
         }
@@ -25,9 +34,17 @@ pipeline {
               name: 'ENV',
               value: input_param.target_env
             ]
-
           ]
-          build job: 'インフラ開発環境構築', parameters: parameters
+          try {
+            build job: 'インフラ開発環境構築', parameters: parameters
+            sh "exit 1"
+          } catch(Exception e) {
+            def slack = load("lib/slack.groovy")
+
+            def message = "「インフラ開発環境構築」ジョブにて何らかのエラーが発生(UUID: ${params.UUID})"
+            slack.notifyMessage("#hooktest", message)
+            error("「インフラ開発環境構築」ジョブにて何らかのエラーが発生(UUID: ${params.UUID})")
+          } 
         }
       }
     }
@@ -52,9 +69,6 @@ pipeline {
     }
     always {
         echo "Always"
-    }
-    failure {
-        echo "NG"
     }
   }
 }
