@@ -39,4 +39,9 @@ Date stringToDatetime(dateString, format="yyyy/MM/dd HH:mm:ss") {
   }
 }
 
+String datetimeToString(datetime, format="yyyy/MM/dd HH:mm:ss") {
+  def sdf = new SimpleDateFormat(format)
+  return sdf.format(date)
+}
+
 return this

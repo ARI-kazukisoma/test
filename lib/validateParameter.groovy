@@ -52,6 +52,7 @@ def checkMasterTags(text) {
       // unixtimeがなければ現在の時間に合わせる。
       libDatetime = load("lib/datetime.groovy")
       def now = libDatetime.now("yyyy/MM/dd HH:mm")
+      echo now
       unixtime = libDatetime.stringToUnixtime(now)
     }
 
