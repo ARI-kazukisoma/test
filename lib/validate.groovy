@@ -34,9 +34,9 @@ def splitMasterTag(masterTag) {
   }
   println splitVals
 
-  if (splitVals.size == 2) {
+  if (splitVals.size() == 2) {
     return [true, splitVals[0], splitVals[1]]
-  } else if (splitVals.size == 1) {
+  } else if (splitVals.size() == 1) {
     return [true, splitVals[0]]
   }
 
