@@ -1,5 +1,5 @@
 
-def inPlan(targetEnv) {
+def isPlan(targetEnv) {
   def CONSTS = load("constant/main.groovy").getAll()
   
   return CONSTS.PLAN_LIST.contains(targetEnv)
