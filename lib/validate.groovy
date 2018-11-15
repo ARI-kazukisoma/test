@@ -92,7 +92,7 @@ def checkMasterTagFormat(masterTag) {
     return [true, masterTag, transTagName, null]
   }
 
-  unixtime = libDatetime.stringToUnixtime(strDatetime)
+  unixtime = libDatetime.stringToUnixtime(strDatetime, format="yyyy/MM/dd HH:mm")
 
   if (unixtime == null) {
     // unixtime変換に失敗
