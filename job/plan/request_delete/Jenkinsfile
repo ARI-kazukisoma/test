@@ -6,9 +6,6 @@ pipeline {
   agent {node { label 'master' }}
   parameters {
     string(name: 'ENV', description: 'PLAN環境選択')
-    string(name: 'BRANCH', description: 'ブランチ名')
-    text(name: 'MASTER_TAGS', description: 'マスタータグ')
-    text(name: 'REASON', description: '利用用途')
 
   }
   stages {
@@ -24,7 +21,7 @@ pipeline {
           }
           transMasterTag = _transMasterTag
 
-          // TODO (m.toga) 未払い出しのものかどうかのチェックを実装する
+          // TODO (m.toga) 払い出しているものかのチェックを実装する
           if (parameterValidate.checkPlanEnv(params.ENV) == false) {
             echo "env NG"
           }
@@ -54,9 +51,6 @@ pipeline {
           def param = [
             'request_user': requestUser,
             'target_env': params.ENV,
-            'branch': params.BRANCH,
-            'master_tags': transMasterTag,
-            'reason': params.REASON,
             'request_datetime': now
           ]
           uuid = UUID.randomUUID().toString()
@@ -81,13 +75,10 @@ pipeline {
               'request_user': BUILD_USER,
               'target_env': params.ENV,
               'request_datetime': now,
-              'branch': params.BRANCH,
-              'master_tags': params.MASTER_TAGS,
-              'reason': params.REASON,
-              'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-              'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+              'approval_link': "${CONSTS.API_URL.APPROVAL_DELETE_PLAN_JOB}&amp;UUID=${uuid}",
+              'refusal_link': "${CONSTS.API_URL.REFUSAL_DELETE_PLAN_JOB}&amp;UUID=${uuid}"
             ]
-            message = template.toString("request_create_plan.template", binding)
+            message = template.toString("request_delete_plan.template", binding)
           }
 
           slack.notifyMessage("#hooktest", message)
