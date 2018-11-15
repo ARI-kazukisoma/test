@@ -18,9 +18,9 @@ pipeline {
           } catch(java.nio.file.NoSuchFileException e) {
             
             // TODO (m.toga) あとでテンプレート化する
-            def message = "すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID}" 
+            def message = "すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID})" 
             slack.notifyMessage("#hooktest", message)
-            error("すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID}")
+            error("すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID})")
           }
         }
       }
