@@ -15,11 +15,8 @@ pipeline {
       steps {
         script {
           def validate = load("lib/validate.groovy")
-          if (validate.in_plan(params.ENV)) {
-            echo "OK"
-          } else {
-            echo "NG"
-          }
+          validate.checkMasterTagFormat(params.MASTER_TAGS)
+
         }
       }
     }

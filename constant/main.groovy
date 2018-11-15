@@ -54,6 +54,9 @@ def getAll() {
       'Plan18',
       'Plan19',
       'Plan20',
+    ],
+    'MASTER_TAG': [
+      'DELIMITER': '&'
     ]
   ]
 }
