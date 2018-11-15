@@ -24,7 +24,7 @@ def checkMasterTagFormat(masterTag) {
 
   unixtime = libDatetime.stringToUnixtime(strDatetime)
 
-  if (unixtime == false) {
+  if (unixtime == null) {
     return [false, null, null, null, null]
   }
 
