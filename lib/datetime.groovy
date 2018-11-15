@@ -9,7 +9,13 @@ Long stringToUnixtime(dateString, format="yyyy/MM/dd HH:mm:ss") {
   def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
   def sdf = new SimpleDateFormat(format)
   sdf.setTimeZone(TimeZone.getTimeZone(CONSTS.TIMEZONE))
-  return sdf.parse(dateString).time / 1000
+  def unixtime = null
+  try {
+    unixtime = sdf.parse(dateString).time
+  } catch (ParseException e) {
+    return null
+  }
+  return unixtime / 1000
 }
 
 Date now(format="yyyy/MM/dd HH:mm:ss") {
