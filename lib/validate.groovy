@@ -23,7 +23,7 @@ def checkMasterTags(text) {
   masterTags = []
   text.trim().split("\n").toList().collect{
     // １行ずつマスタータグのフォーマットチェックを行い、分解した情報を格納
-    masterTag -> masterTags.push(_checkMasterTagFormat(masterTag))
+    masterTag -> masterTags.push(checkMasterTagFormat(masterTag))
   }
 
   // タグ指定が１つの場合
@@ -42,7 +42,7 @@ def checkMasterTags(text) {
   def resultMasterTags = []
   for (masterTag in masterTags) {
     def success = masterTag[0]
-    def tagName = masterTag[2]
+    def transTagName = masterTag[2]
     def unixtime = masterTag[3]
 
     if (success == false) {
@@ -55,35 +55,51 @@ def checkMasterTags(text) {
       return [false, null]
     }
 
-    resultMasterTags.push("${tagName}:${unixtime}")
+    resultMasterTags.push("${transTagName}:${unixtime}")
   }
 
    return [true, resultMasterTags.join(" ")]
 }
 
-def _checkMasterTagFormat(masterTag) {
+def checkMasterTagFormat(masterTag) {
 
   def libDatetime = load("lib/datetime.groovy")
-  def (success, tagName, strDatetime) = _splitMasterTag(masterTag)
+  def (success, tagName, strDatetime) = splitMasterTag(masterTag)
 
   if (success == false) {
-    return [false, null, null, null,]
+    // タグ名と日付の分割に失敗
+    return [false, null, null, null]
+  }
+
+  def (tagNameSuccess, transTagName) = checkTagNameFormat()
+
+  if (tagNameSuccess == false) {
+    // タグ名の命名がおかしい
+    return [false, null, null, null]
   }
 
   if (strDatetime == null) {
-    return [true, masterTag, tagName, null]
+    return [true, masterTag, transTagName, null]
   }
 
   unixtime = libDatetime.stringToUnixtime(strDatetime)
 
   if (unixtime == null) {
-    return [false, null, null, null, null]
+    return [false, null, null, null]
   }
 
-  return [true, masterTag, tagName, unixtime]
+  return [true, masterTag, transTagName, unixtime]
 }
 
-def _splitMasterTag(masterTag) {
+def checkTagNameFormat(tagName) {
+  if (tagName ==~ /te:/) {
+    // 「te:～」 を「te_～」に変換
+    return [true, tagName.replaceFirst(/te:/, 'te_')]
+  }
+  return [false, null]
+}
+
+def splitMasterTag(masterTag) {
   def CONSTS = load("constant/main.groovy").getAll()
   def splitVals = []
   for (splitVal in masterTag.split(CONSTS.MASTER_TAG.DELIMITER)) {
