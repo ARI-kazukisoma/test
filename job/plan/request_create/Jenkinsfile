@@ -6,7 +6,7 @@ pipeline {
   parameters {
     string(name: 'ENV', description: 'PLAN環境選択')
     string(name: 'BRANCH', description: 'ブランチ名')
-    string(name: 'MASTER_TAGS', description: 'マスタータグ')
+    text(name: 'MASTER_TAGS', description: 'マスタータグ')
     text(name: 'REASON', description: '利用用途')
 
   }
@@ -15,11 +15,7 @@ pipeline {
       steps {
         script {
           def validate = load("lib/validate.groovy")
-          // def (success, masterTag, tagName, unixtime) = validate.checkMasterTagFormat(params.MASTER_TAGS)
-
-          // if (validate.isPlan(params.ENV)) {
-          //   echo "Ok"
-          // }
+          
           if (validate.isNull(params.BRANCH)) {
             echo "NULL"
           }

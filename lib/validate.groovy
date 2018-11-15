@@ -13,7 +13,55 @@ def isNull(val, nullVals=[null, '']) {
   return nullVals.contains(val.trim())
 }
 
-def checkMasterTagFormat(masterTag) {
+
+def checkMasterTags(text) {
+
+  if isNull(text) {
+    return [false, null]
+  }
+
+  masterTags = []
+  text.trim().split("\n").toList().collect{
+    // １行ずつマスタータグのフォーマットチェックを行い、分解した情報を格納
+    masterTag -> masterTags.push(_checkMasterTagFormat(masterTag))
+  }
+
+  // タグ指定が１つの場合
+  if (masterTags.size() == 1) {
+    def (success, masterTag, tagName, unixtime) = masterTag[0]
+
+    if (unixtime) {
+      return [false, null]
+    }
+
+    return [true, tagName]
+
+  }
+
+  // タグ指定が複数の場合
+  def resultMaterTags = ""
+  for (masterTag in masterTags) {
+    def success = masterTag[0]
+    def tagName = masterTag[2]
+    def unixtime = masterTag[3]
+
+    if (success == false) {
+      // １つでもフォーマットにミスがあればエラー
+      return [false, null]
+    }
+
+    if (unixtime == null) {
+      // １つでも日付の指定がなければエラー
+      return [false, null]
+    }
+
+    resultMaterTags.push("${tagName:${unixtime}}")
+  }
+
+   return resultMasterTags.join(" ")
+}
+
+def _checkMasterTagFormat(masterTag) {
 
   def libDatetime = load("lib/datetime.groovy")
   def (success, tagName, strDatetime) = splitMasterTag(masterTag)
@@ -35,7 +83,7 @@ def checkMasterTagFormat(masterTag) {
   return [true, masterTag, tagName, unixtime]
 }
 
-def splitMasterTag(masterTag) {
+def _splitMasterTag(masterTag) {
   def CONSTS = load("constant/main.groovy").getAll()
   def splitVals = []
   for (splitVal in masterTag.split(CONSTS.MASTER_TAG.DELIMITER)) {
