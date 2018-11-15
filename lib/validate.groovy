@@ -61,6 +61,11 @@ def checkMasterTags(text) {
    return [true, resultMasterTags.join(" ")]
 }
 
+/**
+マスタータグ(単体)のフォーマットチェック
+問題なければtrueと変換後の値が返される
+
+*/
 def checkMasterTagFormat(masterTag) {
 
   def libDatetime = load("lib/datetime.groovy")
@@ -79,12 +84,14 @@ def checkMasterTagFormat(masterTag) {
   }
 
   if (strDatetime == null) {
+    // 日付の指定がなければ以降の処理はしない
     return [true, masterTag, transTagName, null]
   }
 
   unixtime = libDatetime.stringToUnixtime(strDatetime)
 
   if (unixtime == null) {
+    // unixtime変換に失敗
     return [false, null, null, null]
   }
 
