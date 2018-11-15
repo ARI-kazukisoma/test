@@ -1,0 +1,44 @@
+def inputParam = null
+pipeline {
+  agent {node { label 'master' }}
+  parameters {
+    string(name: 'UUID', description: 'UUID')
+  }
+  stages {
+    stage("jsonファイルからパラメータ取得") {
+      steps {
+        script {
+          def json = load("lib/json.groovy")
+          def slack = load("lib/slack.groovy")
+          try {
+            def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+            inputParam = json.read(filePath)
+            // TODO (m.toga) テスト中のため一旦コメントアウト
+            // json.delete(filePath)
+          } catch(java.nio.file.NoSuchFileException e) {
+            
+            // TODO (m.toga) あとでテンプレート化する
+            def message = "すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID}" 
+            slack.notifyMessage("#hooktest", message)
+            error("すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID}")
+          }
+        }
+      }
+    }
+    stage("削除処理実行") {
+      steps {
+        script {
+          echo "削除処理実行"
+        }
+      }
+    }
+  }
+  post {
+    success {
+        echo "OK"
+    }
+    always {
+        echo "Always"
+    }
+  }
+}
