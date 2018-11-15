@@ -29,11 +29,10 @@ def checkMasterTagFormat(masterTag) {
 def splitMasterTag(masterTag) {
   def CONSTS = load("constant/main.groovy").getAll()
   def splitVals = []
-  def tmp = masterTag.split(CONSTS.MASTER_TAG.DELIMITER)
-  echo tmp
-  splitVals.push(masterTag.split(CONSTS.MASTER_TAG.DELIMITER))
+  for (splitVal in masterTag.split(CONSTS.MASTER_TAG.DELIMITER)) {
+    splitVals.push(splitVal)
+  }
   println splitVals
-  splitVals = splitVals.flatten()
 
   if (splitVals.length == 2) {
     return [true, splitVals[0], splitVals[1]]
