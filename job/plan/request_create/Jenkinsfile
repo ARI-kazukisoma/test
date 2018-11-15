@@ -12,8 +12,8 @@ pipeline {
   }
   stages {
     stage("入力チェック") {
-      node("master") {
-        steps {
+      steps {
+        node("master") {
           script {
             echo "入力チェック"
             def slack = load("lib/slack.groovy")
@@ -22,8 +22,8 @@ pipeline {
       }
     }
     stage("入力チェック2") {
-      node("master") {
-        steps {
+      steps {
+        node("master") {
           script {
             echo "入力チェック"
             def template = load("lib/template.groovy")
