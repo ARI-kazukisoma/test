@@ -56,13 +56,13 @@ pipeline {
       }
     }
   }
-  post {
-    always {
-      script {
-        // TODO (m.toga) ロックサンプル　後で正式に実装する
-        // def lock = load("lib/lock.groovy")
-        // lock.do_unlock(params.ENV)
-      }
-    }
-  }
+  // post {
+  //   always {
+  //     script {
+  //       // TODO (m.toga) ロックサンプル　後で正式に実装する
+  //       // def lock = load("lib/lock.groovy")
+  //       // lock.do_unlock(params.ENV)
+  //     }
+  //   }
+  // }
 }

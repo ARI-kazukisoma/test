@@ -18,6 +18,7 @@ pipeline {
     stage("インフラ作成") {
       steps {
         script {
+          echo input_param.ENV
           def parameters = [
             [
               $class: 'StringParameterValue',
