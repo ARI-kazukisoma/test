@@ -17,15 +17,15 @@ pipeline {
           def validate = load("lib/validate.groovy")
           validate.checkMasterTagFormat(params.MASTER_TAGS)
 
-          if (validate.isPlan(params.ENV)) {
-            echo "Ok"
-          }
-          if (validate.isNull(params.BRANCH)) {
-            echo "NULL"
-          }
-          if (validate.isNull(params.REASON)) {
-            echo "NULL"
-          }
+          // if (validate.isPlan(params.ENV)) {
+          //   echo "Ok"
+          // }
+          // if (validate.isNull(params.BRANCH)) {
+          //   echo "NULL"
+          // }
+          // if (validate.isNull(params.REASON)) {
+          //   echo "NULL"
+          // }
 
         }
       }
