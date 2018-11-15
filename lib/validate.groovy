@@ -30,6 +30,10 @@ def checkMasterTags(text) {
   if (masterTags.size() == 1) {
     def (success, masterTag, tagName, unixtime) = masterTags[0]
 
+    if (success == false) {
+      return [false, null]
+    } 
+
     if (unixtime) {
       return [false, null]
     }
