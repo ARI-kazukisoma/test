@@ -34,9 +34,11 @@ def splitMasterTag(masterTag) {
   }
   println splitVals
 
-  if (splitVals.length() == 2) {
+  echo "aaaaaaaaaaaaaaaaaa"
+  echo "${splitVals.size()}"
+  if (splitVals.size() == 2) {
     return [true, splitVals[0], splitVals[1]]
-  } else if (splitVals.length() == 1) {
+  } else if (splitVals.size() == 1) {
     return [true, splitVals[0]]
   }
 
