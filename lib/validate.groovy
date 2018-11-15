@@ -16,7 +16,7 @@ def isNull(val, nullVals=[null, '']) {
 
 def checkMasterTags(text) {
 
-  if isNull(text) {
+  if (isNull(text)) {
     return [false, null]
   }
 
