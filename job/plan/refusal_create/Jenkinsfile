@@ -1,6 +1,6 @@
 def input_param = null
 pipeline {
-  agent any
+  agent {node { label 'master' }}
   parameters {
     string(name: 'UUID', description: 'UUID')
   }

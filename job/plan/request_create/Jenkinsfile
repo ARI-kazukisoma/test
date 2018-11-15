@@ -2,9 +2,9 @@ def uuid = ''
 def now = null
 
 pipeline {
-  agent any
+  agent {node { label 'master' }}
   parameters {
-    choice(name: 'ENV', choices: ['PLAN07', 'PLAN08', 'PLAN09', 'PLAN10', 'PLAN11', 'PLAN12', 'PLAN13', 'PLAN14', 'PLAN15', 'PLAN16', 'PLAN17', 'PLAN18', 'PLAN19', 'PLAN20', 'PLAN21', 'PLAN22', 'PLAN23', 'PLAN24', 'PLAN25', 'PLAN26'], description: 'PLAN環境選択')
+    string(name: 'ENV', description: 'PLAN環境選択')
     string(name: 'BRANCH', description: 'ブランチ名')
     string(name: 'MASTER_TAGS', description: 'マスタータグ')
     text(name: 'REASON', description: '利用用途')
@@ -13,69 +13,68 @@ pipeline {
   stages {
     stage("入力チェック") {
       steps {
-        node("master") {
-          script {
-            echo "入力チェック"
+        script {
+          def validate = load("validate.groogy")
+          if (validate.in_plan(params.ENV)) {
+            echo "OK"
+          } else {
+            echo "NG"
           }
         }
       }
     }
     stage("パラメータファイル作成") {
       steps {
-        node("master") {
-          script {
-            def datetime = load("../${JOB_NAME}/lib/datetime.groovy")
-            now = datetime.now()
+        script {
+          def datetime = load("lib/datetime.groovy")
+          now = datetime.now()
 
-            def requestUser = ''
-            wrap([$class: 'BuildUser']) {
-              requestUser = BUILD_USER
-            }
-
-            // 実行に必要なパラメータをjsonファイルに保存
-            def param = [
-              'request_user': requestUser,
-              'target_env': params.ENV,
-              'branch': params.BRANCH,
-              'master_tags': params.MASTER_TAGS,
-              'reason': params.REASON,
-              'request_datetime': now
-            ]
-            uuid = UUID.randomUUID().toString()
-            def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
-            def json = load("../${JOB_NAME}/lib/json.groovy")
-            json.write(param, filePath)
+          def requestUser = ''
+          wrap([$class: 'BuildUser']) {
+            requestUser = BUILD_USER
           }
+
+          // 実行に必要なパラメータをjsonファイルに保存
+          def param = [
+            'request_user': requestUser,
+            'target_env': params.ENV,
+            'branch': params.BRANCH,
+            'master_tags': params.MASTER_TAGS,
+            'reason': params.REASON,
+            'request_datetime': now
+          ]
+          uuid = UUID.randomUUID().toString()
+          def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
+          def json = load("lib/json.groovy")
+          json.write(param, filePath)
         }
       }
     }
     stage("Slackへ申請送信") {
       steps {
-        node("master") {
-          script {
-            def slack = load("../${JOB_NAME}/lib/slack.groovy")
-            def template = load("../${JOB_NAME}/lib/template.groovy")
-            def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
-            def message = ""
+        script {
+          def slack = load("lib/slack.groovy")
+          def template = load("lib/template.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
+          def message = ""
 
-            // 実行ユーザ(BUILD_USER)を取得するためwrapする
-            wrap([$class: 'BuildUser']) {
-              def binding = [
-                'uuid': uuid,
-                'request_user': BUILD_USER,
-                'target_env': params.ENV,
-                'request_datetime': now,
-                'branch': params.BRANCH,
-                'master_tags': params.MASTER_TAGS,
-                'reason': params.REASON,
-                'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-                'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
-              ]
-              message = template.toString("request_create_plan.template", binding)
-            }
-
-            slack.notifyMessage("#hooktest", message)
+          // 実行ユーザ(BUILD_USER)を取得するためwrapする
+          wrap([$class: 'BuildUser']) {
+            def binding = [
+              'uuid': uuid,
+              'request_user': BUILD_USER,
+              'target_env': params.ENV,
+              'request_datetime': now,
+              'branch': params.BRANCH,
+              'master_tags': params.MASTER_TAGS,
+              'reason': params.REASON,
+              'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
+              'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+            ]
+            message = template.toString("request_create_plan.template", binding)
           }
+
+          slack.notifyMessage("#hooktest", message)
         }
       }
     }

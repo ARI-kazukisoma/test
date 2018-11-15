@@ -12,7 +12,7 @@ pipeline {
     stage("定数を取得") {
       steps {
         script {
-          def CONSTS = load("constant/main.groovy").get_all()
+          def CONSTS = load("../${JOB_NAME}/constant/main.groovy").get_all()
           echo CONSTS.SAMPLE.NUM
         }
       }
