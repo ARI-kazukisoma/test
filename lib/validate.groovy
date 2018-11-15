@@ -14,7 +14,7 @@ def checkMasterTagFormat(masterTag) {
   def libDatetime = load("lib/datetime.groovy")
   def (success, tagName, strDatetime) = splitMasterTag(masterTag)
 
-  if !(success) {
+  if (success == false) {
     return [false, null, null, null,]
   }
 
