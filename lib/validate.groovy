@@ -58,7 +58,7 @@ def checkMasterTags(text) {
     resultMasterTags.push("${tagName}:${unixtime}")
   }
 
-   return resultMasterTags.join(" ")
+   return [true, resultMasterTags.join(" ")]
 }
 
 def _checkMasterTagFormat(masterTag) {
