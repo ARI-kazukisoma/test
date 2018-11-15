@@ -70,7 +70,6 @@ pipeline {
           ]
           try {
             build job: 'インフラ開発環境構築', parameters: parameters
-            sh "exit 1"
           } catch(Exception e) {
 
             // TODO (m.toga) あとでテンプレート化する
