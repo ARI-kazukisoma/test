@@ -29,8 +29,8 @@ pipeline {
         node("master") {
           script {
             echo "入力チェック"
-            def template = load("../${JOB_NAME}/lib/template.groovy")
-            template.now()
+            def datetime = load("../${JOB_NAME}/lib/datetime.groovy")
+            datetime.now()
           }
         }
       }
