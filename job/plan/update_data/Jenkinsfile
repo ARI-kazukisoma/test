@@ -24,15 +24,16 @@ pipeline {
         }
       }
     }
-    stage("ファイルを移動") {
+    stage("データ更新") {
       steps {
         // TODO (m.toga) ノードの設定は変更する必要がある
         node("master") {
           dir("/home/jenkins/build_shell/") {
-            // TODO (m.toga) タグのフォーマットを現行環境のフォーマットに直す
-            // sh "remote_exec.sh ${params.ENV} ./avalon_update_master.sh develop develop ${params.BRANCH} ${MASTER_TAGS}"
+            // TODO (m.toga) 
+            def NODE_ENV = "${params.ENV.toLowerCase()}.yaml"
+            def SQL_ENV = "develop"
+            // sh "remote_exec.sh ${params.ENV} ./avalon_update_master.sh ${NODE_ENV} ${SQL_ENV} ${params.BRANCH} ${MASTER_TAGS}"
           }
-          
         }
       }
     }

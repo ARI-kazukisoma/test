@@ -18,9 +18,9 @@ pipeline {
           } catch(java.nio.file.NoSuchFileException e) {
             
             // TODO (m.toga) あとでテンプレート化する
-            def message = "すでに申請は承認されたか拒否されております。(UUID: ${params.UUID}" 
+            def message = "すでに申請は承認されたか拒否されております。(申請ID: ${params.UUID}" 
             slack.notifyMessage("#hooktest", message)
-            error("すでに申請は承認されたか拒否されております。(UUID: ${params.UUID}")
+            error("すでに申請は承認されたか拒否されております。(申請ID: ${params.UUID}")
           }
         }
       }
@@ -28,7 +28,6 @@ pipeline {
     stage("インフラ作成") {
       steps {
         script {
-          echo input_param.ENV
           def parameters = [
             [
               $class: 'StringParameterValue',
@@ -38,13 +37,13 @@ pipeline {
           ]
           try {
             build job: 'インフラ開発環境構築', parameters: parameters
-            sh "exit 1"
           } catch(Exception e) {
-            def slack = load("lib/slack.groovy")
 
-            def message = "「インフラ開発環境構築」ジョブにて何らかのエラーが発生(UUID: ${params.UUID})"
+            // TODO (m.toga) あとでテンプレート化する
+            def slack = load("lib/slack.groovy")
+            def message = "「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
             slack.notifyMessage("#hooktest", message)
-            error("「インフラ開発環境構築」ジョブにて何らかのエラーが発生(UUID: ${params.UUID})")
+            error("「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
           } 
         }
       }
@@ -52,7 +51,23 @@ pipeline {
     stage("マスターデータ更新") {
       steps {
         script {
-          echo "マスターデータ更新"
+          def parameters = [
+            [
+              $class: 'StringParameterValue',
+              name: 'ENV',
+              value: input_param.target_env
+            ]
+          ]
+          try {
+            build job: 'インフラ開発環境構築', parameters: parameters
+          } catch(Exception e) {
+
+            // TODO (m.toga) あとでテンプレート化する
+            def slack = load("lib/slack.groovy")
+            def message = "「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
+            slack.notifyMessage("#hooktest", message)
+            error("「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
+          } 
         }
       }
     }
