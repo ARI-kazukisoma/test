@@ -12,21 +12,22 @@ pipeline {
   }
   stages {
     stage("入力チェック") {
-      steps {
-        script {
-          node("master") {
+      node("master") {
+        steps {
+          script {
             echo "入力チェック"
             def slack = load("lib/slack.groovy")
           }
         }
       }
-
-      steps {
-        script {
-          node("master") {
-            echo "入力チェック2"
-            def datetime = load("lib/datetime.groovy")
-            datetime.now()
+    }
+    stage("入力チェック2") {
+      node("master") {
+        steps {
+          script {
+            echo "入力チェック"
+            def template = load("lib/template.groovy")
+            template.now()
           }
         }
       }
