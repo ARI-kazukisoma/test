@@ -5,12 +5,12 @@ def inPlan(targetEnv) {
   return CONSTS.PLAN_LIST.contains(targetEnv)
 }
 
-def isNull(val, nullVals=[null, '', ' ']) {
-  if (nullValus.contains(val) {
+def isNull(val, nullVals=[null, '']) {
+  if (nullValus.contains(val)) {
     return true
   }
 
-  return nullValus.contains(val.trim()
+  return nullValus.contains(val.trim())
 }
 
 def checkMasterTagFormat(masterTag) {
