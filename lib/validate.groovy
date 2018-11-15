@@ -39,7 +39,7 @@ def checkMasterTags(text) {
   }
 
   // タグ指定が複数の場合
-  def resultMaterTags = ""
+  def resultMaterTags = []
   for (masterTag in masterTags) {
     def success = masterTag[0]
     def tagName = masterTag[2]
