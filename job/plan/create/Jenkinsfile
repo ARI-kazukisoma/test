@@ -11,7 +11,7 @@ pipeline {
           def json = load("lib/json.groovy")
           def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
           input_param = json.read(filePath)
-          json.delete(filePath)
+          // json.delete(filePath)
         }
       }
     }
