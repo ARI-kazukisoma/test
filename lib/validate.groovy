@@ -12,6 +12,7 @@ def isNull(val, nullVals=[null, '', ' ']) {
 def checkMasterTagFormat(masterTag) {
 
   def libDatetime = load("lib/datetime.groovy")
+  echo "aaaa ${masterTag}"
   def (success, tagName, strDatetime) = splitMasterTag(masterTag)
 
   if (success) {
