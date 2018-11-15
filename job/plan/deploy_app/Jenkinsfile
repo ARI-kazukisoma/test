@@ -3,7 +3,6 @@ pipeline {
   parameters {
     string(name: 'ENV', description: 'PLANxxを指定')
     string(name: 'BRANCH', description: 'ブランチを指定')
-    string(name: 'MASTER_TAGS', description: 'マスタータグ')
   }
   stages {
     stage("環境情報の仮保存") {
@@ -15,22 +14,18 @@ pipeline {
           dir(env.TMP_ENV_CONFIGURATION_PATH) {
             sh "mkdir -p ${params.ENV}"
             json.write([
-              'master_tags': env.MASTER_TAGS,
               'branch': env.BRANCH
-            ], "${params.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.UPDATE_DATA}")
+            ], "${params.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.DEPLOY_APP}")
           }
         }
       }
     }
-    stage("ファイルを移動") {
+    stage("実行") {
       steps {
         // TODO (m.toga) ノードの設定は変更する必要がある
         node("master") {
-          dir("/home/jenkins/build_shell/") {
-            // TODO (m.toga) タグのフォーマットを現行環境のフォーマットに直す
-            // sh "remote_exec.sh ${params.ENV} ./avalon_update_master.sh develop develop ${params.BRANCH} ${MASTER_TAGS}"
-          }
-          
+          // TODO(m.toga) Windows上でsh認識するのか確認
+          // sh "/c/Jenkins/aws_deploy.sh ${params.ENV}"
         }
       }
     }
