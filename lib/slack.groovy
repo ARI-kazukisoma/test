@@ -1,6 +1,10 @@
-void notifyMessage(channelTag, message) {
-  echo "aaaa"
-  def CONSTS = load("constant/main.groovy").getAll()
+def notifyMessage(channelTag, message, CONSTS = null) {
+
+  if (CONSTS == null) {
+    try {
+      CONSTS = load("constant/main.groovy").getAll()
+    } catch(Exception e) {}
+  }
   def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
 
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
