@@ -31,8 +31,10 @@ pipeline {
 
           message = template.toString('refusal_delete_plan.template', binding)
           // TODO エラーになるので調査
-          // slack.notifyMessage("admin_channel", message)
-          // slack.notifyMessage("planner_channel", message)
+          try {
+            slack.notifyMessage("admin_channel", message)
+            slack.notifyMessage("planner_channel", message)
+          } catch(Exception e) {}
         }
       }
     }

@@ -134,8 +134,10 @@ pipeline {
           ]
           message = template.toString('success_create_plan.template', binding)
           // TODO エラーになるので調査
-          // slack.notifyMessage("admin_channel", message)
-          // slack.notifyMessage("planner_channel", message)
+          try {
+            slack.notifyMessage("admin_channel", message)
+            slack.notifyMessage("planner_channel", message)
+          } catch(Exception e) {}
         }
       }
     }
