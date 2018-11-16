@@ -23,42 +23,42 @@ pipeline {
         }
       }
     }
-    // stage("入力チェック") {
-    //   steps {
-    //     script {
-    //       def parameterValidate = load("lib/validateParameter.groovy")
-    //       def slack = load("lib/slack.groovy")
-    //       def template = load("lib/template.groovy")
-    //       def errorMessages = []
+    stage("入力チェック") {
+      steps {
+        script {
+          def parameterValidate = load("lib/validateParameter.groovy")
+          def slack = load("lib/slack.groovy")
+          def template = load("lib/template.groovy")
+          def errorMessages = []
 
-    //       // 環境の入力チェック
-    //       (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
-    //       if (success == false) {
-    //         errorMessages.push(template.getValidateError(errorCode, 'ENV'))
-    //       }
+          // 環境の入力チェック
+          (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
+          if (success == false) {
+            errorMessages.push(template.getValidateError(errorCode, 'ENV'))
+          }
 
-    //       // ブランチの入力チェック
-    //       (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
-    //       if (success == false) {
-    //         errorMessages.push(template.getValidateError(errorCode, 'BRANCH'))
-    //       }
+          // ブランチの入力チェック
+          (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
+          if (success == false) {
+            errorMessages.push(template.getValidateError(errorCode, 'BRANCH'))
+          }
 
-    //       // マスタータグの入力チェック
-    //       (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
-    //       if (success == false) {
-    //         errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
-    //       }
-    //       transMasterTag = _transMasterTag
+          // マスタータグの入力チェック
+          (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+          if (success == false) {
+            errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
+          }
+          transMasterTag = _transMasterTag
 
-    //       if (errorMessages.size() > 0) {
-    //         message = template.getValidateAllError(errorMessages)
-    //         slack.errorMessage('planner_channel', message)
-    //         error(message)
-    //       }
+          if (errorMessages.size() > 0) {
+            message = template.getValidateAllError(errorMessages)
+            slack.errorMessage('planner_channel', message)
+            error(message)
+          }
 
-    //     }
-    //   }
-    // }
+        }
+      }
+    }
     // stage("マスターデータ更新") {
     //   steps {
     //     script {
