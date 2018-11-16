@@ -1,7 +1,8 @@
 def notifyMessage(channelTag, message) {
   def (channel, credentialsId) = getChannelCredential(channelTag)
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-    slackSend channel: channel, token: token, message: message
+    // slackSend channel: channel, token: token, message: message
+    echo "test"
   }
 }
 
