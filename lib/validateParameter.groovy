@@ -9,7 +9,6 @@
 def checkMasterTags(text) {
 
   def validate = load("lib/validate.groovy")
-  def error = load("lib/error.groovy")
 
   if (validate.isNull(text)) {
     return [false, null, 'VLD001']
