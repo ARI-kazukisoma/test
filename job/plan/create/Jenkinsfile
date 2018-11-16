@@ -114,8 +114,21 @@ pipeline {
     success {
       // 構成ファイルをtmpから正式なディレクトリにコピーする
       dir(env.TMP_ENV_CONFIGURATION_PATH) {
-        sh "cp -pr ${inputParam.env} ${env.ENV_CONFIGURATION_PATH}/"
+        sh "cp -pr ${inputParam.target_env} ${env.ENV_CONFIGURATION_PATH}/"
       }
+      def slack = load("lib/slack.groovy")
+      def template = load("lib/template.groovy")
+
+      def binding = [
+        'uuid': params.UUID,
+        'request_user': inputParam.request_user,
+        'request_datetime': inputParam.request_datetime,
+        'target_env': inputParam.target_env,
+        'branch': inputParam.branch
+      ]
+      def message = template.toString('success_create_plan.template')
+      slack.notifyMessage("admin_channel", message)
+      slack.notifyMessage("planner_channel", message)
     }
   }
 }
