@@ -23,136 +23,136 @@ pipeline {
         }
       }
     }
-    stage("入力チェック") {
-      steps {
-        script {
-          def parameterValidate = load("lib/validateParameter.groovy")
-          def slack = load("lib/slack.groovy")
-          def template = load("lib/template.groovy")
-          def errorMessages = []
+    // stage("入力チェック") {
+    //   steps {
+    //     script {
+    //       def parameterValidate = load("lib/validateParameter.groovy")
+    //       def slack = load("lib/slack.groovy")
+    //       def template = load("lib/template.groovy")
+    //       def errorMessages = []
 
-          // 環境の入力チェック
-          (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
-          if (success == false) {
-            errorMessages.push(template.getValidateError(errorCode, 'ENV'))
-          }
+    //       // 環境の入力チェック
+    //       (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
+    //       if (success == false) {
+    //         errorMessages.push(template.getValidateError(errorCode, 'ENV'))
+    //       }
 
-          // ブランチの入力チェック
-          (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
-          if (success == false) {
-            errorMessages.push(template.getValidateError(errorCode, 'BRANCH'))
-          }
+    //       // ブランチの入力チェック
+    //       (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
+    //       if (success == false) {
+    //         errorMessages.push(template.getValidateError(errorCode, 'BRANCH'))
+    //       }
 
-          // マスタータグの入力チェック
-          (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
-          if (success == false) {
-            errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
-          }
-          transMasterTag = _transMasterTag
+    //       // マスタータグの入力チェック
+    //       (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+    //       if (success == false) {
+    //         errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
+    //       }
+    //       transMasterTag = _transMasterTag
 
-          if (errorMessages.size() > 0) {
-            message = template.getValidateAllError(errorMessages)
-            slack.errorMessage('planner_channel', message)
-            error(message)
-          }
+    //       if (errorMessages.size() > 0) {
+    //         message = template.getValidateAllError(errorMessages)
+    //         slack.errorMessage('planner_channel', message)
+    //         error(message)
+    //       }
 
-        }
-      }
-    }
-    stage("マスターデータ更新") {
-      steps {
-        script {
-          def parameters = [
-            [
-              $class: 'StringParameterValue',
-              name: 'ENV',
-              value: params.ENV
-            ],
-            [
-              $class: 'StringParameterValue',
-              name: 'BRANCH',
-              value: params.BRANCH
-            ],
-            [
-              $class: 'StringParameterValue',
-              name: 'MASTER_TAGS',
-              value: params.MASTER_TAGS
-            ]
-          ]
-          try {
-            build job: 'マスターデータ更新', parameters: parameters
-          } catch(Exception e) {
-            def slack = load("lib/slack.groovy")
-            def template = load("lib/template.groovy")
-            message = template.getSafetyError('SFY004')
-            slack.errorMessage("admin_channel", message)
-            slack.errroMessage("planner_channel", message)
-            error(message)
-          } 
-        }
-      }
-    }
-    stage("アプリバージョン更新") {
-      steps {
-        script {
-          def parameters = [
-            [
-              $class: 'StringParameterValue',
-              name: 'ENV',
-              value: params.ENV
-            ],
-            [
-              $class: 'StringParameterValue',
-              name: 'BRANCH',
-              value: params.BRANCH
-            ]
-          ]
-          try {
-            build job: 'アプリバージョン更新', parameters: parameters
-          } catch(Exception e) {
-            def slack = load("lib/slack.groovy")
-            def template = load("lib/template.groovy")
-            message = template.getSafetyError('SFY005')
-            slack.errorMessage("admin_channel", message)
-            slack.errorMessage("planner_channel", message)
-            error(message)
-          }           
-        }
-      }
-    }
-    stage("構成情報保管") {
-      steps {
-        script {
-          // 構成ファイルをtmpから正式なディレクトリにコピーする
-          // dir(env.TMP_ENV_CONFIGURATION_PATH) {
-          //   sh "cp -pr ${inputParam.target_env} ${env.ENV_CONFIGURATION_PATH}/"
-          // }
-          echo "aaa"
-        }
-      }
-    }
-    stage("Slackへ結果送信") {
-      steps {
-        script {
-          def slack = load("lib/slack.groovy")
-          def template = load("lib/template.groovy")
+    //     }
+    //   }
+    // }
+    // stage("マスターデータ更新") {
+    //   steps {
+    //     script {
+    //       def parameters = [
+    //         [
+    //           $class: 'StringParameterValue',
+    //           name: 'ENV',
+    //           value: params.ENV
+    //         ],
+    //         [
+    //           $class: 'StringParameterValue',
+    //           name: 'BRANCH',
+    //           value: params.BRANCH
+    //         ],
+    //         [
+    //           $class: 'StringParameterValue',
+    //           name: 'MASTER_TAGS',
+    //           value: params.MASTER_TAGS
+    //         ]
+    //       ]
+    //       try {
+    //         build job: 'マスターデータ更新', parameters: parameters
+    //       } catch(Exception e) {
+    //         def slack = load("lib/slack.groovy")
+    //         def template = load("lib/template.groovy")
+    //         message = template.getSafetyError('SFY004')
+    //         slack.errorMessage("admin_channel", message)
+    //         slack.errroMessage("planner_channel", message)
+    //         error(message)
+    //       } 
+    //     }
+    //   }
+    // }
+    // stage("アプリバージョン更新") {
+    //   steps {
+    //     script {
+    //       def parameters = [
+    //         [
+    //           $class: 'StringParameterValue',
+    //           name: 'ENV',
+    //           value: params.ENV
+    //         ],
+    //         [
+    //           $class: 'StringParameterValue',
+    //           name: 'BRANCH',
+    //           value: params.BRANCH
+    //         ]
+    //       ]
+    //       try {
+    //         build job: 'アプリバージョン更新', parameters: parameters
+    //       } catch(Exception e) {
+    //         def slack = load("lib/slack.groovy")
+    //         def template = load("lib/template.groovy")
+    //         message = template.getSafetyError('SFY005')
+    //         slack.errorMessage("admin_channel", message)
+    //         slack.errorMessage("planner_channel", message)
+    //         error(message)
+    //       }           
+    //     }
+    //   }
+    // }
+    // stage("構成情報保管") {
+    //   steps {
+    //     script {
+    //       // 構成ファイルをtmpから正式なディレクトリにコピーする
+    //       // dir(env.TMP_ENV_CONFIGURATION_PATH) {
+    //       //   sh "cp -pr ${inputParam.target_env} ${env.ENV_CONFIGURATION_PATH}/"
+    //       // }
+    //       echo "aaa"
+    //     }
+    //   }
+    // }
+    // stage("Slackへ結果送信") {
+    //   steps {
+    //     script {
+    //       def slack = load("lib/slack.groovy")
+    //       def template = load("lib/template.groovy")
 
-          def binding = [
-            'uuid': params.UUID,
-            'request_user': inputParam.request_user,
-            'request_datetime': inputParam.request_datetime,
-            'target_env': inputParam.target_env,
-            'branch': inputParam.branch
-          ]
-          message = template.toString('success_create_plan.template', binding)
-          // TODO エラーになるので調査
-          try {
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
-          } catch(Exception e) {}
-        }
-      }
-    }
+    //       def binding = [
+    //         'uuid': params.UUID,
+    //         'request_user': inputParam.request_user,
+    //         'request_datetime': inputParam.request_datetime,
+    //         'target_env': inputParam.target_env,
+    //         'branch': inputParam.branch
+    //       ]
+    //       message = template.toString('success_create_plan.template', binding)
+    //       // TODO エラーになるので調査
+    //       try {
+    //         slack.notifyMessage("admin_channel", message)
+    //         slack.notifyMessage("planner_channel", message)
+    //       } catch(Exception e) {}
+    //     }
+    //   }
+    // }
   }
   post {
     always {
