@@ -16,11 +16,12 @@ pipeline {
             // TODO (m.toga) テスト中のため一旦コメントアウト
             // json.delete(filePath)
           } catch(java.nio.file.NoSuchFileException e) {
-            
-            // TODO (m.toga) あとでテンプレート化する
-            def message = "すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID})" 
-            slack.notifyMessage("admin_channel", message)
-            error("すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID})")
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY002')
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
+            error(message)
           }
         }
       }
@@ -34,11 +35,5 @@ pipeline {
     }
   }
   post {
-    success {
-        echo "OK"
-    }
-    always {
-        echo "Always"
-    }
   }
 }
