@@ -14,6 +14,7 @@ pipeline {
 
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+            inputParam = json.read(filePath)
             json.delete(filePath)
           } catch(java.nio.file.NoSuchFileException e) {
             message = template.getSafetyError('SFY001')
