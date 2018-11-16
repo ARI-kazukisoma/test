@@ -34,7 +34,7 @@ pipeline {
           def success = null
           def errorCode = null
 
-          if (!(params.IS_DEPLOY_APP && params.IS_UPDATE_DATA)) {
+          if (params.IS_DEPLOY_APP == false && params.IS_UPDATE_DATA == false) {
             errorMessages.push(template.getValidateError("VLD007", 'IS_DEPLOY_APP, IS_UPDATE_DATA'))
           }
           // 環境の入力チェック
