@@ -30,6 +30,15 @@ pipeline {
         }
       }
     }
+    stage("構成情報削除") {
+      steps {
+        script {
+          dir(env.ENV_CONFIGURATION_PATH) {
+            sh "rm -rf ${inputParam.target_env}"
+          }
+        }
+      }
+    }
     stage("Slackへ結果送信") {
       steps {
         script {
