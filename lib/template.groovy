@@ -26,7 +26,6 @@ String getValidateAllError(errorMessages) {
     def binding = [
       "user_name": BUILD_USER,
       "job_name": JOB_NAME,
-      "param_name": paramName,
       "error_messages": ERROR[errorCode]
     ]
     def filePath = "${JENKINS_HOME}/workspace/${JOB_NAME}/template/error/validate_all.template"
