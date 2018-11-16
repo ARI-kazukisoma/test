@@ -13,26 +13,19 @@ pipeline {
       steps {
         script {
           def parameterValidate = load("lib/validateParameter.groovy")
+          def errorMessages = []
 
-          // TOOD (m.toga) あとでエラーをslackに投げる処理を入れる
-          def (success, _transMasterTag) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+          def (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
           if (success == false) {
-            echo "master tag NG"
-          }
-          transMasterTag = _transMasterTag
-
-          // TODO (m.toga) 払い出しているものかのチェックを実装する
-          if (parameterValidate.checkPlanEnv(params.ENV) == false) {
-            echo "env NG"
+            errorMessages.push(template.getValidateError(errorCode, 'ENV'))
           }
 
-          if (parameterValidate.checkBranch(params.BRANCH) == false) {
-            echo "branch NG"
+          if (errorMessages.size() > 0) {
+            message = template.getValidateAllError(errorMessages)
+            slack.errorMessage('planner_channel', message)
+            error(message)
           }
 
-          if (parameterValidate.checkReason(params.REASON) == false) {
-            echo "reson NG"
-          }
         }
       }
     }
