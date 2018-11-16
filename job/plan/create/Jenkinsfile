@@ -98,6 +98,7 @@ pipeline {
           ]
           try {
             build job: 'アプリバージョン更新', parameters: parameters
+            sh "exit 1"
           } catch(Exception e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
