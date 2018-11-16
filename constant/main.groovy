@@ -63,7 +63,7 @@ def getAll() {
   ]
 }
 
-def getErrarCodeAll() {
+def getErrorCodeAll() {
   return [
     'VLD001': "入力は必須です。" ,
     'VLD002': "入力フォーマットが間違っています。",
