@@ -19,28 +19,37 @@ pipeline {
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
 
-          // TOOD (m.toga) あとでエラーをslackに投げる処理を入れる
-          def (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+          // マスタータグの入力チェック
+          (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
           if (success == false) {
             message = template.getValidateError(errorCode, 'MASTER_TAGS')
-            slack.notifyMessage('admin_channel', message)
-            error(message)
+            slack.notifyMessage('planner_channel', message)
+            // error(message)
           }
           transMasterTag = _transMasterTag
 
-          if (parameterValidate.checkPlanEnv(params.ENV) == false) {
-            message = template.getValidateError(errorCode, 'MASTER_TAGS')
-            slack.notifyMessage('admin_channel', message)
-            error(message)
-            
+          // 環境の入力チェック
+          (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
+          if (success == false) {
+            message = template.getValidateError(errorCode, 'ENV')
+            slack.notifyMessage('planner_channel', message)
+            // error(message)
           }
 
-          if (parameterValidate.checkBranch(params.BRANCH) == false) {
-            echo "branch NG"
+          // ブランチの入力チェック
+          (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
+          if (success == false) {
+            message = template.getValidateError(errorCode, 'BRANCH')
+            slack.notifyMessage('planner_channel', message)
+            // error(message)
           }
 
-          if (parameterValidate.checkReason(params.REASON) == false) {
-            echo "reson NG"
+          // 利用用途の入力チェック
+          (success, errorCode) = parameterValidate.checkReason(params.REASON)
+          if (success == false) {
+            message = template.getValidateError(errorCode, 'REASON')
+            slack.notifyMessage('planner_channel', message)
+            // error(message)
           }
         }
       }

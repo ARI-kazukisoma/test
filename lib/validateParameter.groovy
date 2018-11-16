@@ -71,15 +71,15 @@ def checkExistsPlanEnv(targetEnv) {
   def validate = load("lib/validate.groovy")
 
   if (validate.isNull(targetEnv)) {
-    return false
+    return [false,  "VLD001"]
   }
 
   if (validate.isPlan(targetEnv) == false) {
-    return false
+    return [false, "VLD006"]
   }
 
   if (validate.existsPlan(targetEnv) == false) {
-    return false
+    return [false, 'VLD005']
   }
 
   return true
@@ -93,15 +93,15 @@ def checkNotExistsPlanEnv(targetEnv) {
   def validate = load("lib/validate.groovy")
 
   if (validate.isNull(targetEnv)) {
-    return false
+    return [false, 'VLD001']
   }
 
   if (validate.isPlan(targetEnv) == false) {
-    return false
+    return [false, 'VLD006']
   }
 
   if (validate.existsPlan(targetEnv)) {
-    return false
+    return [false, 'VLD004']
   }
 
   return true
@@ -111,7 +111,7 @@ def checkBranch(branch) {
   def validate = load("lib/validate.groovy")
 
   if (validate.isNull(branch)) {
-    return false
+    return [false, 'VLD001']
   }
   return true
 
@@ -121,7 +121,7 @@ def checkReason(reason) {
   def validate = load("lib/validate.groovy")
 
   if (validate.isNull(reason)) {
-    return false
+    return [false, 'VLD001']
   }
   return true
 
