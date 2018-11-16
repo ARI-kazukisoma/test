@@ -26,7 +26,7 @@ pipeline {
           def (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
           if (success == false) {
             error.notifyError(
-              'admin_channel', errorCode, 'error/validate.template', ['use_name': userName], true)
+              'admin_channel', errorCode, 'error/validate.template', ['user_name': userName], true)
           }
           transMasterTag = _transMasterTag
 
