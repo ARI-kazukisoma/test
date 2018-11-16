@@ -20,7 +20,6 @@ pipeline {
           } catch(java.nio.file.NoSuchFileException e) {
             message = template.getSafetyError('SFY002')
             slack.errorMessage("admin_channel", message)
-            slack.errorMessage("planner_channel", message)
             error(message)
           }
           def binding = [

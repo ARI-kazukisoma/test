@@ -19,7 +19,6 @@ pipeline {
           } catch(java.nio.file.NoSuchFileException e) {
             message = template.getSafetyError('SFY001')
             slack.errorMessage("admin_channel", message)
-            slack.errorMessage("planner_channel", message)
             error(message)
           }
 
