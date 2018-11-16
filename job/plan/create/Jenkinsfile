@@ -14,7 +14,6 @@ pipeline {
             inputParam = json.read(filePath)
             // TODO (m.toga) テスト中のため一旦コメントアウト
             // json.delete(filePath)
-            sh "exit 1"
           } catch(java.nio.file.NoSuchFileException e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
@@ -22,6 +21,12 @@ pipeline {
             slack.notifyMessage("admin_channel", message)
             slack.notifyMessage("planner_channel", message)
           }
+          // TODO テスト削除する
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY001')
+            slack.notifyMessage("admin_channel", message)
+            slack.notifyMessage("planner_channel", message)
         }
       }
     }
