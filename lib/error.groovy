@@ -18,7 +18,7 @@ def notifySlack(channelTag, errorCode, templateFile, binding=[],isException=fals
   }
 }
 
-def customError(errorCode, message=null) {
+def slack(errorCode, message=null) {
 
   if (message) {
     error("${errorCode}：${message}")
