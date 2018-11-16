@@ -10,7 +10,7 @@ def notifyError(channelTag, errorCode, templateFile, binding=[],isException=fals
   ERROR = null
   def message = template.toString(templateFile, binding)
 
-  // slack.notifyMessage(channelTag, message)
+  slack.notifyMessage(channelTag, message)
 
   if (isException) {
     customError(errorCode, errorMessage)
