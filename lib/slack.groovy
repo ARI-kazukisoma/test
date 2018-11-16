@@ -2,12 +2,11 @@ void notifyMessage(channelTag, message) {
   echo "aaaaaaaaaaaaaaaa"
   echo channelTag
   def CONSTS = load("constant/main.groovy").getAll()
-  println CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS
-  // def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
-  // echo "bbbbbbbb"
+  def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
+  echo "bbbbbbbb"
 
-  // withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-  //   slackSend channel: channel, token: token, message: message
-  // }
+  withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+    slackSend channel: channel, token: token, message: message
+  }
 }
 return this
