@@ -1,0 +1,127 @@
+pipeline {
+  agent {node { label 'master' }}
+  parameters {
+    booleanParam(name: 'IS_DEPLOY_APP', defaultValue: true, description: 'アプリデプロイを実行するか')
+    booleanParam(name: 'IS_UPDATE_DATA', defaultValue: true, description: 'マスターアップデートを実行するか')
+    string(name: 'ENV', description: 'PLAN環境選択')
+    string(name: 'BRANCH', description: 'ブランチ名')
+    text(name: 'MASTER_TAGS', description: 'マスタータグ')
+  }
+  stages {
+    stage("jsonファイルからパラメータ取得") {
+      steps {
+        script {
+          def lock = load("lib/lock.groovy")
+          if (lock.isLocked(params.ENV)) {
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY006')
+            slack.notifyMessage("planner_channel", message)
+          }
+          lock.doLock(params.ENV)
+        }
+      }
+    }
+    stage("マスターデータ更新") {
+      steps {
+        script {
+          def parameters = [
+            [
+              $class: 'StringParameterValue',
+              name: 'ENV',
+              value: params.ENV
+            ],
+            [
+              $class: 'StringParameterValue',
+              name: 'BRANCH',
+              value: params.BRANCH
+            ],
+            [
+              $class: 'StringParameterValue',
+              name: 'MASTER_TAGS',
+              value: params.MASTER_TAGS
+            ]
+          ]
+          try {
+            build job: 'マスターデータ更新', parameters: parameters
+          } catch(Exception e) {
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY004')
+            slack.errorMessage("admin_channel", message)
+            slack.errroMessage("planner_channel", message)
+            error(message)
+          } 
+        }
+      }
+    }
+    stage("アプリバージョン更新") {
+      steps {
+        script {
+          def parameters = [
+            [
+              $class: 'StringParameterValue',
+              name: 'ENV',
+              value: params.ENV
+            ],
+            [
+              $class: 'StringParameterValue',
+              name: 'BRANCH',
+              value: params.BRANCH
+            ]
+          ]
+          try {
+            build job: 'アプリバージョン更新', parameters: parameters
+          } catch(Exception e) {
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY005')
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
+            error(message)
+          }           
+        }
+      }
+    }
+    stage("構成情報保管") {
+      steps {
+        script {
+          // 構成ファイルをtmpから正式なディレクトリにコピーする
+          // dir(env.TMP_ENV_CONFIGURATION_PATH) {
+          //   sh "cp -pr ${inputParam.target_env} ${env.ENV_CONFIGURATION_PATH}/"
+          // }
+        }
+      }
+    }
+    stage("Slackへ結果送信") {
+      steps {
+        script {
+          def slack = load("lib/slack.groovy")
+          def template = load("lib/template.groovy")
+
+          def binding = [
+            'uuid': params.UUID,
+            'request_user': inputParam.request_user,
+            'request_datetime': inputParam.request_datetime,
+            'target_env': inputParam.target_env,
+            'branch': inputParam.branch
+          ]
+          message = template.toString('success_create_plan.template', binding)
+          // TODO エラーになるので調査
+          try {
+            slack.notifyMessage("admin_channel", message)
+            slack.notifyMessage("planner_channel", message)
+          } catch(Exception e) {}
+        }
+      }
+    }
+  }
+  post {
+    always {
+      script {
+        def lock = load("lib/lock.groovy")
+        lock.doUnlock(params.ENV)
+      }
+    }
+  }
+}
