@@ -1,1 +1,1 @@
-パラメータ(<%= param_name %>)にて、「<%= error_message %>」エラーが発生
+パラメータ(<%= param_name %>)：　<%= error_message %>
