@@ -4,7 +4,7 @@ void notifyMessage(channelTag, message, CONSTS=null) {
   // 呼び出す階層が深いとNotSerializableExceptioneエラーが発生するので回避策
   // 原因はよくわかっていない
   if (CONSTS == null) {
-    def CONSTS = load("constant/main.groovy").getAll()
+    CONSTS = load("constant/main.groovy").getAll()
   }
   def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
 
