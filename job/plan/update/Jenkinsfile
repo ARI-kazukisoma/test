@@ -134,8 +134,8 @@ pipeline {
       steps {
         script {
           // 構成ファイルをtmpから正式なディレクトリにコピーする
+          def CONSTS = load("constant/main.groovy").getAll()
           dir(env.TMP_ENV_CONFIGURATION_PATH) {
-            def CONSTS = load("constant/main.groovy").getAll()
             if (params.IS_DEPLOY_APP) {
               def fileName = CONSTS.PLAN_CONF_FILE_NAME.DEPLOY_APP
               sh "cp -p ${params.ENV}/${fileName} ${env.ENV_CONFIGURATION_PATH}/${params.ENV}/${fileName}"
