@@ -12,7 +12,6 @@ String getValidateError(errorCode, paramName) {
     def binding = [
       "user_name": BUILD_USER,
       "param_name": paramName,
-      "error_code": errorCode,
       "error_message": ERROR[errorCode]
 
     ]
