@@ -32,8 +32,10 @@ pipeline {
           ]
           message = template.toString('refusal_create_plan.template', binding)
           // TODO エラーが出るので調査
-          // slack.notifyMessage("admin_channel", message)
-          // slack.notifyMessage("planner_channel", message)
+          try {
+            slack.notifyMessage("admin_channel", message)
+            slack.notifyMessage("planner_channel", message)
+          } catch(Exception e) {}
         }
       }
     }
