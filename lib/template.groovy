@@ -10,6 +10,7 @@ String getValidateError(errorCode, paramName) {
   wrap([$class: 'BuildUser']) {
     def ERROR = load("constant/error.groovy").getAll()
     def binding = [
+      "job_name": JOB_NAME
       "user_name": BUILD_USER,
       "param_name": paramName,
       "error_message": ERROR[errorCode]
