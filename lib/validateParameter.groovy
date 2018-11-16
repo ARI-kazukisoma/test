@@ -17,8 +17,7 @@ def checkMasterTags(text) {
   }
 
   if (validate.isNull(text)) {
-    error.notifyError(
-      'admin_channel', 'VLD001', 'error/validate.template', ['user_name': userName], true)
+    error.notifyError('admin_channel', 'VLD001', 'error/validate.template', ['user_name': userName], true)
   }
 
   masterTags = []

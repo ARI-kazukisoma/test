@@ -1,6 +1,7 @@
 void notifyMessage(channelTag, message) {
-  CONSTS = load("constant/main.groovy").getAll()
+  echo "aaaaaaaaaaaaaaaa"
   echo channelTag
+  CONSTS = load("constant/main.groovy").getAll()
   def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
   echo "bbbbbbbb"
 
