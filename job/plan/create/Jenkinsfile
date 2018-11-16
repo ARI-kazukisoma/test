@@ -9,18 +9,17 @@ pipeline {
       steps {
         script {
           def json = load("lib/json.groovy")
-          def slack = load("lib/slack.groovy")
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
             inputParam = json.read(filePath)
             // TODO (m.toga) テスト中のため一旦コメントアウト
             // json.delete(filePath)
           } catch(java.nio.file.NoSuchFileException e) {
-            
-            // TODO (m.toga) あとでテンプレート化する
-            def message = "すでに申請は承認されたか拒否されております。(申請ID: ${params.UUID})" 
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY001')
             slack.notifyMessage("admin_channel", message)
-            error("すでに申請は承認されたか拒否されております。(申請ID: ${params.UUID})")
+            slack.notifyMessage("planner_channel", message)
           }
         }
       }
@@ -38,12 +37,11 @@ pipeline {
           try {
             build job: 'インフラ開発環境構築', parameters: parameters
           } catch(Exception e) {
-
-            // TODO (m.toga) あとでテンプレート化する
             def slack = load("lib/slack.groovy")
-            def message = "「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY003')
             slack.notifyMessage("admin_channel", message)
-            error("「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
+            slack.notifyMessage("planner_channel", message)
           } 
         }
       }
@@ -71,12 +69,11 @@ pipeline {
           try {
             build job: 'マスターデータ更新', parameters: parameters
           } catch(Exception e) {
-
-            // TODO (m.toga) あとでテンプレート化する
             def slack = load("lib/slack.groovy")
-            def message = "「マスターデータ更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY004')
             slack.notifyMessage("admin_channel", message)
-            error("「マスターデータ更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
+            slack.notifyMessage("planner_channel", message)
           } 
         }
       }
@@ -99,12 +96,11 @@ pipeline {
           try {
             build job: 'アプリバージョン更新', parameters: parameters
           } catch(Exception e) {
-
-            // TODO (m.toga) あとでテンプレート化する
             def slack = load("lib/slack.groovy")
-            def message = "「アプリバージョン更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY005')
             slack.notifyMessage("admin_channel", message)
-            error("「アプリバージョン更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
+            slack.notifyMessage("planner_channel", message)
           }           
         }
       }
