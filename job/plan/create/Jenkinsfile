@@ -132,10 +132,9 @@ pipeline {
             'target_env': inputParam.target_env,
             'branch': inputParam.branch
           ]
-          def message = template.toString('success_create_plan.template', binding)
-          echo message
-          slack.notifyMessage("admin_channel", message)
-          slack.notifyMessage("planner_channel", message)
+          message = template.toString('success_create_plan.template', binding)
+          slack.errorMessage("admin_channel", message)
+          slack.errorMessage("planner_channel", message)
         }
       }
     }
