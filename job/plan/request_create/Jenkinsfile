@@ -23,7 +23,7 @@ pipeline {
           (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
           if (success == false) {
             message = template.getValidateError(errorCode, 'MASTER_TAGS')
-            slack.notifyMessage('planner_channel', message)
+            slack.errorMessage('planner_channel', message)
             // error(message)
           }
           transMasterTag = _transMasterTag
@@ -32,7 +32,7 @@ pipeline {
           (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
           if (success == false) {
             message = template.getValidateError(errorCode, 'ENV')
-            slack.notifyMessage('planner_channel', message)
+            slack.errorMessage('planner_channel', message)
             // error(message)
           }
 
@@ -40,7 +40,7 @@ pipeline {
           (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
           if (success == false) {
             message = template.getValidateError(errorCode, 'BRANCH')
-            slack.notifyMessage('planner_channel', message)
+            slack.errorMessage('planner_channel', message)
             // error(message)
           }
 
@@ -48,7 +48,7 @@ pipeline {
           (success, errorCode) = parameterValidate.checkReason(params.REASON)
           if (success == false) {
             message = template.getValidateError(errorCode, 'REASON')
-            slack.notifyMessage('planner_channel', message)
+            slack.errorMessage('planner_channel', message)
             // error(message)
           }
         }
