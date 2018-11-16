@@ -22,18 +22,15 @@ pipeline {
 */
 
 def getAll() {
-  return [
-    'SLACK': [
-      'CHANNEL_CREDENTIAL_IDS': [
-        'admin_channel': ['#hooktest', 'tmp_ari_slack_token']
-      ]
-    ],
-    'API_URL': [
-      'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
-      'REFUSAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
-      'APPROVAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
-      'REFUSAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
-    ],
+
+  def environment = []
+  if (env.JENKINS_ENV == 'develop') {
+    environment = getDevelop()
+  } else if (env.JENKINS_ENV == 'product') {
+    environment = getProduct()
+  }
+
+  base = [
     'TIMEZONE': 'JST',
     'PLAN_CONF_FILE_NAME': [
       'PROVISIONING': 'provisioning.json',
@@ -61,6 +58,45 @@ def getAll() {
       'DELIMITER': '&'
     ]
   ]
+
+  return base + environment
 }
 
+// 開発環境用の設定
+def getDevelop() {
+  return [
+    'SLACK': [
+      'CHANNEL_CREDENTIAL_IDS': [
+        'admin_channel': ['#hooktest', 'tmp_ari_slack_token']
+      ]
+    ],
+    'API_URL': [
+      'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
+      'REFUSAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
+      'APPROVAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
+      'REFUSAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
+    ],
+
+  ]
+
+}
+
+// 本番環境用の設定
+def getProduct() {
+  return [
+    'SLACK': [
+      'CHANNEL_CREDENTIAL_IDS': [
+        'admin_channel': ['avalon_jenkinsデプロイ通知', 'slack_token1']
+      ]
+    ],
+    'API_URL': [
+      'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
+      'REFUSAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
+      'APPROVAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
+      'REFUSAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
+    ],
+
+  ]
+
+}
 return this
