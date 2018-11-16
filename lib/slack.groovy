@@ -1,3 +1,4 @@
+@NonCPS
 def notifyMessage(channelTag, message) {
   def CONSTS = load("constant/main.groovy").getAll()
   def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
@@ -7,6 +8,7 @@ def notifyMessage(channelTag, message) {
   }
 }
 
+@NonCPS
 def errorMessage(channelTag, message) {
   def CONSTS = load("constant/main.groovy").getAll()
   def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
