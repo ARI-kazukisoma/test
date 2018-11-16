@@ -14,8 +14,7 @@ pipeline {
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
             inputParam = json.read(filePath)
-            // TODO (m.toga) テスト中のため一旦コメントアウト
-            // json.delete(filePath)
+            json.delete(filePath)
           } catch(java.nio.file.NoSuchFileException e) {
             message = template.getSafetyError('SFY002')
             slack.errorMessage("admin_channel", message)
