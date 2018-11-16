@@ -12,7 +12,7 @@ pipeline {
           // if (lock.is_locked(params.ENV)) {
           //   def slack = load("lib/slack.groovy")
           //   // TODO (m.toga) 通知先見直す
-          //   slack.notifyMessage("#hooktest", "すでに${params.ENV}は更新中のため新たに実行できません。")
+          //   slack.notifyMessage("admin_channel", "すでに${params.ENV}は更新中のため新たに実行できません。")
           // }
           // lock.do_lock(params.ENV)
           // sh "sleep 10"

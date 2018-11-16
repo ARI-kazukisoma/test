@@ -81,7 +81,7 @@ pipeline {
             message = template.toString("request_delete_plan.template", binding)
           }
 
-          slack.notifyMessage("#hooktest", message)
+          slack.notifyMessage("admin_channel", message)
         }
       }
     }

@@ -39,7 +39,7 @@ pipeline {
         }
       }
     }
-    stage("パラメータファイル作成") {
+    stage("入力パラメータをJSONに保存") {
       steps {
         script {
           def datetime = load("lib/datetime.groovy")
@@ -90,7 +90,7 @@ pipeline {
             message = template.toString("request_create_plan.template", binding)
           }
 
-          slack.notifyMessage("#hooktest", message)
+          slack.notifyMessage("admin_channel", message)
         }
       }
     }

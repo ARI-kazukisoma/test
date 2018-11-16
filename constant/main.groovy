@@ -25,7 +25,7 @@ def getAll() {
   return [
     'SLACK': [
       'CHANNEL_CREDENTIAL_IDS': [
-        '#hooktest': 'tmp_ari_slack_token'
+        'admin_channel': ['#hooktest', 'tmp_ari_slack_token']
       ]
     ],
     'API_URL': [
@@ -60,6 +60,14 @@ def getAll() {
     'MASTER_TAG': [
       'DELIMITER': '&'
     ]
+  ]
+}
+
+def getErrarCodeAll() {
+  return [
+    'VLD001': "入力は必須です。" ,
+    'VLD002': "入力フォーマットが間違っています。",
+    'VLD003': "不正な値です。"
   ]
 }
 

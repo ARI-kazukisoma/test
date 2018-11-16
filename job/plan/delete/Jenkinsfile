@@ -19,7 +19,7 @@ pipeline {
             
             // TODO (m.toga) あとでテンプレート化する
             def message = "すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID})" 
-            slack.notifyMessage("#hooktest", message)
+            slack.notifyMessage("admin_channel", message)
             error("すでに削除申請は承認されたか拒否されております。(申請ID: ${params.UUID})")
           }
         }

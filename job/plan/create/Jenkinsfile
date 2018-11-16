@@ -19,7 +19,7 @@ pipeline {
             
             // TODO (m.toga) あとでテンプレート化する
             def message = "すでに申請は承認されたか拒否されております。(申請ID: ${params.UUID})" 
-            slack.notifyMessage("#hooktest", message)
+            slack.notifyMessage("admin_channel", message)
             error("すでに申請は承認されたか拒否されております。(申請ID: ${params.UUID})")
           }
         }
@@ -42,7 +42,7 @@ pipeline {
             // TODO (m.toga) あとでテンプレート化する
             def slack = load("lib/slack.groovy")
             def message = "「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
-            slack.notifyMessage("#hooktest", message)
+            slack.notifyMessage("admin_channel", message)
             error("「インフラ開発環境構築」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
           } 
         }
@@ -75,7 +75,7 @@ pipeline {
             // TODO (m.toga) あとでテンプレート化する
             def slack = load("lib/slack.groovy")
             def message = "「マスターデータ更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
-            slack.notifyMessage("#hooktest", message)
+            slack.notifyMessage("admin_channel", message)
             error("「マスターデータ更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
           } 
         }
@@ -103,7 +103,7 @@ pipeline {
             // TODO (m.toga) あとでテンプレート化する
             def slack = load("lib/slack.groovy")
             def message = "「アプリバージョン更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})"
-            slack.notifyMessage("#hooktest", message)
+            slack.notifyMessage("admin_channel", message)
             error("「アプリバージョン更新」ジョブにて何らかのエラーが発生(申請ID: ${params.UUID})")
           }           
         }

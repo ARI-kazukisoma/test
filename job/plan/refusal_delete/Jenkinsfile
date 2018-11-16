@@ -13,7 +13,7 @@ pipeline {
           def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
           // TODO (m.toga) テンプレート化する
           json.delete(filePath)
-          slack.notifyMessage("#hooktest", "削除申請が却下されました。(申請ID：${params.UUID})")
+          slack.notifyMessage("admin_channel", "削除申請が却下されました。(申請ID：${params.UUID})")
         }
       }
     }

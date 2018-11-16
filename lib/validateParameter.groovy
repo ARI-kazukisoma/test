@@ -9,9 +9,16 @@
 def checkMasterTags(text) {
 
   def validate = load("lib/validate.groovy")
+  def error = load("lib/error.groovy")
+  def userName  = ''
+
+  wrap([$class: 'BuildUser']) {
+    userName = BUILD_USER
+  }
 
   if (validate.isNull(text)) {
-    return [false, null]
+    error.notifyError(
+      'admin_channel', 'VLD001', 'error/validate.template', ['user_name': userName], true)
   }
 
   masterTags = []
