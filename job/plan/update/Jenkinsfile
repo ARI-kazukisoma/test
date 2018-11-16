@@ -30,6 +30,8 @@ pipeline {
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
           def errorMessages = []
+          def success = null
+          def errorCode = null
 
           // 環境の入力チェック
           (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
@@ -50,11 +52,11 @@ pipeline {
           // }
           // transMasterTag = _transMasterTag
 
-          if (errorMessages.size() > 0) {
-            message = template.getValidateAllError(errorMessages)
-            slack.errorMessage('planner_channel', message)
-            error(message)
-          }
+          // if (errorMessages.size() > 0) {
+          //   message = template.getValidateAllError(errorMessages)
+          //   slack.errorMessage('planner_channel', message)
+          //   error(message)
+          // }
         }
       }
     }
