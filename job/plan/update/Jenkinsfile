@@ -18,6 +18,7 @@ pipeline {
             def template = load("lib/template.groovy")
             message = template.getSafetyError('SFY006')
             slack.notifyMessage("planner_channel", message)
+            error(message)
           }
           lock.doLock(params.ENV)
         }
@@ -34,10 +35,10 @@ pipeline {
           def errorCode = null
 
           // 環境の入力チェック
-          (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
-          if (success == false) {
-            errorMessages.push(template.getValidateError(errorCode, 'ENV'))
-          }
+          // (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
+          // if (success == false) {
+          //   errorMessages.push(template.getValidateError(errorCode, 'ENV'))
+          // }
 
           // // ブランチの入力チェック
           // (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
