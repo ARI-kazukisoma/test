@@ -8,8 +8,9 @@ pipeline {
     stage("jsonファイルからパラメータ取得") {
       steps {
         script {
-          def json = load("../${JOB_NAME}/lib/json.groovy")
-          def slack = load("../${JOB_NAME}/lib/slack.groovy")
+          def json = load("lib/json.groovy")
+          def slack = load("lib/slack.groovy")
+          def template = load("lib/template.groovy")
 
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
