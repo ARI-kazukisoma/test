@@ -16,11 +16,16 @@ pipeline {
       steps {
         script {
           def parameterValidate = load("lib/validateParameter.groovy")
+          def error = load("lib/error.groovy")
+          def userName = ''
+          wrap([$class: 'BuildUser']) {
+            userName = BUILD_USER
+          }
 
           // TOOD (m.toga) あとでエラーをslackに投げる処理を入れる
-          def (success, _transMasterTag) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+          def (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
           if (success == false) {
-            echo "master tag NG"
+            error.notifyMessage('admin_channel', errorCode, 'error/validate.template', ['use_name': userName], true)
           }
           transMasterTag = _transMasterTag
 
