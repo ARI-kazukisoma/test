@@ -98,7 +98,6 @@ pipeline {
           ]
           try {
             build job: 'アプリバージョン更新', parameters: parameters
-            sh "exit 1"
           } catch(Exception e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
@@ -124,18 +123,18 @@ pipeline {
       steps {
         script {
           def slack = load("lib/slack.groovy")
-          def template = load("lib/template.groovy")
+          // def template = load("lib/template.groovy")
 
-          def binding = [
-            'uuid': params.UUID,
-            'request_user': inputParam.request_user,
-            'request_datetime': inputParam.request_datetime,
-            'target_env': inputParam.target_env,
-            'branch': inputParam.branch
-          ]
-          message = template.toString('success_create_plan.template', binding)
-          slack.notifyMessage("admin_channel", message)
-          slack.notifyMessage("planner_channel", message)
+          // def binding = [
+          //   'uuid': params.UUID,
+          //   'request_user': inputParam.request_user,
+          //   'request_datetime': inputParam.request_datetime,
+          //   'target_env': inputParam.target_env,
+          //   'branch': inputParam.branch
+          // ]
+          // message = template.toString('success_create_plan.template', binding)
+          slack.notifyMessage("admin_channel", "aaaaaa")
+          slack.notifyMessage("planner_channel", "aaaaa")
         }
       }
     }
