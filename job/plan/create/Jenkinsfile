@@ -20,6 +20,7 @@ pipeline {
             message = template.getSafetyError('SFY001')
             slack.errorMessage("admin_channel", message)
             slack.errorMessage("planner_channel", message)
+            error(message)
           }
         }
       }
@@ -36,13 +37,13 @@ pipeline {
           ]
           try {
             build job: 'インフラ開発環境構築', parameters: parameters
-            sh "exit 1"
           } catch(Exception e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
             message = template.getSafetyError('SFY003')
             slack.errorMessage("admin_channel", message)
             slack.errorMessage("planner_channel", message)
+            error(message)
           } 
         }
       }
@@ -75,6 +76,7 @@ pipeline {
             message = template.getSafetyError('SFY004')
             slack.errorMessage("admin_channel", message)
             slack.errroMessage("planner_channel", message)
+            error(message)
           } 
         }
       }
@@ -102,6 +104,7 @@ pipeline {
             message = template.getSafetyError('SFY005')
             slack.errorMessage("admin_channel", message)
             slack.errorMessage("planner_channel", message)
+            error(message)
           }           
         }
       }
@@ -109,10 +112,10 @@ pipeline {
   }
   post {
     success {
-        echo "OK"
-    }
-    always {
-        echo "Always"
+      // 構成ファイルをtmpから正式なディレクトリにコピーする
+      dir(env.TMP_ENV_CONFIGURATION_PATH) {
+        sh "cp -pr ${inputParam.env} ${$env.ENV_CONFIGURATION_PATH}/"
+      }
     }
   }
 }
