@@ -1,5 +1,5 @@
 
-def notifyError(channelTag, errorCode, templateFile, binding=[],isException=false) {
+def notifySlack(channelTag, errorCode, templateFile, binding=[],isException=false) {
   def slack = load("lib/slack.groovy")
   def template = load("lib/template.groovy")
   def ERROR = load("constant/error.groovy").getAll()
