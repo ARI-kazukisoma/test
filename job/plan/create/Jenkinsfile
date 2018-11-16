@@ -109,16 +109,21 @@ pipeline {
         }
       }
     }
+    stage("構成情報保管") {
+      steps {
+        script {
+          // 構成ファイルをtmpから正式なディレクトリにコピーする
+          dir(env.TMP_ENV_CONFIGURATION_PATH) {
+            sh "cp -pr ${inputParam.target_env} ${env.ENV_CONFIGURATION_PATH}/"
+          }
+        }
+      }
+    }
     stage("Slackへ結果送信") {
       steps {
         script {
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
-
-          // 構成ファイルをtmpから正式なディレクトリにコピーする
-          dir(env.TMP_ENV_CONFIGURATION_PATH) {
-            sh "cp -pr ${inputParam.target_env} ${env.ENV_CONFIGURATION_PATH}/"
-          }
 
           def binding = [
             'uuid': params.UUID,
