@@ -21,12 +21,6 @@ pipeline {
             slack.notifyMessage("admin_channel", message)
             slack.notifyMessage("planner_channel", message)
           }
-          // TODO テスト削除する
-            def slack = load("lib/slack.groovy")
-            def template = load("lib/template.groovy")
-            message = template.getSafetyError('SFY001')
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
         }
       }
     }

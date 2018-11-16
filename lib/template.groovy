@@ -26,7 +26,8 @@ String getValidateAllError(errorMessages) {
     def binding = [
       "user_name": BUILD_USER,
       "job_name": JOB_NAME,
-      "job_url": "${env.JENKINS_URL}job/${JOB_NAME}/${BUID_NUMBER}/",
+      "job_number": BUILD_NUMBER, 
+      "job_url": "${env.JENKINS_URL}job/${JOB_NAME}/${BUILD_NUMBER}/",
       "error_messages": errorMessages
     ]
     def filePath = "${JENKINS_HOME}/workspace/${JOB_NAME}/template/error/validate_all.template"
@@ -43,7 +44,7 @@ String getSafetyError(errorCode) {
       "user_name": BUILD_USER,
       "job_number": BUILD_NUMBER, 
       "job_name": JOB_NAME,
-      "job_url": "${env.JENKINS_URL}job/${JOB_NAME}/${BUID_NUMBER}/",
+      "job_url": "${env.JENKINS_URL}job/${JOB_NAME}/${BUILD_NUMBER}/",
       "error_message": ERROR[errorCode]
     ]
     def filePath = "${JENKINS_HOME}/workspace/${JOB_NAME}/template/error/validate_all.template"

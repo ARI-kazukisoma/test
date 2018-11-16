@@ -3,6 +3,7 @@
 ===========================================
 
 実行者: <%= user_name %>
+ジョブ番号： <%= job_number %>
 ジョブ名： <%= job_name %>
 
 <% error_messages.each{ error_message -> %><%= error_message %>\n<%} %>
