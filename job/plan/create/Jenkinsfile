@@ -20,6 +20,7 @@ pipeline {
             message = template.getSafetyError('SFY001')
             slack.notifyMessage("admin_channel", message)
             slack.notifyMessage("planner_channel", message)
+            error(message)
           }
         }
       }
