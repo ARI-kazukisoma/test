@@ -4,15 +4,16 @@ def notifyError(channelTag, errorCode, templateFile, binding=[],isException=fals
   def template = load("lib/template.groovy")
   def ERROR = load("constant/main.groovy").getErrorCodeAll()
 
+  def errorMessage = ERROR[errorCode]
   binding.put('__error_code', errorCode)
-  binding.put('__error_message', ERROR[errorCode])
+  binding.put('__error_message', errorMessage)
   ERROR = null
   def message = template.toString(templateFile, binding)
 
   // slack.notifyMessage(channelTag, message)
 
   if (isException) {
-    customError(errorCode, ERROR[errorCode])
+    customError(errorCode, errorMessage)
   }
 }
 
