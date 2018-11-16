@@ -43,9 +43,12 @@ pipeline {
           (success, errorCode) = parameterValidate.checkReason(params.REASON)
           if (success == false) {
             errorMessages.push(template.getValidateError(errorCode, 'REASON'))
-            slack.errorMessage('planner_channel', message)
           }
 
+          if (errorMessages.size() > 0) {
+            message = template.getValidateAllError(errorMessages)
+            error(message)
+          }
           
         }
       }
