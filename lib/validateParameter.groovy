@@ -59,7 +59,7 @@ def checkMasterTags(text) {
     resultMasterTags.push("${transTagName}:${unixtime}")
   }
 
-   return [true, resultMasterTags.join(" ")]
+   return [true, resultMasterTags.join(" "), null]
 }
 
 /**
@@ -82,7 +82,7 @@ def checkExistsPlanEnv(targetEnv) {
     return [false, 'VLD005']
   }
 
-  return true
+  return [true, null]
 }
 
 /**
@@ -104,7 +104,7 @@ def checkNotExistsPlanEnv(targetEnv) {
     return [false, 'VLD004']
   }
 
-  return true
+  return [true, null]
 }
 
 def checkBranch(branch) {
@@ -113,7 +113,7 @@ def checkBranch(branch) {
   if (validate.isNull(branch)) {
     return [false, 'VLD001']
   }
-  return true
+  return [true, null]
 
 }
 
@@ -123,7 +123,7 @@ def checkReason(reason) {
   if (validate.isNull(reason)) {
     return [false, 'VLD001']
   }
-  return true
+  return [true, null]
 
 }
 
