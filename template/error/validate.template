@@ -1,4 +1,1 @@
-実行者： <%= user_name %>
-ジョブ名： <%= job_name %>
-パラメータ名： <%= param_name %>
-エラー内容： <%= error_message %>
+パラメータ(<%= param_name %>)にて、「<%= error_message %>」エラーが発生

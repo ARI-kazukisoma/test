@@ -18,39 +18,35 @@ pipeline {
           def parameterValidate = load("lib/validateParameter.groovy")
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
-
-          // マスタータグの入力チェック
-          (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
-          if (success == false) {
-            message = template.getValidateError(errorCode, 'MASTER_TAGS')
-            slack.errorMessage('planner_channel', message)
-            // error(message)
-          }
-          transMasterTag = _transMasterTag
+          def errorMessages = []
 
           // 環境の入力チェック
           (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
           if (success == false) {
-            message = template.getValidateError(errorCode, 'ENV')
-            slack.errorMessage('planner_channel', message)
-            // error(message)
+            errorMessages.push(template.getValidateError(errorCode, 'ENV'))
           }
 
           // ブランチの入力チェック
           (success, errorCode) = parameterValidate.checkBranch(params.BRANCH)
           if (success == false) {
-            message = template.getValidateError(errorCode, 'BRANCH')
-            slack.errorMessage('planner_channel', message)
-            // error(message)
+            errorMessages.push(template.getValidateError(errorCode, 'BRANCH'))
           }
+
+          // マスタータグの入力チェック
+          (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+          if (success == false) {
+            errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
+          }
+          transMasterTag = _transMasterTag
 
           // 利用用途の入力チェック
           (success, errorCode) = parameterValidate.checkReason(params.REASON)
           if (success == false) {
-            message = template.getValidateError(errorCode, 'REASON')
+            errorMessages.push(template.getValidateError(errorCode, 'REASON'))
             slack.errorMessage('planner_channel', message)
-            // error(message)
           }
+
+          
         }
       }
     }
