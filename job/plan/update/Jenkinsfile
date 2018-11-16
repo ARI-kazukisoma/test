@@ -35,7 +35,7 @@ pipeline {
           def errorCode = null
 
           // 環境の入力チェック
-          // (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
+          (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
           // if (success == false) {
           //   errorMessages.push(template.getValidateError(errorCode, 'ENV'))
           // }
