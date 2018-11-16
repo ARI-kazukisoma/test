@@ -114,7 +114,7 @@ pipeline {
     success {
       // 構成ファイルをtmpから正式なディレクトリにコピーする
       dir(env.TMP_ENV_CONFIGURATION_PATH) {
-        sh "cp -pr ${inputParam.env} ${$env.ENV_CONFIGURATION_PATH}/"
+        sh "cp -pr ${inputParam.env} ${env.ENV_CONFIGURATION_PATH}/"
       }
     }
   }
