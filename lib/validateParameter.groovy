@@ -26,14 +26,14 @@ def checkMasterTags(text) {
     def (success, masterTag, tagName, unixtime) = masterTags[0]
 
     if (success == false) {
-      return [false, null]
+      return [false, null, 'VLD002']
     } 
 
     if (unixtime) {
-      return [false, null]
+      return [false, null, 'VLD002']
     }
 
-    return [true, tagName]
+    return [true, tagName, null]
 
   }
 
@@ -46,7 +46,7 @@ def checkMasterTags(text) {
 
     if (success == false) {
       // １つでもフォーマットにミスがあればエラー
-      return [false, null]
+      return [false, null, 'VLD002']
     }
 
     if (unixtime == null) {
