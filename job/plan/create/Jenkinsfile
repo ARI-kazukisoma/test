@@ -133,8 +133,9 @@ pipeline {
             'branch': inputParam.branch
           ]
           message = template.toString('success_create_plan.template', binding)
-          // slack.notifyMessage("admin_channel", "aaaaaa")
-          // slack.notifyMessage("planner_channel", "aaaaa")
+          // TODO エラーになるので調査
+          // slack.notifyMessage("admin_channel", message)
+          // slack.notifyMessage("planner_channel", message)
         }
       }
     }

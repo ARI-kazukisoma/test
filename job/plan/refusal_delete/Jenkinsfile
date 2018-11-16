@@ -1,4 +1,4 @@
-def input_param = null
+def inputParam = null
 pipeline {
   agent {node { label 'master' }}
   parameters {
@@ -10,10 +10,29 @@ pipeline {
         script {
           def json = load("../${JOB_NAME}/lib/json.groovy")
           def slack = load("../${JOB_NAME}/lib/slack.groovy")
-          def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
-          // TODO (m.toga) テンプレート化する
-          json.delete(filePath)
-          slack.notifyMessage("admin_channel", "削除申請が却下されました。(申請ID：${params.UUID})")
+
+          try {
+            def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
+            inputParam = json.read(filePath)
+            json.delete(filePath)
+
+          } catch(java.nio.file.NoSuchFileException e) {
+            message = template.getSafetyError('SFY002')
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
+            error(message)
+          }
+          def binding = [
+            'uuid': params.UUID,
+            'request_user': inputParam.request_user,
+            'request_datetime': inputParam.request_datetime,
+            'target_env': inputParam.target_env
+          ]
+
+          message = template.toString('refusal_delete_plan.template', binding)
+          // TODO エラーになるので調査
+          // slack.notifyMessage("admin_channel", message)
+          // slack.notifyMessage("planner_channel", message)
         }
       }
     }
