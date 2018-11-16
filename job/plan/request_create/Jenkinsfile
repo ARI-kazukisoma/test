@@ -47,7 +47,7 @@ pipeline {
 
           if (errorMessages.size() > 0) {
             message = template.getValidateAllError(errorMessages)
-            slack.errorMessages('planner_channel', message)
+            slack.errorMessage('planner_channel', message)
             error(message)
           }
           
