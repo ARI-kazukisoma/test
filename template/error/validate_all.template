@@ -5,4 +5,4 @@
 実行者: <%= user_name %>
 ジョブ名： <%= job_name %>
 
-<% error_messages.each { println it} %>
+<% error_messages.each{ error_message -> %> <%= error_message %>\n <%} %>
