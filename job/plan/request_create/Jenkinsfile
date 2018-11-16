@@ -45,7 +45,7 @@ pipeline {
             errorMessages.push(template.getValidateError(errorCode, 'REASON'))
           }
 
-          echo errorMessage[0]
+          echo errorMessages[0]
           if (errorMessages.size() > 0) {
             message = template.getValidateAllError(errorMessages)
             slack.errorMessage('planner_channel', message)
