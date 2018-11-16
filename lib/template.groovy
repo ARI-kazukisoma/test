@@ -18,7 +18,6 @@ String getValidateError(errorCode, paramName) {
 String getValidateAllError(errorMessages) {
 
   buildUser = 'API'
-  try {
   wrap([$class: 'BuildUser']) {
     try {
       // API経由だとエラーになる
@@ -38,7 +37,6 @@ String getValidateAllError(errorMessages) {
 String getSafetyError(errorCode) {
 
   buildUser = 'API'
-  try {
   wrap([$class: 'BuildUser']) {
     try {
       // API経由だとエラーになる
@@ -54,7 +52,7 @@ String getSafetyError(errorCode) {
     "job_url": "${env.JENKINS_URL}job/${JOB_NAME}/${BUILD_NUMBER}/",
     "error_message": ERROR[errorCode]
   ]
-  return this.toString("error/safety.template", binding)
+  return toString("error/safety.template", binding)
 }
 
 return this
