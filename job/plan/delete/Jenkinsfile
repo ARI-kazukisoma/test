@@ -10,14 +10,13 @@ pipeline {
         script {
           def json = load("lib/json.groovy")
           def slack = load("lib/slack.groovy")
+          def template = load("lib/template.groovy")
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
             inputParam = json.read(filePath)
             // TODO (m.toga) テスト中のため一旦コメントアウト
             // json.delete(filePath)
           } catch(java.nio.file.NoSuchFileException e) {
-            def slack = load("lib/slack.groovy")
-            def template = load("lib/template.groovy")
             message = template.getSafetyError('SFY002')
             slack.errorMessage("admin_channel", message)
             error(message)
