@@ -22,7 +22,9 @@ pipeline {
           // TOOD (m.toga) あとでエラーをslackに投げる処理を入れる
           def (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
           if (success == false) {
-            template.getValidateError(errorCode, 'マスタータグ')
+            message = template.getValidateError(errorCode, 'MASTER_TAGS')
+            slack.notifyMessage('admin_channel', message)
+            error(message)
           }
           transMasterTag = _transMasterTag
 
