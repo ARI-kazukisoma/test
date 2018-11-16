@@ -13,6 +13,8 @@ pipeline {
       steps {
         script {
           def parameterValidate = load("lib/validateParameter.groovy")
+          def template = load("lib/template.groovy")
+          def slack = load("lib/slack.groovy")
           def errorMessages = []
 
           def (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
