@@ -8,7 +8,7 @@ String toString(fileName, binding) {
 
 String getValidateError(errorCode, paramName) {
   wrap([$class: 'BuildUser']) {
-    def ERROR = load("constant/error.groovy")
+    def ERROR = load("constant/error.groovy").getAll()
     def binding = [
       "user_name": BUILD_USER,
       "param_name": paramName,
