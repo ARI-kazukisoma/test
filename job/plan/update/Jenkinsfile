@@ -48,7 +48,7 @@ pipeline {
 
           // マスタータグの入力チェック
           (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
-          if (env.IS_UPDATE_DATA && success == false) {
+          if (params.IS_UPDATE_DATA && success == false) {
             errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
           }
           transMasterTag = _transMasterTag
