@@ -65,11 +65,9 @@ def getAll() {
 // 開発環境用の設定
 def getDevelop() {
   return [
-    'SLACK': [
-      'CHANNEL_CREDENTIAL_IDS': [
-        'admin_channel': ['#hooktest', 'tmp_ari_slack_token'],
-        'planner_channel': ['#hooktest', 'tmp_ari_slack_token']
-      ]
+    'CHANNEL_CREDENTIAL_IDS': [
+      'admin_channel': ['#hooktest', 'tmp_ari_slack_token'],
+      'planner_channel': ['#hooktest', 'tmp_ari_slack_token']
     ],
     'API_URL': [
       'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
@@ -85,9 +83,7 @@ def getDevelop() {
 // 本番環境用の設定
 def getProduct() {
   return [
-    'SLACK': [
-      'CHANNEL_CREDENTIAL_IDS': [
-      ]
+    'CHANNEL_CREDENTIAL_IDS': [
     ],
     'API_URL': [
       'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
