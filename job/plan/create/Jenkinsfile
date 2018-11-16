@@ -123,16 +123,17 @@ pipeline {
       steps {
         script {
           def slack = load("lib/slack.groovy")
-          // def template = load("lib/template.groovy")
+          def template = load("lib/template.groovy")
 
-          // def binding = [
-          //   'uuid': params.UUID,
-          //   'request_user': inputParam.request_user,
-          //   'request_datetime': inputParam.request_datetime,
-          //   'target_env': inputParam.target_env,
-          //   'branch': inputParam.branch
-          // ]
-          // message = template.toString('success_create_plan.template', binding)
+          def binding = [
+            'uuid': params.UUID,
+            'request_user': inputParam.request_user,
+            'request_datetime': inputParam.request_datetime,
+            'target_env': inputParam.target_env,
+            'branch': inputParam.branch
+          ]
+          message = template.toString('success_create_plan.template', binding)
+          template = null
           slack.notifyMessage("admin_channel", "aaaaaa")
           slack.notifyMessage("planner_channel", "aaaaa")
         }
