@@ -12,7 +12,7 @@ String getValidateError(errorCode, paramName) {
     "param_name": paramName,
     "error_message": ERROR[errorCode]
   ]
-  return toString("error/validate.templat", binding)
+  return toString("error/validate.template", binding)
 }
 
 String getValidateAllError(errorMessages) {
@@ -32,7 +32,7 @@ String getValidateAllError(errorMessages) {
     "job_url": "${env.JENKINS_URL}job/${JOB_NAME}/${BUILD_NUMBER}/",
     "error_messages": errorMessages
   ]
-  return this.toString("error/validate_all.templat", binding)
+  return this.toString("error/validate_all.template", binding)
 }
 String getSafetyError(errorCode) {
 
