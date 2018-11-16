@@ -5,6 +5,7 @@ def notifyMessage(channelTag, message) {
   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
     slackSend channel: channel, token: token, message: message
   }
+  CONSTS = null
 }
 
 def errorMessage(channelTag, message) {
