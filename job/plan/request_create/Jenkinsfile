@@ -28,9 +28,11 @@ pipeline {
           }
           transMasterTag = _transMasterTag
 
-          // TODO (m.toga) 未払い出しのものかどうかのチェックを実装する
           if (parameterValidate.checkPlanEnv(params.ENV) == false) {
-            echo "env NG"
+            message = template.getValidateError(errorCode, 'MASTER_TAGS')
+            slack.notifyMessage('admin_channel', message)
+            error(message)
+            
           }
 
           if (parameterValidate.checkBranch(params.BRANCH) == false) {

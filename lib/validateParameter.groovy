@@ -64,8 +64,9 @@ def checkMasterTags(text) {
 
 /**
 プラン環境のENVのパラメータチェック
+払い出されていない環境ならエラー
 */
-def checkPlanEnv(targetEnv) {
+def checkExistsPlanEnv(targetEnv) {
 
   def validate = load("lib/validate.groovy")
 
@@ -73,11 +74,37 @@ def checkPlanEnv(targetEnv) {
     return false
   }
 
-  if (validate.isPlan(targetEnv)) {
-    return true
+  if (validate.isPlan(targetEnv) == false) {
+    return false
   }
 
-  return false
+  if (validate.existsPlan(targetEnv) == false) {
+    return false
+  }
+
+  return true
+}
+
+/**
+プラン環境のENVのパラメータチェック
+払い出されている環境ならエラー
+*/
+def checkNotExistsPlanEnv(targetEnv) {
+  def validate = load("lib/validate.groovy")
+
+  if (validate.isNull(targetEnv)) {
+    return false
+  }
+
+  if (validate.isPlan(targetEnv) == false) {
+    return false
+  }
+
+  if (validate.existsPlan(targetEnv)) {
+    return false
+  }
+
+  return true
 }
 
 def checkBranch(branch) {

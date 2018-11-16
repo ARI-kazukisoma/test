@@ -5,6 +5,24 @@ def isPlan(targetEnv) {
   return CONSTS.PLAN_LIST.contains(targetEnv)
 }
 
+/**
+作成されている環境ならtrue
+*/
+def existsPlan(targetEnv) {
+  dir(env.ENV_CONFIGURATION_PATH) {
+    def existPlan = sh returnStdout: true, script: 'ls'
+    def existPlans = existPlan.split("\n").toList()
+    
+    envs = [targetEnv] - existPlans 
+
+    if (envs.size() == 0) {
+      return true
+    }
+
+    return false
+  }
+}
+
 def isNull(val, nullVals=[null, '']) {
   if (nullVals.contains(val)) {
     return true
