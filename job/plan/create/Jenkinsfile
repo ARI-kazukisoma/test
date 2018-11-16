@@ -18,8 +18,8 @@ pipeline {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
             message = template.getSafetyError('SFY001')
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
           }
         }
       }
@@ -40,8 +40,8 @@ pipeline {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
             message = template.getSafetyError('SFY003')
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
           } 
         }
       }
@@ -72,8 +72,8 @@ pipeline {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
             message = template.getSafetyError('SFY004')
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
+            slack.errorMessage("admin_channel", message)
+            slack.errroMessage("planner_channel", message)
           } 
         }
       }
@@ -99,8 +99,8 @@ pipeline {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
             message = template.getSafetyError('SFY005')
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
           }           
         }
       }

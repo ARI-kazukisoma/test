@@ -47,7 +47,7 @@ String getSafetyError(errorCode) {
       "job_url": "${env.JENKINS_URL}job/${JOB_NAME}/${BUILD_NUMBER}/",
       "error_message": ERROR[errorCode]
     ]
-    def filePath = "${JENKINS_HOME}/workspace/${JOB_NAME}/template/error/validate_all.template"
+    def filePath = "${JENKINS_HOME}/workspace/${JOB_NAME}/template/error/safety.template"
     def f = new File(filePath)
     def engine = new groovy.text.SimpleTemplateEngine()
     def template = engine.createTemplate(f).make(binding)
