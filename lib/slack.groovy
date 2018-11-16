@@ -1,8 +1,8 @@
 def notifyMessage(channelTag, message, CONSTS = null) {
 
   if (CONSTS == null) {
+    echo "aaaa"
     try {
-      echo "aaaa"
       CONSTS = load("constant/main.groovy").getAll()
     } catch(Exception e) {}
   }
