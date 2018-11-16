@@ -1,5 +1,5 @@
 void notifyMessage(channelTag, message) {
-  CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
+  CONSTS = load("constant/main.groovy").getAll()
   echo channelTag
   def (channel, credentialsId) = CONSTS.SLACK.CHANNEL_CREDENTIAL_IDS[channelTag]
   echo "bbbbbbbb"
