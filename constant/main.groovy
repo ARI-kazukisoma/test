@@ -67,7 +67,8 @@ def getDevelop() {
   return [
     'SLACK': [
       'CHANNEL_CREDENTIAL_IDS': [
-        'admin_channel': ['#hooktest', 'tmp_ari_slack_token']
+        'admin_channel': ['#hooktest', 'tmp_ari_slack_token'],
+        'planner_channel': ['#hooktest', 'tmp_ari_slack_token']
       ]
     ],
     'API_URL': [
@@ -86,7 +87,6 @@ def getProduct() {
   return [
     'SLACK': [
       'CHANNEL_CREDENTIAL_IDS': [
-        'admin_channel': ['avalon_jenkinsデプロイ通知', 'slack_token1']
       ]
     ],
     'API_URL': [
