@@ -2,7 +2,7 @@
 def isEnv(targetEnv) {
   def CONSTS = load("constant/main.groovy").getAll()
   
-  return CONSTS.PLAN_LIST.contains(targetEnv)
+  return CONSTS.ENV_LIST.contains(targetEnv)
 }
 
 /**
@@ -10,10 +10,10 @@ def isEnv(targetEnv) {
 */
 def existsEnv(targetEnv) {
   dir(env.ENV_CONFIGURATION_PATH) {
-    def existPlan = sh returnStdout: true, script: 'ls'
-    def existPlans = existPlan.split("\n").toList()
+    def existEnv = sh returnStdout: true, script: 'ls'
+    def existEnvs = existEnv.split("\n").toList()
     
-    envs = [targetEnv] - existPlans 
+    envs = [targetEnv] - existEnvs 
 
     if (envs.size() == 0) {
       return true

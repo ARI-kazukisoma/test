@@ -38,7 +38,7 @@ def getAll() {
       'DEPLOY_APP': 'deploy_app.json',
       'UPDATE_DATA': 'update_data.json'
     ],
-    'PLAN_LIST': [
+    'ENV_LIST': [
       'Plan07',
       'Plan08',
       'Plan09',
