@@ -169,14 +169,16 @@ pipeline {
           message = template.toString('success_update_plan.template', binding)
           tmeplate = null
           // TODO エラーになるので調査
-          try {
-            // slack.notifyMessage("admin_channel", message)
-            // slack.notifyMessage("planner_channel", message)
-            def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
-            withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-              slackSend channel: channel, token: token, message: message
-            }
-          } catch(Exception e) {}
+          slack.notifyMessage("admin_channel", message, CONSTS)
+
+          // try {
+          //   // slack.notifyMessage("admin_channel", message)
+          //   // slack.notifyMessage("planner_channel", message)
+          //   def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
+          //   withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+          //     slackSend channel: channel, token: token, message: message
+          //   }
+          // } catch(Exception e) {}
 
         }
       }
