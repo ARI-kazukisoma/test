@@ -27,7 +27,7 @@ pipeline {
             ])
           }
           echo "aaaaaaaaaaaaa"
-          println configures[0].common
+          println configures[0].common.request_datetime
           println configures[1]
           echo "aaaaaaaaaaaaa"
           // def html = template.toString("env_configure.template", configures)
