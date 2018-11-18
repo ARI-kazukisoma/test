@@ -3,7 +3,7 @@
     <title>開発環境構成情報</title>
   </head>
   <body>
-    <table>
+    <table border="1">
       <thead>
         <tr>
           <th>環境名</th>
