@@ -3,7 +3,11 @@ String toString(fileName, binding) {
   def f = new File("${template_dir}/${fileName}")
   def engine = new groovy.text.SimpleTemplateEngine()
   def template = engine.createTemplate(f).make(binding)
-  return template.toString()
+  message = template.toString()
+  f = null
+  engine = null
+  template = null
+  return message
 }
 
 String getValidateError(errorCode, paramName) {
