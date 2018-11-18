@@ -9,13 +9,26 @@ pipeline {
           def template = load("../${JOB_NAME}/lib/template.groovy")
           def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
 
-          def configure
+          def configures = []
           dir(env.ENV_CONFIGURATION_PATH) {
             def existEnv = sh returnStdout: true, script: "ls "
             def existEnvs = existEnv.split("\n").toList()
             deployAppJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP}")
             provisioningJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.PROVISIONING}")
             updateDataJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA}")
+
+            configures.push([
+              'common': [
+
+              ],
+              'deploy_app': [
+
+              ],
+              'update_data': [
+                
+              ]
+
+            ])
 
           }
         }
