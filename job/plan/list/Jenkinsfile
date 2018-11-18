@@ -12,9 +12,9 @@ pipeline {
           dir(env.ENV_CONFIGURATION_PATH) {
             def existPlan = sh returnStdout: true, script: "ls "
             def existPlans = existPlan.split("\n").toList()
-            deployAppJson = json.read("${existPlan[0]}/${CONSTS.PLAN_CONF_FILE_NAME.DEPLOY_APP}")
-            provisioningJson = json.read("${existPlan[0]}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
-            updateDataJson = json.read("${existPlan[0]}/${CONSTS.PLAN_CONF_FILE_NAME.UPDATE_DATA}")
+            deployAppJson = json.read("${existPlans[0]}/${CONSTS.PLAN_CONF_FILE_NAME.DEPLOY_APP}")
+            provisioningJson = json.read("${existPlans[0]}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
+            updateDataJson = json.read("${existPlans[0]}/${CONSTS.PLAN_CONF_FILE_NAME.UPDATE_DATA}")
           }
         }
       }
