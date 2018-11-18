@@ -153,7 +153,6 @@ pipeline {
     stage("Slackへ結果送信") {
       steps {
         script {
-          // def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
           def CONSTS = load("constant/main.groovy").getAll()
 
@@ -177,11 +176,9 @@ pipeline {
           def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
 
           echo credentialsId
-          // withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-          //   // slackSend channel: channel, token: token, message: message
-          //   echo channel
-          //   echo message
-          // }
+          withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
+            slackSend channel: channel, token: token, message: message
+          }
         }
       }
     }
