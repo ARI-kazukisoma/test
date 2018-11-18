@@ -33,7 +33,7 @@ pipeline {
             'cname': cname
           ]
 
-          json.createTmpConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.PROVISIONING)
+          json.createTmpEnvConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.PROVISIONING)
         }
       }
     }
