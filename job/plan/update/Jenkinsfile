@@ -155,6 +155,11 @@ pipeline {
         script {
           def template = load("lib/template.groovy")
           def CONSTS = load("constant/main.groovy").getAll()
+          def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
+          def = token
+          withCredentials([string(credentialsId: credentialsId, variable: '_token')]) {
+            token = _token
+          }
 
           def requestUser = ''
           wrap([$class: 'BuildUser']) {
@@ -169,16 +174,13 @@ pipeline {
           message = template.toString('success_update_plan.template', binding)
           tmeplate = null
           // TODO エラーになるので調査
-          try {
-            // slack.notifyMessage("admin_channel", message)
-            // slack.notifyMessage("planner_channel", message)
+          // try {
+          //   // slack.notifyMessage("admin_channel", message)
+          //   // slack.notifyMessage("planner_channel", message)
 
-          } catch(Exception e) {}
-          def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
+          // } catch(Exception e) {}
 
-          withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-            slackSend channel: channel, token: token, message: message
-          }
+          slackSend channel: channel, token: token, message: message
         }
       }
     }
