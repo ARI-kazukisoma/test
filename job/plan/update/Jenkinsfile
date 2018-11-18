@@ -158,10 +158,10 @@ pipeline {
 
           def binding = [
             'uuid': params.UUID,
-            'request_user': inputParam.request_user,
-            'request_datetime': inputParam.request_datetime,
-            'target_env': inputParam.target_env,
-            'branch': inputParam.branch,
+            'request_user': params.request_user,
+            'request_datetime': params.request_datetime,
+            'target_env': param.target_env,
+            'branch': param.branch,
             'master_tags': params.MASTER_TAGS
           ]
           message = template.toString('success_update_plan.template', binding)
