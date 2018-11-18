@@ -23,9 +23,10 @@ pipeline {
               'common': commonJson,
               'deploy_app': deployAppJson,
               'update_data': updateDataJson,
+              'provisioning': provisioningJson,
             ])
           }
-          println configures[0]
+          println configures[0].common
           println configures[1]
 
           // def html = template.toString("env_configure.template", configures)
