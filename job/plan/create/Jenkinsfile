@@ -128,7 +128,8 @@ pipeline {
             'request_user': inputParam.request_user,
             'request_datetime': inputParam.request_datetime,
             'target_env': inputParam.target_env,
-            'branch': inputParam.branch
+            'branch': inputParam.branch,
+            'master_tags': inputParam.original_master_tags
           ]
           message = template.toString('success_create_plan.template', binding)
           // TODO エラーになるので調査

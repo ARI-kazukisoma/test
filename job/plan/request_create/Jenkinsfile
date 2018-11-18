@@ -72,7 +72,8 @@ pipeline {
             'branch': params.BRANCH,
             'master_tags': transMasterTag,
             'reason': params.REASON,
-            'request_datetime': now
+            'request_datetime': now,
+            'original_master_tags': params.MASTER_TAGS
           ]
           uuid = UUID.randomUUID().toString()
           def filePath = "${env.TMP_PARAMETER_PATH}/${uuid}.json"
