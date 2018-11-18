@@ -4,7 +4,6 @@ pipeline {
     stage("一覧HTML作成") {
       steps {
         script {
-
           def json = load("../${JOB_NAME}/lib/json.groovy")
           def template = load("../${JOB_NAME}/lib/template.groovy")
           def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
@@ -26,6 +25,9 @@ pipeline {
               'update_data': updateDataJson,
             ])
           }
+
+          def html = template.toString("env_configure.template", configures)
+          echo html
         }
       }
     }
