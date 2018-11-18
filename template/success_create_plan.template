@@ -6,3 +6,6 @@
 申請日時： <%= request_datetime %>
 環境名： <%= target_env %>
 ブランチ名： <%= branch %>
+
+▼マスターデータのタグ
+<%= master_tags %>

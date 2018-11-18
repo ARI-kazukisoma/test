@@ -50,11 +50,13 @@ pipeline {
           }
 
           // マスタータグの入力チェック
-          (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
-          if (params.IS_UPDATE_DATA && success == false) {
-            errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
+          if (params.IS_UPDATE_DATA) {
+            (success, _transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+            if (success == false) {
+              errorMessages.push(template.getValidateError(errorCode, 'MASTER_TAGS'))
+            }
+            transMasterTag = _transMasterTag
           }
-          transMasterTag = _transMasterTag
 
           if (errorMessages.size() > 0) {
             message = template.getValidateAllError(errorMessages)
@@ -148,28 +150,29 @@ pipeline {
         }
       }
     }
-    // stage("Slackへ結果送信") {
-    //   steps {
-    //     script {
-    //       def slack = load("lib/slack.groovy")
-    //       def template = load("lib/template.groovy")
+    stage("Slackへ結果送信") {
+      steps {
+        script {
+          def slack = load("lib/slack.groovy")
+          def template = load("lib/template.groovy")
 
-    //       def binding = [
-    //         'uuid': params.UUID,
-    //         'request_user': inputParam.request_user,
-    //         'request_datetime': inputParam.request_datetime,
-    //         'target_env': inputParam.target_env,
-    //         'branch': inputParam.branch
-    //       ]
-    //       message = template.toString('success_create_plan.template', binding)
-    //       // TODO エラーになるので調査
-    //       try {
-    //         slack.notifyMessage("admin_channel", message)
-    //         slack.notifyMessage("planner_channel", message)
-    //       } catch(Exception e) {}
-    //     }
-    //   }
-    // }
+          def binding = [
+            'uuid': params.UUID,
+            'request_user': inputParam.request_user,
+            'request_datetime': inputParam.request_datetime,
+            'target_env': inputParam.target_env,
+            'branch': inputParam.branch,
+            'master_tags': params.MASTER_TAGS
+          ]
+          message = template.toString('success_update_plan.template', binding)
+          // TODO エラーになるので調査
+          try {
+            slack.notifyMessage("admin_channel", message)
+            slack.notifyMessage("planner_channel", message)
+          } catch(Exception e) {}
+        }
+      }
+    }
   }
   post {
     always {
