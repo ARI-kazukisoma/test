@@ -22,6 +22,9 @@ Boolean delete(filePath) {
 }
 
 void createTmpConfFile(data, targetEnv, fileName) {
+  dir(env.TMP_ENV_CONFIGURATION_PATH) {
+    sh "mkdir -p ${targetEnv}"
+  }
   write(data, "${env.TMP_ENV_CONFIGURATION_PATH}/${targetEnv}/${fileName}")
 }
 
@@ -37,5 +40,9 @@ void createEnvConfFile(targetEnv, fileName) {
     sh "cp -p ${targetEnv}/${fileName} ${env.ENV_CONFIGURATION_PATH}/${targetEnv}/"
   }
 
+}
+
+void getEnvConf(targetEnv, fileName) {
+  return read("${env.ENV_CONFIGURATION_PATH}/${targetEnv}/${fileName}")
 }
 return this

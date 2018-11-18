@@ -12,29 +12,28 @@ pipeline {
           def template = load("../${JOB_NAME}/lib/template.groovy")
           def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
 
-          def rds_cluster_endpoint = 
+          def rdsClusterEndpoint = 
             template.toString("env/rds_cluster_endpoint.template", ['env': params.ENV.toLowerCase()])
-          def rds_instance_endpoint = 
+          def rdsInstanceEndpoint = 
             template.toString("env/rds_instance_endpoint.template", ['env': params.ENV.toLowerCase()])
 
-          def cache_primary_endpoint = 
+          def cachePrimaryEndpoint = 
             template.toString("env/cache_primary_endpoint.template", ['env': params.ENV.toLowerCase()])
-          def cache_second_endpoint = 
+          def cacheSecondEndpoint = 
             template.toString("env/cache_second_endpoint.template", ['env': params.ENV.toLowerCase()])
 
           def cname = 
             template.toString("env/cname.template", ['env': params.ENV.toLowerCase()])
+          
+          def jsonData = [
+            'rds_cluster_endpoint': rdsClusterEndpoint,
+            'rds_instance_endpoint': rdsInstanceEndpoint,
+            'cache_primary_endpoint': cachePrimaryEndpoint,
+            'cache_second_endpoint': cacheSecondEndpoint,
+            'cname': cname
+          ]
 
-          dir(env.TMP_ENV_CONFIGURATION_PATH) {
-            sh "mkdir -p ${params.ENV}"
-            json.write([
-              'rds_cluster_endpoint': rds_cluster_endpoint,
-              'rds_instance_endpoint': rds_instance_endpoint,
-              'cache_primary_endpoint': cache_primary_endpoint,
-              'cache_second_endpoint': cache_second_endpoint,
-              'cname': cname
-            ], "${params.ENV}/${CONSTS.ENV_CONF_FILE_NAME.PROVISIONING}")
-          }
+          json.createTmpConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.PROVISIONING)
         }
       }
     }
