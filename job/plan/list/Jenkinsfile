@@ -26,12 +26,10 @@ pipeline {
               'provisioning': provisioningJson,
             ])
           }
-          echo "aaaaaaaaaaaaa"
-          println configures[0].common.request_datetime
-          println configures[1]
-          echo "aaaaaaaaaaaaa"
           def html = template.toString("env_configure.template", ['configures' :configures])
-          echo html
+
+          writeFile file: "index.html", text: html
+          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportFiles: 'index.html', reportName: '開発環境構成情報', reportTitles: '開発環境構成情報'])
         }
       }
     }
