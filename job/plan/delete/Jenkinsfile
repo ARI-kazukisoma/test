@@ -52,7 +52,7 @@ pipeline {
             'request_datetime': inputParam.request_datetime,
             'target_env': inputParam.target_env
           ]
-          message = template.toString('success_delete_plan.template', binding)
+          message = template.toString('success_delete_env.template', binding)
           slack.notifyMessage("admin_channel", message, CONSTS)
           slack.notifyMessage("planner_channel", message, CONSTS)
         }

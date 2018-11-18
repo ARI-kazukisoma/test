@@ -12,7 +12,7 @@ pipeline {
           def configure
           dir(env.ENV_CONFIGURATION_PATH) {
             def existEnv = sh returnStdout: true, script: "ls "
-            def existEnvs = existPlan.split("\n").toList()
+            def existEnvs = existEnv.split("\n").toList()
             deployAppJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP}")
             provisioningJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.PROVISIONING}")
             updateDataJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA}")

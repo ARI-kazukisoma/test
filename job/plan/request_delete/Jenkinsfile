@@ -5,7 +5,7 @@ def transMasterTag = ''
 pipeline {
   agent {node { label 'master' }}
   parameters {
-    string(name: 'ENV', description: 'PLAN環境選択')
+    string(name: 'ENV', description: 'Plan環境選択')
 
   }
   stages {
@@ -70,10 +70,10 @@ pipeline {
               'request_user': BUILD_USER,
               'target_env': params.ENV,
               'request_datetime': now,
-              'approval_link': "${CONSTS.API_URL.APPROVAL_DELETE_PLAN_JOB}&amp;UUID=${uuid}",
-              'refusal_link': "${CONSTS.API_URL.REFUSAL_DELETE_PLAN_JOB}&amp;UUID=${uuid}"
+              'approval_link': "${CONSTS.API_URL.APPROVAL_DELETE_ENV_JOB}&amp;UUID=${uuid}",
+              'refusal_link': "${CONSTS.API_URL.REFUSAL_DELETE_ENV_JOB}&amp;UUID=${uuid}"
             ]
-            message = template.toString("request_delete_plan.template", binding)
+            message = template.toString("request_delete_env.template", binding)
           }
 
           slack.notifyMessage("admin_channel", message)

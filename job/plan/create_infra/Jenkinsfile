@@ -1,7 +1,7 @@
 pipeline {
   agent {node { label 'master' }}
   parameters {
-    string(name: 'ENV', description: 'PLANxxを指定')
+    string(name: 'ENV', description: 'Planxxを指定')
   }
   stages {
     stage("環境情報の仮保存") {
@@ -13,17 +13,17 @@ pipeline {
           def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
 
           def rds_cluster_endpoint = 
-            template.toString("plan/rds_cluster_endpoint.template", ['env': params.ENV.toLowerCase()])
+            template.toString("env/rds_cluster_endpoint.template", ['env': params.ENV.toLowerCase()])
           def rds_instance_endpoint = 
-            template.toString("plan/rds_instance_endpoint.template", ['env': params.ENV.toLowerCase()])
+            template.toString("env/rds_instance_endpoint.template", ['env': params.ENV.toLowerCase()])
 
           def cache_primary_endpoint = 
-            template.toString("plan/cache_primary_endpoint.template", ['env': params.ENV.toLowerCase()])
+            template.toString("env/cache_primary_endpoint.template", ['env': params.ENV.toLowerCase()])
           def cache_second_endpoint = 
-            template.toString("plan/cache_second_endpoint.template", ['env': params.ENV.toLowerCase()])
+            template.toString("env/cache_second_endpoint.template", ['env': params.ENV.toLowerCase()])
 
           def cname = 
-            template.toString("plan/cname.template", ['env': params.ENV.toLowerCase()])
+            template.toString("env/cname.template", ['env': params.ENV.toLowerCase()])
 
           dir(env.TMP_ENV_CONFIGURATION_PATH) {
             sh "mkdir -p ${params.ENV}"

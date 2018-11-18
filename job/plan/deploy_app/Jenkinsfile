@@ -1,7 +1,7 @@
 pipeline {
   agent {node { label 'master' }}
   parameters {
-    string(name: 'ENV', description: 'PLANxxを指定')
+    string(name: 'ENV', description: 'Planxxを指定')
     string(name: 'BRANCH', description: 'ブランチを指定')
   }
   stages {

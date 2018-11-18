@@ -5,7 +5,7 @@ def transMasterTag = ''
 pipeline {
   agent {node { label 'master' }}
   parameters {
-    string(name: 'ENV', description: 'PLAN環境選択')
+    string(name: 'ENV', description: 'Plan環境選択')
     string(name: 'BRANCH', description: 'ブランチ名')
     text(name: 'MASTER_TAGS', description: 'マスタータグ')
     text(name: 'REASON', description: '利用用途')
@@ -100,10 +100,10 @@ pipeline {
               'branch': params.BRANCH,
               'master_tags': params.MASTER_TAGS,
               'reason': params.REASON,
-              'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}",
-              'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_PLAN_JOB}&amp;UUID=${uuid}"
+              'approval_link': "${CONSTS.API_URL.APPROVAL_CREATE_ENV_JOB}&amp;UUID=${uuid}",
+              'refusal_link': "${CONSTS.API_URL.REFUSAL_CREATE_ENV_JOB}&amp;UUID=${uuid}"
             ]
-            message = template.toString("request_create_plan.template", binding)
+            message = template.toString("request_create_env.template", binding)
           }
 
           slack.notifyMessage("admin_channel", message)

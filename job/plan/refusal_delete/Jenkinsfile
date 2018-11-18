@@ -30,7 +30,7 @@ pipeline {
             'target_env': inputParam.target_env
           ]
 
-          message = template.toString('refusal_delete_plan.template', binding)
+          message = template.toString('refusal_delete_env.template', binding)
           slack.notifyMessage("admin_channel", message, CONSTS)
           slack.notifyMessage("planner_channel", message, CONSTS)
         }

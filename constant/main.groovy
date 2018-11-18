@@ -70,10 +70,10 @@ def getDevelop() {
       'planner_channel': ['#hooktest', 'tmp_ari_slack_token']
     ],
     'API_URL': [
-      'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
-      'REFUSAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
-      'APPROVAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
-      'REFUSAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
+      'APPROVAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
+      'REFUSAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
+      'APPROVAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
+      'REFUSAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
     ],
 
   ]
@@ -86,10 +86,10 @@ def getProduct() {
     'CHANNEL_CREDENTIAL_IDS': [
     ],
     'API_URL': [
-      'APPROVAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
-      'REFUSAL_CREATE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
-      'APPROVAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
-      'REFUSAL_DELETE_PLAN_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
+      'APPROVAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
+      'REFUSAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
+      'APPROVAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
+      'REFUSAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
     ],
 
   ]

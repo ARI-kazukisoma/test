@@ -4,7 +4,7 @@ pipeline {
   parameters {
     booleanParam(name: 'IS_DEPLOY_APP', defaultValue: true, description: 'アプリデプロイを実行するか')
     booleanParam(name: 'IS_UPDATE_DATA', defaultValue: true, description: 'マスターアップデートを実行するか')
-    string(name: 'ENV', description: 'PLAN環境選択')
+    string(name: 'ENV', description: 'Plan環境選択')
     string(name: 'BRANCH', description: 'ブランチ名')
     text(name: 'MASTER_TAGS', description: 'マスタータグ')
   }
@@ -167,7 +167,7 @@ pipeline {
             'branch': params.BRANCH,
             'master_tags': params.MASTER_TAGS
           ]
-          message = template.toString('success_update_plan.template', binding)
+          message = template.toString('success_update_env.template', binding)
           slack.notifyMessage("admin_channel", message, CONSTS)
           slack.notifyMessage("planner_channel", message, CONSTS)
         }
