@@ -18,7 +18,7 @@ pipeline {
               json.write([
                 'master_tags': env.MASTER_TAGS,
                 'branch': env.BRANCH
-              ], "${params.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.UPDATE_DATA}")
+              ], "${params.ENV}/${CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA}")
             }
           }
         }

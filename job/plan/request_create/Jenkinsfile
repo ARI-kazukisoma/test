@@ -21,7 +21,7 @@ pipeline {
           def errorMessages = []
 
           // 環境の入力チェック
-          (success, errorCode) = parameterValidate.checkNotExistsPlanEnv(params.ENV)
+          (success, errorCode) = parameterValidate.checkNotExistsEnv(params.ENV)
           if (success == false) {
             errorMessages.push(template.getValidateError(errorCode, 'ENV'))
           }

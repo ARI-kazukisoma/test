@@ -1,5 +1,5 @@
 
-def isPlan(targetEnv) {
+def isEnv(targetEnv) {
   def CONSTS = load("constant/main.groovy").getAll()
   
   return CONSTS.PLAN_LIST.contains(targetEnv)
@@ -8,7 +8,7 @@ def isPlan(targetEnv) {
 /**
 作成されている環境ならtrue
 */
-def existsPlan(targetEnv) {
+def existsEnv(targetEnv) {
   dir(env.ENV_CONFIGURATION_PATH) {
     def existPlan = sh returnStdout: true, script: 'ls'
     def existPlans = existPlan.split("\n").toList()

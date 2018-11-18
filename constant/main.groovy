@@ -32,7 +32,7 @@ def getAll() {
 
   base = [
     'TIMEZONE': 'JST',
-    'PLAN_CONF_FILE_NAME': [
+    'ENV_CONF_FILE_NAME': [
       'PROVISIONING': 'provisioning.json',
       'COMMON': 'common.json',
       'DEPLOY_APP': 'deploy_app.json',

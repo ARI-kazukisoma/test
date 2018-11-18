@@ -16,7 +16,7 @@ pipeline {
               sh "mkdir -p ${params.ENV}"
               json.write([
                 'branch': env.BRANCH
-              ], "${params.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.DEPLOY_APP}")
+              ], "${params.ENV}/${CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP}")
             }
           }
         }

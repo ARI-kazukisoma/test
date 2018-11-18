@@ -17,7 +17,7 @@ pipeline {
           def slack = load("lib/slack.groovy")
           def errorMessages = []
 
-          def (success, errorCode) = parameterValidate.checkExistsPlanEnv(params.ENV)
+          def (success, errorCode) = parameterValidate.checkExistsEnv(params.ENV)
           if (success == false) {
             errorMessages.push(template.getValidateError(errorCode, 'ENV'))
           }

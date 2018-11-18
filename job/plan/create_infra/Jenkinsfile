@@ -33,7 +33,7 @@ pipeline {
               'cache_primary_endpoint': cache_primary_endpoint,
               'cache_second_endpoint': cache_second_endpoint,
               'cname': cname
-            ], "${params.ENV}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
+            ], "${params.ENV}/${CONSTS.ENV_CONF_FILE_NAME.PROVISIONING}")
           }
         }
       }

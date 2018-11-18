@@ -62,10 +62,10 @@ def checkMasterTags(text) {
 }
 
 /**
-プラン環境のENVのパラメータチェック
+ENVのパラメータチェック
 払い出されていない環境ならエラー
 */
-def checkExistsPlanEnv(targetEnv) {
+def checkExistsEnv(targetEnv) {
 
   def validate = load("lib/validate.groovy")
 
@@ -73,11 +73,11 @@ def checkExistsPlanEnv(targetEnv) {
     return [false,  "VLD001"]
   }
 
-  if (validate.isPlan(targetEnv) == false) {
+  if (validate.isEnv(targetEnv) == false) {
     return [false, "VLD006"]
   }
 
-  if (validate.existsPlan(targetEnv) == false) {
+  if (validate.existsEnv(targetEnv) == false) {
     return [false, 'VLD005']
   }
 
@@ -85,21 +85,21 @@ def checkExistsPlanEnv(targetEnv) {
 }
 
 /**
-プラン環境のENVのパラメータチェック
+ENVのパラメータチェック
 払い出されている環境ならエラー
 */
-def checkNotExistsPlanEnv(targetEnv) {
+def checkNotExistsEnv(targetEnv) {
   def validate = load("lib/validate.groovy")
 
   if (validate.isNull(targetEnv)) {
     return [false, 'VLD001']
   }
 
-  if (validate.isPlan(targetEnv) == false) {
+  if (validate.isEnv(targetEnv) == false) {
     return [false, 'VLD006']
   }
 
-  if (validate.existsPlan(targetEnv)) {
+  if (validate.existsEnv(targetEnv)) {
     return [false, 'VLD004']
   }
 
