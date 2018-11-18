@@ -30,7 +30,7 @@ pipeline {
           println configures[0].common.request_datetime
           println configures[1]
           echo "aaaaaaaaaaaaa"
-          def html = template.toString("env_configure.template", configures)
+          def html = template.toString("env_configure.template", ['configures' :configures])
           echo html
         }
       }
