@@ -4,9 +4,6 @@ String toString(fileName, binding) {
   def engine = new groovy.text.SimpleTemplateEngine()
   def template = engine.createTemplate(f).make(binding)
   message = template.toString()
-  f = null
-  engine = null
-  template = null
   return message
 }
 
