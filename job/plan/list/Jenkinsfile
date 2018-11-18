@@ -30,7 +30,7 @@ pipeline {
 
           writeFile file: "index.html", text: html
           archiveArtifacts artifacts: 'index.html'
-          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportFiles: 'index.html', reportName: '開発環境構成情報', reportTitles: '開発環境構成情報'])
+          // publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportFiles: 'index.html', reportName: '開発環境構成情報', reportTitles: '開発環境構成情報'])
         }
       }
     }
