@@ -181,8 +181,9 @@ pipeline {
 
           } catch(Exception e) {}
           def CONSTS = load("constant/main.groovy").getAll()
+          def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
 
-          withCredentials([string(credentialsId: CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel'], variable: 'token')]) {
+          withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
             slackSend channel: channel, token: token, message: message
           }
         }
