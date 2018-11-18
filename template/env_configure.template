@@ -20,15 +20,6 @@
       <tbody>
         <% configures.each{ config -> %>
           <tr>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
           </tr>
         <%} %>
       </tbody>
