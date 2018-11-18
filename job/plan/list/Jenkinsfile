@@ -1,0 +1,31 @@
+pipeline {
+  agent {node { label 'master' }}
+  stages {
+    stage("一覧HTML作成") {
+      steps {
+        script {
+
+          def json = load("../${JOB_NAME}/lib/json.groovy")
+          def template = load("../${JOB_NAME}/lib/template.groovy")
+          def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
+
+          dir(env.ENV_CONFIGURATION_PATH) {
+            def existPlan = sh returnStdout: true, script: "ls "
+            def existPlans = existPlan.split("\n").toList()
+            deployAppJson = json.read("${existPlan[0]}/${CONSTS.PLAN_CONF_FILE_NAME.DEPLOY_APP}")
+            provisioningJson = json.read("${existPlan[0]}/${CONSTS.PLAN_CONF_FILE_NAME.PROVISIONING}")
+            updateDataJson = json.read("${existPlan[0]}/${CONSTS.PLAN_CONF_FILE_NAME.UPDATE_DATA}")
+          }
+        }
+      }
+    }
+    stage("terraformを実行") {
+      steps {
+        // TODO (m.toga) あとでちゃんとしたノードを設定する
+        node("master") {
+          sh "echo"
+        }
+      }
+    }
+  }
+}
