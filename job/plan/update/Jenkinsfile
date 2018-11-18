@@ -169,12 +169,6 @@ pipeline {
           message = template.toString('success_update_plan.template', binding)
           // TODO エラーになるので調査
           try {
-            def CONSTS = load("constant/main.groovy").getAll()
-
-            withCredentials([string(credentialsId: CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel'], variable: 'token')]) {
-              slackSend channel: channel, token: token, message: message
-            }
-
             // slack.notifyMessage("admin_channel", message)
             // slack.notifyMessage("planner_channel", message)
 
@@ -182,6 +176,7 @@ pipeline {
           def CONSTS = load("constant/main.groovy").getAll()
           def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
 
+          echo credentialsId
           withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
             // slackSend channel: channel, token: token, message: message
             echo channel
