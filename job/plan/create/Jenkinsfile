@@ -117,7 +117,7 @@ pipeline {
           }
 
           def json = load("lib/json.groovy")
-          def CONSTS = load("constant/main.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
           def common = [
             'request_user': inputParam.request_user,
             'request_datetime': inputParam.request_datetime,
