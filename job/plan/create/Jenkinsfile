@@ -110,12 +110,6 @@ pipeline {
     stage("構成情報保管") {
       steps {
         script {
-
-          // 構成ファイルをtmpから正式なディレクトリにコピーする
-          dir(env.TMP_ENV_CONFIGURATION_PATH) {
-            sh "cp -pr ${inputParam.target_env} ${env.ENV_CONFIGURATION_PATH}/"
-          }
-
           def json = load("lib/json.groovy")
           def CONSTS = load("constant/main.groovy").getAll()
           def common = [
@@ -124,7 +118,13 @@ pipeline {
             'reason': inputParam.reason,
             'update_datetime': inputParam.request_datetime,
           ]
-          json.write(common, "${env.ENV_CONFIGURATION_PATH}/${CONSTS.ENV_CONF_FILE_NAME.COMMON}")
+
+          // common.json作成
+          fileName = CONSTS.ENV_CONF_FILE_NAME.COMMON
+          json.createTmpConfFile(common, inputParam.target_env, fileName)
+
+          // 構成ファイルをtmpから正式なディレクトリにコピーする
+          json.createAllEnvConfFile(inputParam.target_env)
         }
       }
     }
