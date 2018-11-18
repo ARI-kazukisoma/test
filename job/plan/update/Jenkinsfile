@@ -154,6 +154,7 @@ pipeline {
       steps {
         script {
           def template = load("lib/template.groovy")
+          def slack = load("lib/slack.groovy")
           def CONSTS = load("constant/main.groovy").getAll()
 
           def requestUser = ''
