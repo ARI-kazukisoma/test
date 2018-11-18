@@ -21,14 +21,24 @@
         <% configures.each{ config -> %>
           <tr>
             <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
-            <td><%= config.common.env %></td>
+            <td><%= config.common.request_user %></td>
+            <td><%= config.common.request_datetime %></td>
+            <td><%= config.common.update_datetime %></td>
+            <td><%= config.common.reason %></td>
+            <td><%= config.update_data.master_tags %></td>
+            <td><%= config.update_data.branch %></td>
+            <td><%= config.deploy_app.branch %></td>
+            <td>
+              <table>
+                <tbody>
+                  <tr><td>config.provisioning.cname</td></tr>
+                  <tr><td>config.provisioning.rds_cluster_endpoint</td></tr>
+                  <tr><td>config.provisioning.rds_instance_endpoint</td></tr>
+                  <tr><td>config.provisioning.cache_primary_endpoint</td></tr>
+                  <tr><td>config.provisioning.cache_second_endpoint</td></tr>
+                </tbody>
+              </table>
+            </td>
           </tr>
         <%} %>
       </tbody>
