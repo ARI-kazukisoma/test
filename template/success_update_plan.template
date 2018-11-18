@@ -7,4 +7,4 @@
 マスタータグ： <%= branch %>
 
 <% if (master_tags) out.print"▼マスターデータのタグ" %>
-<% if (master_tags) out.print master_tags >
+<% if (master_tags) out.print master_tags %>
