@@ -160,8 +160,8 @@ pipeline {
             'uuid': params.UUID,
             'request_user': params.request_user,
             'request_datetime': params.request_datetime,
-            'target_env': param.target_env,
-            'branch': param.branch,
+            'target_env': params.target_env,
+            'branch': params.branch,
             'master_tags': params.MASTER_TAGS
           ]
           message = template.toString('success_update_plan.template', binding)
