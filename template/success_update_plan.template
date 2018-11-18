@@ -6,5 +6,8 @@
 ブランチ名： <%= branch %>
 マスタータグ： <%= branch %>
 
+<% 
+if (master_tags)
 ▼マスターデータのタグ
 <%= master_tags %>
+%>
