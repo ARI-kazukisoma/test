@@ -170,8 +170,15 @@ pipeline {
           echo message
           // TODO エラーになるので調査
           try {
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
+            def CONSTS = load("constant/main.groovy").getAll()
+
+            withCredentials([string(credentialsId: CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel'], variable: 'token')]) {
+              slackSend channel: channel, token: token, message: message
+            }
+
+            // slack.notifyMessage("admin_channel", message)
+            // slack.notifyMessage("planner_channel", message)
+
           } catch(Exception e) {}
         }
       }
