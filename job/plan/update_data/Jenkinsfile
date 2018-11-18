@@ -13,13 +13,11 @@ pipeline {
             def json = load("../${JOB_NAME}/lib/json.groovy")
             def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
 
-            dir(env.TMP_ENV_CONFIGURATION_PATH) {
-              sh "mkdir -p ${params.ENV}"
-              json.write([
-                'master_tags': env.MASTER_TAGS,
-                'branch': env.BRANCH
-              ], "${params.ENV}/${CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA}")
-            }
+            def jsonData = [
+              'master_tags': params.MASTER_TAGS,
+              'branch': params.BRANCH
+            ]
+            json.createTmpEnvConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
           }
         }
       }

@@ -121,7 +121,7 @@ pipeline {
 
           // common.json作成
           fileName = CONSTS.ENV_CONF_FILE_NAME.COMMON
-          json.createTmpConfFile(common, inputParam.target_env, fileName)
+          json.createTmpEnvConfFile(common, inputParam.target_env, fileName)
 
           // 構成ファイルをtmpから正式なディレクトリにコピーする
           json.createAllEnvConfFile(inputParam.target_env)

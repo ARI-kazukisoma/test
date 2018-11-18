@@ -21,7 +21,7 @@ Boolean delete(filePath) {
   return false
 }
 
-void createTmpConfFile(data, targetEnv, fileName) {
+void createTmpEnvConfFile(data, targetEnv, fileName) {
   dir(env.TMP_ENV_CONFIGURATION_PATH) {
     sh "mkdir -p ${targetEnv}"
   }
