@@ -165,6 +165,7 @@ pipeline {
             'master_tags': params.MASTER_TAGS
           ]
           message = template.toString('success_update_plan.template', binding)
+          echo message
           // TODO エラーになるので調査
           try {
             slack.notifyMessage("admin_channel", message)
