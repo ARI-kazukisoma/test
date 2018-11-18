@@ -180,6 +180,11 @@ pipeline {
             // slack.notifyMessage("planner_channel", message)
 
           } catch(Exception e) {}
+          def CONSTS = load("constant/main.groovy").getAll()
+
+          withCredentials([string(credentialsId: CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel'], variable: 'token')]) {
+            slackSend channel: channel, token: token, message: message
+          }
         }
       }
     }
