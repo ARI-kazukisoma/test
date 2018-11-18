@@ -22,7 +22,7 @@ Boolean delete(filePath) {
 }
 
 void createTmpConfFile(data, targetEnv, fileName) {
-  json.write(common, "${env.TMP_ENV_CONFIGURATION_PATH}/${targetEnv}/${fileName}")
+  write(common, "${env.TMP_ENV_CONFIGURATION_PATH}/${targetEnv}/${fileName}")
 }
 
 void createAllEnvConfFile(targetEnv) {
