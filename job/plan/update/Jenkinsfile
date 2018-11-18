@@ -137,16 +137,22 @@ pipeline {
         script {
           // 構成ファイルをtmpから正式なディレクトリにコピーする
           def CONSTS = load("constant/main.groovy").getAll()
-          dir(env.TMP_ENV_CONFIGURATION_PATH) {
-            if (params.IS_DEPLOY_APP) {
-              def fileName = CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP
-              sh "cp -p ${params.ENV}/${fileName} ${env.ENV_CONFIGURATION_PATH}/${params.ENV}/${fileName}"
-            }
-            if (params.IS_UPDATE_DATA) {
-              def fileName = CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA
-              sh "cp -p ${params.ENV}/${fileName} ${env.ENV_CONFIGURATION_PATH}/${params.ENV}/${fileName}"
-            }
+          def json = load("lib/json.groovy")
+          def datetime = load("lib/datetime.groovy")
+
+          if (params.IS_DEPLOY_APP) {
+            json.createEnvConfFile(params.ENV, CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP)
           }
+          if (params.IS_UPDATE_DATA) {
+            json.createEnvConfFile(params.ENV, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
+          }
+
+          // common.json更新 
+          // TODO (m.toga) 今後更新処理が増えてくるようなら更新用の関数を用意する
+          def common = json.getEnvConf(params.ENV, CONSTS.ENV_CONF_FILE_NAME.COMMON)
+          common['update_datetime'] = datetime.now()
+          json.createTmpEnvConfFile(common, params.ENV, CONSTS.ENV_CONF_FILE_NAME.COMMON)
+          json.createEnvConfFile(params.ENV, CONSTS.ENV_CONF_FILE_NAME.COMMON)
         }
       }
     }
