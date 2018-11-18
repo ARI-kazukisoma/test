@@ -10,35 +10,22 @@ pipeline {
           def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
 
           def configures = []
+          def existEnvs = []
           dir(env.ENV_CONFIGURATION_PATH) {
             def existEnv = sh returnStdout: true, script: "ls "
-            def existEnvs = existEnv.split("\n").toList()
-            deployAppJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP}")
-            provisioningJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.PROVISIONING}")
-            updateDataJson = json.read("${existEnvs[0]}/${CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA}")
-
-            configures.push([
-              'common': [
-
-              ],
-              'deploy_app': [
-
-              ],
-              'update_data': [
-                
-              ]
-
-            ])
-
+            existEnvs = existEnv.split("\n").toList()
           }
-        }
-      }
-    }
-    stage("terraformを実行") {
-      steps {
-        // TODO (m.toga) あとでちゃんとしたノードを設定する
-        node("master") {
-          sh "echo"
+          for (existEnv in existEnvs) {
+            deployAppJson = json.getEnvConf(existEnv, CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP)
+            provisioningJson = json.getEnvConf(existEnv, CONSTS.ENV_CONF_FILE_NAME.PROVISIONING)
+            updateDataJson = json.getEnvConf(existEnv, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
+            commonJson = json.getEnvConf(existEnv, CONSTS.ENV_CONF_FILE_NAME.COMMON)
+            configures.push([
+              'common': commonJson,
+              'deploy_app': deployAppJson,
+              'update_data': updateDataJson,
+            ])
+          }
         }
       }
     }
