@@ -115,6 +115,7 @@ pipeline {
           def common = [
             'request_user': inputParam.request_user,
             'request_datetime': inputParam.request_datetime,
+            'env': inputParam.target_env,
             'reason': inputParam.reason,
             'update_datetime': inputParam.request_datetime,
           ]

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>開発環境構成情報</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>環境名</th>
+          <th>申請者</th>
+          <th>申請日</th>
+          <th>利用用途</th>
+          <th>マスタータグ</th>
+          <th>マスターブランチ名</th>
+          <th>アプリブランチ名</th>
+          <th>各種エンドポイント</th>
+        </tr>
+        <% configures.each{ config -> %>
+          <tr>
+            <td><%= config.common.env</td>
+          </tr>
+        <%} %>
+
+
+        } %>
+      </thead>
+      
+    </table>
+  </body>
+</html>
