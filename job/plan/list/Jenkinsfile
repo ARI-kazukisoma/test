@@ -25,7 +25,8 @@ pipeline {
               'update_data': updateDataJson,
             ])
           }
-          println configures
+          println configures[0]
+          println configures[1]
 
           // def html = template.toString("env_configure.template", configures)
           // echo html
