@@ -156,12 +156,14 @@ pipeline {
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
 
+          def requestUser = ''
+          wrap([$class: 'BuildUser']) {
+            requestUser = BUILD_USER
+          }
           def binding = [
-            'uuid': params.UUID,
-            'request_user': params.request_user,
-            'request_datetime': params.request_datetime,
-            'target_env': params.target_env,
-            'branch': params.branch,
+            'request_user': requestUser,
+            'target_env': params.ENV,
+            'branch': params.BRANCH,
             'master_tags': params.MASTER_TAGS
           ]
           message = template.toString('success_update_plan.template', binding)
