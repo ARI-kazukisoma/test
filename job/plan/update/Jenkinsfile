@@ -156,7 +156,7 @@ pipeline {
           def template = load("lib/template.groovy")
           def CONSTS = load("constant/main.groovy").getAll()
           def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS['admin_channel']
-          def = token
+          def token = null
           withCredentials([string(credentialsId: credentialsId, variable: '_token')]) {
             token = _token
           }
