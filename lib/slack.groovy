@@ -7,7 +7,7 @@ def notifyMessage(channelTag, message, CONSTS = null) {
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
       slackSend channel: channel, token: token, message: message
     }
-  } catch(Exception e) {}
+  } catch(java.io.NotSerializableException e) {}
 }
 
 def errorMessage(channelTag, message, CONSTS = null) {
@@ -18,7 +18,7 @@ def errorMessage(channelTag, message, CONSTS = null) {
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
       slackSend channel: channel, token: token, message: message, color: "#FF0000"
     }
-  } catch(Exception e) {}
+  } catch(java.io.NotSerializableException e) {}
 }
 
 def getChannelCredential(channelTag, CONSTS = null) {
