@@ -31,11 +31,11 @@
             <td>
               <table>
                 <tbody>
-                  <tr><td><%= config.provisioning.cname %></td></tr>
-                  <tr><td><%= config.provisioning.rds_cluster_endpoint %></td></tr>
-                  <tr><td><%= config.provisioning.rds_instance_endpoint %></td></tr>
-                  <tr><td><%= config.provisioning.cache_primary_endpoint %></td></tr>
-                  <tr><td><%= config.provisioning.cache_second_endpoint %></td></tr>
+                  <tr><td>サーバURL：<%= config.provisioning.cname %></td></tr>
+                  <tr><td>RDSクラスタエンドポイント：<%= config.provisioning.rds_cluster_endpoint %></td></tr>
+                  <tr><td>RDSインスタンスエンドポイント<%= config.provisioning.rds_instance_endpoint %></td></tr>
+                  <tr><td>キャッシュプライマリエンドポイント<%= config.provisioning.cache_primary_endpoint %></td></tr>
+                  <tr><td>キャッシュセカンダリエンドポイント<%= config.provisioning.cache_second_endpoint %></td></tr>
                 </tbody>
               </table>
             </td>
