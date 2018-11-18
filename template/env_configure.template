@@ -9,22 +9,29 @@
           <th>環境名</th>
           <th>申請者</th>
           <th>申請日</th>
+          <th>更新日</th>
           <th>利用用途</th>
           <th>マスタータグ</th>
           <th>マスターブランチ名</th>
           <th>アプリブランチ名</th>
           <th>各種エンドポイント</th>
         </tr>
+      </thead>
+      <tbody>
         <% configures.each{ config -> %>
           <tr>
-            <td><%= config.common.env</td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
+            <td><%= config.common.env %></td>
           </tr>
         <%} %>
-
-
-        } %>
-      </thead>
-      
+      </tbody>
     </table>
   </body>
 </html>
