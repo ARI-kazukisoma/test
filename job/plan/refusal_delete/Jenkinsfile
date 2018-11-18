@@ -11,6 +11,7 @@ pipeline {
           def json = load("lib/json.groovy")
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
 
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
@@ -30,11 +31,8 @@ pipeline {
           ]
 
           message = template.toString('refusal_delete_plan.template', binding)
-          // TODO エラーになるので調査
-          try {
-            slack.notifyMessage("admin_channel", message)
-            slack.notifyMessage("planner_channel", message)
-          } catch(Exception e) {}
+          slack.notifyMessage("admin_channel", message, CONSTS)
+          slack.notifyMessage("planner_channel", message, CONSTS)
         }
       }
     }

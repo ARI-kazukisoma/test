@@ -53,7 +53,6 @@ pipeline {
             'target_env': inputParam.target_env
           ]
           message = template.toString('success_delete_plan.template', binding)
-          // TODO エラーになるので調査
           slack.notifyMessage("admin_channel", message, CONSTS)
           slack.notifyMessage("planner_channel", message, CONSTS)
         }
