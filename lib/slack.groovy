@@ -1,10 +1,7 @@
 def notifyMessage(channelTag, message, CONSTS = null) {
-  if (CONSTS == null) {
-    CONSTS = load("constant/main.groovy").getAll()
-  }
-  def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS[channelTag]
+  def (channel, credentialsId) = getChannelCredential(channelTag, CONSTS)
 
-  // 発生条件が不明なNotSerializableExceptionが発生することがあるのでtry catch()でもみ消す。
+  // 発生条件が不明のNotSerializableExceptionが発生することがあるのでtry catch()でもみ消す。
   // 送信自体はできている。
   try {
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
@@ -13,13 +10,9 @@ def notifyMessage(channelTag, message, CONSTS = null) {
   } catch(Exception e) {}
 }
 
-def errorMessage(channelTag, message) {
-  if (CONSTS == null) {
-    CONSTS = load("constant/main.groovy").getAll()
-  }
-  def (channel, credentialsId) = CONSTS.CHANNEL_CREDENTIAL_IDS[channelTag]
-
-  // 発生条件が不明なNotSerializableExceptionが発生することがあるのでtry catch()でもみ消す。
+def errorMessage(channelTag, message, CONSTS = null) {
+  def (channel, credentialsId) = getChannelCredential(channelTag, CONSTS)
+  // 発生条件が不明のNotSerializableExceptionが発生することがあるのでtry catch()でもみ消す。
   // 送信自体はできている。
   try {
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
@@ -27,5 +20,14 @@ def errorMessage(channelTag, message) {
     }
   }
 }
+
+def getChannelCredential(channelTag, CONSTS = null) {
+  // ここのloadで発生条件が不明なNotSerializableExceptionが発生することがあるのでその際は外からCONSTSを渡している。
+  if (CONSTS == null) {
+    CONSTS = load("constant/main.groovy").getAll()
+  }
+  return CONSTS.CHANNEL_CREDENTIAL_IDS[channelTag]
+}
+
 
 return this
