@@ -50,8 +50,6 @@ pipeline {
       parallel {
         stage("マスターデータ更新") {
           steps {
-            sh "sleep 10"
-            echo "aaaaaaaaa"
             script {
               def parameters = [
                 [
@@ -86,8 +84,6 @@ pipeline {
         stage("アプリバージョン更新") {
           steps {
             script {
-              sh "sleep 10"
-              echo "bbbbbbbb"
               def parameters = [
                 [
                   $class: 'StringParameterValue',
