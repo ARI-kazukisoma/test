@@ -63,7 +63,7 @@ pipeline {
             [
               $class: 'StringParameterValue',
               name: 'MASTER_TAGS',
-              value: inputParam.master_tags
+              value: inputParam.original_master_tags
             ]
           ]
           try {

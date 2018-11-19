@@ -27,11 +27,13 @@ pipeline {
         // TODO (m.toga) ノードの設定は変更する必要がある
         node("master") {
           script {
-            echo "データ更新"
+            // マスタータグの変換(入力時にチェックはしているのでここではsuccessの値を考慮しない)
+            def parameterValidate = load("lib/parameterValidate.groovy")
+            def (success, transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
             def NODE_ENV = "${params.ENV.toLowerCase()}"
             def SQL_ENV = "develop"
             // TODO (m.toga) 実際に実行する際は"echo"を"sh"にする
-            echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh \"${NODE_ENV}\" \"${SQL_ENV}\" \"${params.BRANCH}\" \"${MASTER_TAGS}\""
+            echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh \"${NODE_ENV}\" \"${SQL_ENV}\" \"${params.BRANCH}\" \"${transMasterTag}\""
           }
         }
       }
