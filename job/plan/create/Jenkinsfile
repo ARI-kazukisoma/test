@@ -48,7 +48,7 @@ pipeline {
     }
     stage("アプリ・マスターデータ更新(並行処理)") {
       parallel {
-        stege("マスターデータ更新") {
+        stage("マスターデータ更新") {
           steps {
             script {
               def parameters = [
