@@ -28,9 +28,9 @@ pipeline {
         node("master") {
           script {
             echo "データ更新"
-            // TODO (m.toga) チケットに記載されている値になっているか実行前に再度確認
             def NODE_ENV = "${params.ENV.toLowerCase()}"
             def SQL_ENV = "develop"
+            // TODO (m.toga) 実際に実行する際は"echo"を"sh"にする
             echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh \"${NODE_ENV}\" \"${SQL_ENV}\" \"${params.BRANCH}\" \"${MASTER_TAGS}\""
           }
         }
