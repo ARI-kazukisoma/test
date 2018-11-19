@@ -84,6 +84,8 @@ def getDevelop() {
 def getProduct() {
   return [
     'CHANNEL_CREDENTIAL_IDS': [
+      'admin_channel': ['#hooktest', 'tmp_ari_slack_token'],
+      'planner_channel': ['#hooktest', 'tmp_ari_slack_token']
     ],
     'API_URL': [
       'APPROVAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
