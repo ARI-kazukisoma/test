@@ -34,7 +34,7 @@ pipeline {
             def NODE_ENV = "${params.ENV.toLowerCase()}"
             def SQL_ENV = "develop"
             // TODO (m.toga) 実際に実行する際は"echo"を"sh"にする
-            echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh \"${NODE_ENV}\" \"${SQL_ENV}\" \"${params.BRANCH}\" \"${params.MASTER_TAGS}\""
+            echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh \"${NODE_ENV}\" \"${SQL_ENV}\" \"${params.BRANCH}\" \"${transMasterTag}\""
           }
         }
       }
