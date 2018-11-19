@@ -19,6 +19,7 @@ pipeline {
             provisioningJson = json.getEnvConf(existEnv, CONSTS.ENV_CONF_FILE_NAME.PROVISIONING)
             updateDataJson = json.getEnvConf(existEnv, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
             commonJson = json.getEnvConf(existEnv, CONSTS.ENV_CONF_FILE_NAME.COMMON)
+            updateDataJson['master_tags'] = updateDataJson['master_tags'].split("\n")
             configures.push([
               'common': commonJson,
               'deploy_app': deployAppJson,
