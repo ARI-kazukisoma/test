@@ -98,4 +98,13 @@ def splitMasterTag(masterTag) {
   return [false, null, null]
 }
 
+def checkBranchName(branch) {
+  def minorVersion = null
+  (branch =~ /update([0-9]*)-.*/).each{ minorVersion = it[1] }
+  if (minorVersion != null) {
+    return [true, minorVersion]
+  }
+  return [false, null]
+}
+
 return this
