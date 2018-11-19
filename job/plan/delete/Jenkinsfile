@@ -26,6 +26,7 @@ pipeline {
     stage("削除処理実行") {
       steps {
         script {
+          // TODO (m.toga) terraformできたら実装する
           echo "削除処理実行"
         }
       }
