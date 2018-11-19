@@ -22,7 +22,7 @@ pipeline {
         // TODO (m.toga) ノードの設定は変更する必要がある
         node("master") {
           // TODO(m.toga) Windows上でsh認識するのか確認
-          // sh "/c/Jenkins/aws_deploy.sh ${params.ENV}"
+          echo  "# /c/Jenkins/aws_deploy.sh ${params.ENV}"
         }
       }
     }
