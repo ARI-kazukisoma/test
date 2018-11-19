@@ -4,7 +4,7 @@ pipeline {
   parameters {
     string(name: 'ENV', description: 'PlanXXを指定')
     string(name: 'BRANCH', description: 'ブランチを指定')
-    string(name: 'MASTER_TAGS', description: 'マスタータグ')
+    text(name: 'MASTER_TAGS', description: 'マスタータグ')
   }
   stages {
     stage("環境情報の仮保存") {
