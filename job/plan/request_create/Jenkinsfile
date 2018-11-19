@@ -27,7 +27,7 @@ pipeline {
           }
 
           // ブランチの入力チェック
-          (success, errorCodem, minorVersion) = parameterValidate.checkBranch(params.BRANCH)
+          (success, errorCode, minorVersion) = parameterValidate.checkBranch(params.BRANCH)
           if (success == false) {
             errorMessages.push(template.getValidateError(errorCode, 'BRANCH'))
           }
