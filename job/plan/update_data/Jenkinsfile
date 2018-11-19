@@ -18,6 +18,11 @@ pipeline {
               'branch': params.BRANCH
             ]
             json.createTmpEnvConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
+
+            // マスタータグの変換(入力時にチェックはしているのでここではsuccessの値を考慮しない)
+            def parameterValidate = load("lib/validateParamater.groovy")
+            def (success, transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
+            params.MASTER_TAGS = transMasterTag
           }
         }
       }
@@ -27,13 +32,10 @@ pipeline {
         // TODO (m.toga) ノードの設定は変更する必要がある
         node("master") {
           script {
-            // マスタータグの変換(入力時にチェックはしているのでここではsuccessの値を考慮しない)
-            def parameterValidate = load("lib/parameterValidate.groovy")
-            def (success, transMasterTag, errorCode) = parameterValidate.checkMasterTags(params.MASTER_TAGS)
             def NODE_ENV = "${params.ENV.toLowerCase()}"
             def SQL_ENV = "develop"
             // TODO (m.toga) 実際に実行する際は"echo"を"sh"にする
-            echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh \"${NODE_ENV}\" \"${SQL_ENV}\" \"${params.BRANCH}\" \"${transMasterTag}\""
+            echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh \"${NODE_ENV}\" \"${SQL_ENV}\" \"${params.BRANCH}\" \"${params.MASTER_TAGS}\""
           }
         }
       }
