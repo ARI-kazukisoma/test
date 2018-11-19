@@ -115,11 +115,10 @@ def checkBranch(branch) {
 
   def (success, minorVersion) = validate.checkBranchName(branch)
 
-  println minorVersion
   if (success == false) {
-    return [false, 'VLD002']
+    return [false, 'VLD002', null]
   }
-  return [true, null]
+  return [true, null, minorVersion]
 }
 
 def checkReason(reason) {
