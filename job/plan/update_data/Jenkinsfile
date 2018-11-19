@@ -26,11 +26,13 @@ pipeline {
       steps {
         // TODO (m.toga) ノードの設定は変更する必要がある
         node("master") {
-          echo "データ更新"
-          // TODO (m.toga) チケットに記載されている値になっているか実行前に再度確認
-          def NODE_ENV = "${params.ENV.toLowerCase()}"
-          def SQL_ENV = "develop"
-          echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh '${NODE_ENV}' '${SQL_ENV}' '${params.BRANCH}' '${MASTER_TAGS}'"
+          script {
+            echo "データ更新"
+            // TODO (m.toga) チケットに記載されている値になっているか実行前に再度確認
+            def NODE_ENV = "${params.ENV.toLowerCase()}"
+            def SQL_ENV = "develop"
+            echo "# /home/jenkins/AvalonServerShell/avalon_update_master.sh '${NODE_ENV}' '${SQL_ENV}' '${params.BRANCH}' '${MASTER_TAGS}'"
+          }
         }
       }
     }
