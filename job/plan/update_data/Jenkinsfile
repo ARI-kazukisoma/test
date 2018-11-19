@@ -19,7 +19,7 @@ pipeline {
           json.createTmpEnvConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
 
           // マスタータグの変換(入力時にチェックはしているのでここではsuccessの値を考慮しない)
-          def validateParamater = load("lib/validateParamater.groovy")
+          def validateParamater = load("lib/validateParameter.groovy")
           def (success, transMasterTag, errorCode) = validateParamater.checkMasterTags(params.MASTER_TAGS)
           params.MASTER_TAGS = transMasterTag
         }
