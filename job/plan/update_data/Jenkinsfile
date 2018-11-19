@@ -8,22 +8,20 @@ pipeline {
   stages {
     stage("環境情報の仮保存") {
       steps {
-        node("master") {
-          script {
-            def json = load("../${JOB_NAME}/lib/json.groovy")
-            def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
+        script {
+          def json = load("../${JOB_NAME}/lib/json.groovy")
+          def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
 
-            def jsonData = [
-              'master_tags': params.MASTER_TAGS,
-              'branch': params.BRANCH
-            ]
-            json.createTmpEnvConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
+          def jsonData = [
+            'master_tags': params.MASTER_TAGS,
+            'branch': params.BRANCH
+          ]
+          json.createTmpEnvConfFile(jsonData, params.ENV, CONSTS.ENV_CONF_FILE_NAME.UPDATE_DATA)
 
-            // マスタータグの変換(入力時にチェックはしているのでここではsuccessの値を考慮しない)
-            def validateParamater = load("lib/validateParamater.groovy")
-            def (success, transMasterTag, errorCode) = validateParamater.checkMasterTags(params.MASTER_TAGS)
-            params.MASTER_TAGS = transMasterTag
-          }
+          // マスタータグの変換(入力時にチェックはしているのでここではsuccessの値を考慮しない)
+          def validateParamater = load("lib/validateParamater.groovy")
+          def (success, transMasterTag, errorCode) = validateParamater.checkMasterTags(params.MASTER_TAGS)
+          params.MASTER_TAGS = transMasterTag
         }
       }
     }
