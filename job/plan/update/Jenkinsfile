@@ -67,67 +67,71 @@ pipeline {
       }
     }
     
-    stage("マスターデータ更新") {
-      steps {
-        script {
-          if (params.IS_UPDATE_DATA) {
-            def parameters = [
-              [
-                $class: 'StringParameterValue',
-                name: 'ENV',
-                value: params.ENV
-              ],
-              [
-                $class: 'StringParameterValue',
-                name: 'BRANCH',
-                value: params.BRANCH
-              ],
-              [
-                $class: 'StringParameterValue',
-                name: 'MASTER_TAGS',
-                value: params.MASTER_TAGS
-              ]
-            ]
-            try {
-              build job: 'マスターデータ更新', parameters: parameters
-            } catch(Exception e) {
-              def slack = load("lib/slack.groovy")
-              def template = load("lib/template.groovy")
-              message = template.getSafetyError('SFY004')
-              slack.errorMessage("admin_channel", message)
-              slack.errorMessage("planner_channel", message)
-              error(message)
-            } 
+    stage("アプリ・マスターデータ更新(並行処理)") {
+      parallel {
+        stage("マスターデータ更新") {
+          steps {
+            script {
+              if (params.IS_UPDATE_DATA) {
+                def parameters = [
+                  [
+                    $class: 'StringParameterValue',
+                    name: 'ENV',
+                    value: params.ENV
+                  ],
+                  [
+                    $class: 'StringParameterValue',
+                    name: 'BRANCH',
+                    value: params.BRANCH
+                  ],
+                  [
+                    $class: 'StringParameterValue',
+                    name: 'MASTER_TAGS',
+                    value: params.MASTER_TAGS
+                  ]
+                ]
+                try {
+                  build job: 'マスターデータ更新', parameters: parameters
+                } catch(Exception e) {
+                  def slack = load("lib/slack.groovy")
+                  def template = load("lib/template.groovy")
+                  message = template.getSafetyError('SFY004')
+                  slack.errorMessage("admin_channel", message)
+                  slack.errorMessage("planner_channel", message)
+                  error(message)
+                } 
+              }
+            }
           }
         }
-      }
-    }
-    stage("アプリバージョン更新") {
-      steps {
-        script {
-          if (IS_DEPLOY_APP) {
-            def parameters = [
-              [
-                $class: 'StringParameterValue',
-                name: 'ENV',
-                value: params.ENV
-              ],
-              [
-                $class: 'StringParameterValue',
-                name: 'BRANCH',
-                value: params.BRANCH
-              ]
-            ]
-            try {
-              build job: 'アプリバージョン更新', parameters: parameters
-            } catch(Exception e) {
-              def slack = load("lib/slack.groovy")
-              def template = load("lib/template.groovy")
-              message = template.getSafetyError('SFY005')
-              slack.errorMessage("admin_channel", message)
-              slack.errorMessage("planner_channel", message)
-              error(message)
-            }           
+        stage("アプリバージョン更新") {
+          steps {
+            script {
+              if (IS_DEPLOY_APP) {
+                def parameters = [
+                  [
+                    $class: 'StringParameterValue',
+                    name: 'ENV',
+                    value: params.ENV
+                  ],
+                  [
+                    $class: 'StringParameterValue',
+                    name: 'BRANCH',
+                    value: params.BRANCH
+                  ]
+                ]
+                try {
+                  build job: 'アプリバージョン更新', parameters: parameters
+                } catch(Exception e) {
+                  def slack = load("lib/slack.groovy")
+                  def template = load("lib/template.groovy")
+                  message = template.getSafetyError('SFY005')
+                  slack.errorMessage("admin_channel", message)
+                  slack.errorMessage("planner_channel", message)
+                  error(message)
+                }           
+              }
+            }
           }
         }
       }
