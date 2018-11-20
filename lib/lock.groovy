@@ -20,4 +20,17 @@ def doUnlock(target_env) {
   }
 }
 
+def isMutiLimitOrver() {
+  def CONSTS = load("constant/main.groovy").getAll()
+  dir(env.EXECUTE_LOCK_FILE_PATH) {
+    def existLock = sh returnStdout: true, script: "ls "
+    existLocks = existEnv.split("\n").toList()
+
+    if (existLocks.size() >= CONSTS.MAX_MULTI_EXEC_NUM) {
+      return true
+    }
+    return false
+  }
+}
+
 return this

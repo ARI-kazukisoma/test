@@ -17,7 +17,7 @@ pipeline {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
             message = template.getSafetyError("SFY006")
-            slack.notifyMessage("planner_channel", message)
+            slack.errorMessage("planner_channel", message)
             error(message)
           }
           lock.doLock(params.ENV)
@@ -136,6 +136,24 @@ pipeline {
         }
       }
     }
+
+    stage("接続テスト") {
+      steps {
+        script {
+          try {
+            // TODO (m.toga) 接続確認用の子ジョブを呼び出す
+            // build job: ""
+          } catch(Exception e) {
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY007')
+            slack.errorMessage('admin_channel', message)
+            slack.errorMessage('planner_channel', message)
+          }
+        }
+      }
+    }
+
     stage("構成情報保管") {
       steps {
         script {

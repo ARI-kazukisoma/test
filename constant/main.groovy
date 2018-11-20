@@ -56,7 +56,8 @@ def getAll() {
     ],
     'MASTER_TAG': [
       'DELIMITER': '&'
-    ]
+    ],
+    'MAX_MULTI_EXEC_NUM': 10,
   ]
 
   return base + environment

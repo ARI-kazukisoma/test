@@ -12,7 +12,6 @@ pipeline {
           try {
             def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
             inputParam = json.read(filePath)
-            json.delete(filePath)
           } catch(java.nio.file.NoSuchFileException e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
@@ -20,6 +19,35 @@ pipeline {
             slack.errorMessage("admin_channel", message)
             error(message)
           }
+        }
+      }
+    }
+    stage("ロック処理") {
+      steps {
+        script {
+          def lock = load("lib/lock.groovy")
+          def slack = load("lib/slack.groovy")
+          def template = load("lib/template.groovy")
+
+          if (lock.isLocked(params.ENV)) {
+            message = template.getSafetyError("SFY006")
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
+            error(message)
+          }
+
+          lock.doLock(params.ENV)
+
+          // 複数環境にまたがる最大同時実行数の確認
+          if (lock.isMutiLimitOrver()) {
+            message = template.getSafetyError("SFY008")
+            slack.errorMessage("admin_channel", message)
+            slack.errorMessage("planner_channel", message)
+            error(message)
+          }
+
+          // ロックに成功したらパラメータファイルを削除して多重実行できなくする
+          json.delete(filePath)
         }
       }
     }
@@ -111,68 +139,23 @@ pipeline {
         }
       }
     }
-    // TODO (m.toga) 並行処理が問題なければ削除
-    // stage("マスターデータ更新") {
-    //   steps {
-    //     script {
-    //       def parameters = [
-    //         [
-    //           $class: 'StringParameterValue',
-    //           name: 'ENV',
-    //           value: inputParam.target_env
-    //         ],
-    //         [
-    //           $class: 'StringParameterValue',
-    //           name: 'BRANCH',
-    //           value: inputParam.branch
-    //         ],
-    //         [
-    //           $class: 'StringParameterValue',
-    //           name: 'MASTER_TAGS',
-    //           value: inputParam.original_master_tags
-    //         ]
-    //       ]
-    //       try {
-    //         build job: 'マスターデータ更新', parameters: parameters
-    //       } catch(Exception e) {
-    //         def slack = load("lib/slack.groovy")
-    //         def template = load("lib/template.groovy")
-    //         message = template.getSafetyError('SFY004')
-    //         slack.errorMessage("admin_channel", message)
-    //         slack.errorMessage("planner_channel", message)
-    //         error(message)
-    //       } 
-    //     }
-    //   }
-    // }
-    // stage("アプリバージョン更新") {
-    //   steps {
-    //     script {
-    //       def parameters = [
-    //         [
-    //           $class: 'StringParameterValue',
-    //           name: 'ENV',
-    //           value: inputParam.target_env
-    //         ],
-    //         [
-    //           $class: 'StringParameterValue',
-    //           name: 'BRANCH',
-    //           value: inputParam.branch
-    //         ]
-    //       ]
-    //       try {
-    //         build job: 'アプリバージョン更新', parameters: parameters
-    //       } catch(Exception e) {
-    //         def slack = load("lib/slack.groovy")
-    //         def template = load("lib/template.groovy")
-    //         message = template.getSafetyError('SFY005')
-    //         slack.errorMessage("admin_channel", message)
-    //         slack.errorMessage("planner_channel", message)
-    //         error(message)
-    //       }           
-    //     }
-    //   }
-    // }
+
+    stage("接続テスト") {
+      steps {
+        script {
+          try {
+            // TODO (m.toga) 接続確認用の子ジョブを呼び出す
+            // build job: ""
+          } catch(Exception e) {
+            def slack = load("lib/slack.groovy")
+            def template = load("lib/template.groovy")
+            message = template.getSafetyError('SFY007')
+            slack.errorMessage('admin_channel', message)
+            slack.errorMessage('planner_channel', message)
+          }
+        }
+      }
+    }
     stage("構成情報保管") {
       steps {
         script {
@@ -216,6 +199,14 @@ pipeline {
           slack.notifyMessage("admin_channel", message, CONSTS)
           slack.notifyMessage("planner_channel", message, CONSTS)
         }
+      }
+    }
+  }
+  post {
+    always {
+      script {
+        def lock = load("lib/lock.groovy")
+        lock.doUnlock(inputParam.target_env)
       }
     }
   }
