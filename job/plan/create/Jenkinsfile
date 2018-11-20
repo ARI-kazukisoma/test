@@ -48,6 +48,7 @@ pipeline {
           }
 
           // ロックに成功したらパラメータファイルを削除して多重実行できなくする
+          def filePath = "${env.TMP_PARAMETER_PATH}/${params.UUID}.json"
           json.delete(filePath)
         }
       }
