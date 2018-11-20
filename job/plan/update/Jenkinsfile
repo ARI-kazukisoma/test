@@ -27,7 +27,6 @@ pipeline {
           // 複数環境にまたがる最大同時実行数の確認
           if (lock.isMutiLimitOrver()) {
             message = template.getSafetyError("SFY008")
-            slack.errorMessage("admin_channel", message)
             slack.errorMessage("planner_channel", message)
             error(message)
           }
