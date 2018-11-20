@@ -164,9 +164,8 @@ pipeline {
                 value: "1.${minorVersion}"
               ]
             ]
-            println parameters
             // TODO (m.toga) 接続確認用の子ジョブを呼び出す
-            // build job: ""
+            // build job: "", parameters: parameters
           } catch(Exception e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")

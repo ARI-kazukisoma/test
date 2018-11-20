@@ -144,9 +144,22 @@ pipeline {
       steps {
         script {
           try {
+            def validateParameter = load("lib/validateParameter.groovy")
+            def (success, errorCode, minorVersion) = validateParameter.checkBranch(inputParam.branch)
+            def parameters = [
+              [
+                $class: 'StringParameterValue',
+                name: 'ENV',
+                value: inputParam.target_env
+              ],
+              [
+                $class: 'StringParameterValue',
+                name: 'APP_VER',
+                value: "1.${minorVersion}"
+              ]
+            ]
             // TODO (m.toga) 接続確認用の子ジョブを呼び出す
-            // build job: ""
-            def (success, )
+            // build job: "", parameters: parameters
           } catch(Exception e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
