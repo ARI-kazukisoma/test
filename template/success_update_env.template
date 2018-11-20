@@ -4,7 +4,6 @@
 実行者： <%= request_user %>
 環境名： <%= target_env %>
 ブランチ名： <%= branch %>
-マスタータグ： <%= branch %>
 
 <% if (master_tags) out.print"▼マスターデータのタグ" %>
 <% if (master_tags) out.print master_tags %>
