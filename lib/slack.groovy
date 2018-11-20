@@ -11,7 +11,7 @@ def notifyMessage(channelTag, message, CONSTS = null) {
 }
 
 def errorMessage(channelTag, message, CONSTS = null) {
-  def (channel, credentialsId) = getChannelCredential(channelTag, CONSTS)
+  def (channel, credentialsId, baseUrl) = getChannelCredential(channelTag, CONSTS)
   // 発生条件が不明のNotSerializableExceptionが発生することがあるのでtry catch()でもみ消す。
   // 送信自体はできている。
   try {
