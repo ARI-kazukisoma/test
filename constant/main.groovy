@@ -12,7 +12,7 @@ pipeline {
     stage("定数を取得") {
       steps {
         script {
-          def CONSTS = load("../${JOB_NAME}/constant/main.groovy").get_all()
+          def CONSTS = load("constant/main.groovy").getAll()
           echo CONSTS.SAMPLE.NUM
         }
       }
@@ -60,10 +60,16 @@ def getAll() {
     'MAX_MULTI_EXEC_NUM': 10,
   ]
 
-  return base + environment
+  
+  def all = base + environment
+
+  println all
+  sh "exit 1"
+  return all
+
 }
 
-// 開発環境用の設定
+// 開発環境用の設定(差分)
 def getDevelop() {
   return [
     'CHANNEL_CREDENTIAL_IDS': [
@@ -81,11 +87,11 @@ def getDevelop() {
 
 }
 
-// 本番環境用の設定
+// 本番環境用の設定(差分)
 def getProduct() {
   return [
     'CHANNEL_CREDENTIAL_IDS': [
-      'admin_channel': ['#hooktest', 'tmp_ari_slack_token'],
+      'admin_channel': ['avalon_jenkinsデプロイ通知', 'slack_token_for_admin_channel'],
       'planner_channel': ['#hooktest', 'tmp_ari_slack_token']
     ],
     'API_URL': [
@@ -94,7 +100,6 @@ def getProduct() {
       'APPROVAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
       'REFUSAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
     ],
-
   ]
 
 }
