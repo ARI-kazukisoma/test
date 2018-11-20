@@ -29,14 +29,14 @@ pipeline {
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
 
-          if (lock.isLocked(params.ENV)) {
+          if (lock.isLocked(inputParam.target_env)) {
             message = template.getSafetyError("SFY006")
             slack.errorMessage("admin_channel", message)
             slack.errorMessage("planner_channel", message)
             error(message)
           }
 
-          lock.doLock(params.ENV)
+          lock.doLock(inputParam.target_env)
 
           // 複数環境にまたがる最大同時実行数の確認
           if (lock.isMutiLimitOrver()) {

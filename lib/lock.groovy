@@ -16,7 +16,7 @@ def doLock(target_env) {
 
 def doUnlock(target_env) {
   dir(env.EXECUTE_LOCK_FILE_PATH) {
-    sh "rm ${target_env.toLowerCase()}.lock"
+    sh "rm -f ${target_env.toLowerCase()}.lock"
   }
 }
 
