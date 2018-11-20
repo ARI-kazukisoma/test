@@ -72,7 +72,7 @@ def getDevelop() {
       'admin_channel': ['#hooktest', 'tmp_ari_slack_token'],
       'planner_channel': ['#hooktest', 'tmp_ari_slack_token']
     ],
-    'SLACK_BASE_URL': 'https://delightworks.slack.com/services/hooks/jenkins-ci/',
+    'SLACK_BASE_URL': 'https://kazukisomaari.slack.com/services/hooks/jenkins-ci/',
     'API_URL': [
       'APPROVAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
       'REFUSAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
@@ -91,7 +91,7 @@ def getProduct() {
       'admin_channel': ['avalon_jenkinsデプロイ通知', 'slack_token_for_admin_channel'],
       'planner_channel': ['#hooktest', 'tmp_ari_slack_token'],
     ],
-    'SLACK_BASE_URL': 'https://kazukisomaari.slack.com/services/hooks/jenkins-ci/',
+    'SLACK_BASE_URL': 'https://delightworks.slack.com/services/hooks/jenkins-ci/',
     'API_URL': [
       'APPROVAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し/buildWithParameters?token=zpUcDnr5xcgppFr",
       'REFUSAL_CREATE_ENV_JOB': "${env.JENKINS_URL}job/開発環境新規払い出し拒否/buildWithParameters?token=n3T5kMGAVX6NCFE",
