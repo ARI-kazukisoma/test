@@ -5,7 +5,7 @@ def notifyMessage(channelTag, message, CONSTS = null) {
   // 送信自体はできている。
   try {
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-      slackSend channel: channel, token: token, message: message
+      slackSend baseUrl: CONSTS.SLACK_BASE_URL, channel: channel, token: token, message: message
     }
   } catch(java.io.NotSerializableException e) {}
 }
@@ -16,7 +16,7 @@ def errorMessage(channelTag, message, CONSTS = null) {
   // 送信自体はできている。
   try {
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
-      slackSend channel: channel, token: token, message: message, color: "#FF0000"
+      slackSend baseUrl: CONSTS.SLACK_BASE_URL, channel: channel, token: token, message: message, color: "#FF0000"
     }
   } catch(java.io.NotSerializableException e) {}
 }
