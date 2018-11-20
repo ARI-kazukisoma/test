@@ -22,8 +22,8 @@ def errorMessage(channelTag, message, CONSTS = null) {
 }
 
 def getChannelCredential(channelTag, CONSTS = null) {
-  // ここのloadで発生条件が不明なNotSerializableExceptionが発生することがあるのでその際は外からCONSTSを渡している。
   if (CONSTS == null) {
+    // ここのloadで発生条件が不明なNotSerializableExceptionが発生することがあるのでその際は外からCONSTSを渡している。
     CONSTS = load("constant/main.groovy").getAll()
   }
   return CONSTS.CHANNEL_CREDENTIAL_IDS[channelTag]
