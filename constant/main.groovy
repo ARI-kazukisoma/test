@@ -100,6 +100,7 @@ def getProduct() {
       'APPROVAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除/buildWithParameters?token=ajUMKN7DW98EwZF",
       'REFUSAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
     ],
+    'MAX_MULTI_EXEC_NUM': 100
   ]
 
 }
