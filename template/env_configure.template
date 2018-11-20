@@ -32,7 +32,7 @@
             </td>
             <td><%= config.update_data.branch %></td>
             <td><%= config.deploy_app.branch %></td>
-            <td>https://<%= config.provisioning.cname %>/</td>
+            <td><a href="https://<%= config.provisioning.cname %>/" /></td>
           </tr>
         <%} %>
       </tbody>
