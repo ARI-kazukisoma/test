@@ -28,6 +28,7 @@ pipeline {
           def lock = load("lib/lock.groovy")
           def slack = load("lib/slack.groovy")
           def template = load("lib/template.groovy")
+          def json = load("lib/json.groovy")
 
           if (lock.isLocked(inputParam.target_env)) {
             message = template.getSafetyError("SFY006")
