@@ -60,11 +60,7 @@ def getAll() {
     'MAX_MULTI_EXEC_NUM': 10,
   ]
 
-  
   def all = base + environment
-
-  println all
-  sh "exit 1"
   return all
 
 }
@@ -101,6 +97,5 @@ def getProduct() {
       'REFUSAL_DELETE_ENV_JOB': "${env.JENKINS_URL}job/開発環境削除拒否/buildWithParameters?token=bUNpYTmrEDiujRD"
     ],
   ]
-
 }
 return this
