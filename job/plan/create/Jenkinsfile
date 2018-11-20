@@ -146,6 +146,7 @@ pipeline {
           try {
             // TODO (m.toga) 接続確認用の子ジョブを呼び出す
             // build job: ""
+            def (success, )
           } catch(Exception e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")

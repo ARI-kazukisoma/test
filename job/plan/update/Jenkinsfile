@@ -150,6 +150,21 @@ pipeline {
       steps {
         script {
           try {
+            def parameterValidate = load("lib/validateParameter.groovy")
+            def (success, errorCode, minorVersion) = parameterValidate.checkBranch(params.BRANCH)
+            def parameters = [
+              [
+                $class: 'StringParameterValue',
+                name: 'ENV',
+                value: params.ENV
+              ],
+              [
+                $class: 'StringParameterValue',
+                name: 'APP_VER',
+                value: "1.${minorVersion}"
+              ]
+            ]
+            println parameters
             // TODO (m.toga) 接続確認用の子ジョブを呼び出す
             // build job: ""
           } catch(Exception e) {
