@@ -5,7 +5,7 @@ def transMasterTag = ''
 pipeline {
   agent {node { label 'master' }}
   parameters {
-    string(name: 'ENV', description: 'Plan環境選択\n記入例)　Plan09 \n※現在Plan01～Plan06は指定できません。')
+    string(name: 'ENV', description: 'Plan環境\n記入例)　Plan09 \n※現在Plan01～Plan06は指定できません。')
     string(name: 'BRANCH', description: 'ブランチ名 \n記入例)　update99-sample')
     text(name: 'MASTER_TAGS', description: "マスタータグ\n\nタグが一つの場合の記入例\n======================\nte:sample\n======================\n※タグが一つの場合は日付は指定しない。\n\nタグが複数の場合の記入例\n======================\nte:sampleA\nte:sampleB&2018/11/11 11:00\nte:sampleC&2018/11/12 12:00\n======================\n※タグが複数の場合、日付を指定しなければ現在時間として処理されます。\n※秒は指定しないでください。")
     text(name: 'REASON', description: '利用用途')
