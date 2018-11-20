@@ -14,7 +14,7 @@
           <th>マスタータグ</th>
           <th>マスターブランチ名</th>
           <th>アプリブランチ名</th>
-          <th>各種エンドポイント</th>
+          <th>サーバURL</th>
         </tr>
       </thead>
       <tbody>
@@ -32,17 +32,7 @@
             </td>
             <td><%= config.update_data.branch %></td>
             <td><%= config.deploy_app.branch %></td>
-            <td>
-              <table>
-                <tbody>
-                  <tr><td>サーバURL： <%= config.provisioning.cname %></td></tr>
-                  <tr><td>RDSクラスタエンドポイント： <%= config.provisioning.rds_cluster_endpoint %></td></tr>
-                  <tr><td>RDSインスタンスエンドポイント： <%= config.provisioning.rds_instance_endpoint %></td></tr>
-                  <tr><td>キャッシュプライマリエンドポイント： <%= config.provisioning.cache_primary_endpoint %></td></tr>
-                  <tr><td>キャッシュセカンダリエンドポイント： <%= config.provisioning.cache_second_endpoint %></td></tr>
-                </tbody>
-              </table>
-            </td>
+            <td>https://<%= config.provisioning.cname %>/</td>
           </tr>
         <%} %>
       </tbody>
