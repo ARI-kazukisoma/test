@@ -14,7 +14,6 @@ def errorMessage(channelTag, message, CONSTS = null) {
   def (channel, credentialsId, baseUrl) = getChannelCredential(channelTag, CONSTS)
   // 発生条件が不明のNotSerializableExceptionが発生することがあるのでtry catch()でもみ消す。
   // 送信自体はできている。
-  echo baseUrl
   try {
     withCredentials([string(credentialsId: credentialsId, variable: 'token')]) {
       slackSend baseUrl: baseUrl, channel: channel, token: token, message: message, color: "#FF0000"
