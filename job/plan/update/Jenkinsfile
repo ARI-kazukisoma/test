@@ -4,9 +4,9 @@ pipeline {
   parameters {
     booleanParam(name: 'IS_DEPLOY_APP', defaultValue: true, description: 'アプリデプロイを実行するか')
     booleanParam(name: 'IS_UPDATE_DATA', defaultValue: true, description: 'マスターアップデートを実行するか')
-    string(name: 'ENV', description: 'Plan環境選択\n記入例) Plan09 \n現在Plan01～Plan06は指定できません。')
-    string(name: 'BRANCH', description: 'ブランチ名 \n記入例) update-99-sample')
-    text(name: 'MASTER_TAGS', description: 'マスタータグ \n記入例)')
+    string(name: 'ENV', description: 'Plan環境選択\n記入例)　Plan09 \n※現在Plan01～Plan06は指定できません。')
+    string(name: 'BRANCH', description: 'ブランチ名 \n記入例)　update-99-sample')
+    text(name: 'MASTER_TAGS', description: 'マスタータグ \nタグが一つの場合の記入例)\nte:sample\n※タグが一つの場合は日付は指定しない。\nタグが複数の場合の記入例)\nte:sampleA\nte:sampleB&2018/11/11 11:00\nte:sampleC&2018/11/12 12:00')
   }
   stages {
     stage("ロック処理") {
