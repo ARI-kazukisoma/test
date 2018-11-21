@@ -57,7 +57,7 @@ pipeline {
       steps {
         script {
           def slack = load("lib/slack.groovy")
-          def CONSTS = load("constant/main.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
           def template = load("lib/template.groovy")
           def binding = [
             'uuid': params.UUID,
