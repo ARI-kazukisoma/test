@@ -3,8 +3,8 @@ mysql:
  on_develop: 1
  user_info:
   master:
-   user: ${USERNAME}
-   pass: ${PASSWORD}
+   user: \$\{USERNAME\}
+   pass: \$\{PASSWORD\}
  dbs: 0
  shards: 1
  common:
