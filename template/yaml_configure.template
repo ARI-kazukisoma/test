@@ -4,7 +4,7 @@ mysql:
  user_info:
   master:
    user: &#36;{USERNAME}
-   pass: 
+   pass: &#36;{PASSWORD}
  dbs: 0
  shards: 1
  common:
