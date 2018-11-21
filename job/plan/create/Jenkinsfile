@@ -1,3 +1,4 @@
+println "aaaaaaa"
 def inputParam = null
 pipeline {
   agent {node { label 'master' }}
