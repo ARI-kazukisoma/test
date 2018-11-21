@@ -3,7 +3,7 @@ mysql:
  on_develop: 1
  user_info:
   master:
-   user: &#36;{"\${name}"}
+   user: &#36;{USERNAME}
    pass: 
  dbs: 0
  shards: 1
