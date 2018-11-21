@@ -38,7 +38,16 @@ pipeline {
           yaml = template.toString("yaml_configure.template", binding)
           filename = "${WORKSPACE}/${params.ENV.toLowerCase()}.yaml"
           writeFile(file: filename, text: yaml)
+          stash name: 'yaml_file', includes: '${params.ENV.toLowerCase()}.yaml'
 
+        }
+      }
+    }
+    stage("ファイル設置") {
+      steps {
+        node("fgodev-wk-01") {
+          unstash 'yaml_file'
+          sh "cat ${WORKSPACE}/${params.ENV.toLowerCase()}.yaml"
         }
       }
     }
