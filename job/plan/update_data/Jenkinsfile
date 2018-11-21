@@ -29,13 +29,14 @@ pipeline {
     stage("YAMLファイル作成") {
       steps {
         script {
-          def template = load("lib/template.groovy")
+          // def template = load("lib/template.groovy")
           def binding = [
             'target_env': params.ENV.toLowerCase(),
             'user': '${USERNAME}',
             'pass': '${PASSWORD}',
           ]
-          yaml = template.toString("yaml_configure.template", binding)
+          // yaml = template.toString("yaml_configure.template", binding)
+          yaml = "aaaaa"
           filename = "${WORKSPACE}/${params.ENV.toLowerCase()}.yaml"
           writeFile(file: filename, text: yaml)
           stash name: 'yaml_file', includes: '${params.ENV.toLowerCase()}.yaml'
