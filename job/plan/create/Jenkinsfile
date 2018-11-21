@@ -242,5 +242,10 @@ pipeline {
         lock.doUnlock(inputParam.target_env)
       }
     }
+    success {
+      script 
+        build job: "開発環境構成情報表示"
+      }
+    }
   }
 }
