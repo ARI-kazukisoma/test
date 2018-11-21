@@ -35,8 +35,10 @@ pipeline {
             'user': '${USERNAME}',
             'pass': '${PASSWORD}',
           ]
-          message = template.toString("yaml_configure.template", binding)
-          echo message
+          yaml = template.toString("yaml_configure.template", binding)
+          filename = "${params.ENV.toLowerCase()}.yaml"
+          writeFile(file: filename, text: yaml)
+
         }
       }
     }
