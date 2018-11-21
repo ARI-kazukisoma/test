@@ -7,30 +7,15 @@ pipeline {
   stages {
     stage("環境情報の仮保存") {
       steps {
-        node("master") {
-          script {
-            def json = load("lib/json.groovy")
-            def CONSTS = load("constant/main.groovy").getAll()
-
-            json.createTmpEnvConfFile(['branch': params.BRANCH], params.ENV, CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP)
-          }
-        }
-      }
-    }
-
-    stage("YAMLファイル作成") {
-      steps {
         script {
-          def template = load("lib/template.groovy")
-          def binding = [
-            'target_env': params.ENV.toLowerCase(),
-          ]
-          def webConfig = template.toString("web_configure.template", binding)
-          filename = "${WORKSPACE}/${params.ENV.toLowerCase()}.yaml"
-          writeFile(file: filename, text: yaml)
+          def json = load("lib/json.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
+
+          json.createTmpEnvConfFile(['branch': params.BRANCH], params.ENV, CONSTS.ENV_CONF_FILE_NAME.DEPLOY_APP)
         }
       }
     }
+
     // stage("YAMLファイル転送") {
     //   steps {
     //     script {
