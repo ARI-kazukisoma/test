@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- web.config 変換の詳細については、http://go.microsoft.com/fwlink/?LinkId=125889 を参照してください。 -->
+
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <!--
+    次の例では、"MyDB" という値を持つ "name" 属性が "Match" ロケーターで
+    見つかった場合にのみ、"SetAttributes" 変換によって "connectionString" の
+    値が "ReleaseSQLServer" を使用するように変更されます。
+    <connectionStrings>
+      <add name="MyDB"
+        connectionString="Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True"
+        xdt:Transform="SetAttributes" xdt:Locator="Match(name)"/>
+    </connectionStrings>
+-->
+  <connectionStrings xdt:Transform="Replace">
+    <!--master-->
+    <add name="master:common" providerName="MySql.Data.MySqlClient" connectionString="Server=fgodev-<%= target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com;Database=fgo_game;Uid=${USERNAME};Pwd=${PASSWORD}SslMode=None" />
+    <add name="master:shard0" providerName="MySql.Data.MySqlClient" connectionString="Server=fgodev-<%= target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com;Database=fgo_game;Uid=${USERNAME};Pwd=${PASSWORD}SslMode=None" />
+
+    <!--slave-->
+    <add name="slave:common" providerName="MySql.Data.MySqlClient" connectionString="Server=fgodev-<%= target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com;Database=fgo_game;Uid=${USERNAME};Pwd=${PASSWORD}SslMode=None" />
+    <add name="slave:shard0" providerName="MySql.Data.MySqlClient" connectionString="Server=fgodev-<%= target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com;Database=fgo_game;Uid=${USERNAME};Pwd=${PASSWORD}SslMode=None" />
+
+    <add name="redis"  providerName="MySql.Data.MySqlClient" connectionString="Server=fgodev-<%= target_env %>.rpuyv3.ng.0001.apne1.cache.amazonaws.com" />
+    <add name="redis2" providerName="MySql.Data.MySqlClient" connectionString="Server=fgodev-<%= target_env %>.rpuyv3.ng.0001.apne1.cache.amazonaws.com" />
+    <add name="master:admin" providerName="MySql.Data.MySqlClient" connectionString="Server=fgo-aurora-devmng01.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com;Database=fgo_admin;Uid=${USERNAME};Pwd=${PASSWORD}SslMode=None"/>
+    <add name="master:history" providerName="MySql.Data.MySqlClient" connectionString="Server=fgodev-<%= target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com;Database=fgo_game;Uid=${USERNAME};Pwd=${PASSWORD}SslMode=None"/>
+  </connectionStrings>
+
+  <appSettings>
+    <!-- ゲームサーバ側の設定 -->
+    <!--<add key="Log4netConfig" value="c:\tmp\log4AWS.config" />-->
+    <add key="Log4netConfig" value="log4AWS.Dev.config" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <add key="GameDomain" value="<%= target_env %>-fg8gf.fategrandorder.jp" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <add key="WebviewDomain" value="//view-dev1.fate-go.jp"  xdt:Transform="Replace" xdt:Locator="Match(key)" />
+    <add key="UseAuthorization" value="false" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <!--<add key="UseMaintenance" value="true" xdt:Transform="Replace" xdt:Locator="Match(key)"/>-->
+    <add key="ResponseResultCache" value="true" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <add key="DebugMode" value="true" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <add key="ShardCount" value="1" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <!-- 管理サーバ側の設定 -->
+    <add key="BgColor" value="#00ffff" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <add key="EnvironmentName" value="AWS_<%= target_env %>" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <add key="AWSEnvironment" value="true" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+    <!--<add key="AdminAccountFolder" value="IOS" xdt:Transform="Replace" xdt:Locator="Match(key)"/>-->
+    <!--<add key="NewRelic.AppName" value="FGO-TEST" xdt:Transform="Replace" xdt:Locator="Match(key)"/>-->
+    <add key="SentryURL" value="<%= sentry_url %>" xdt:Transform="Replace" xdt:Locator="Match(key)" />
+    
+    <add key="ApiQueryLog" value="true" xdt:Transform="Replace" xdt:Locator="Match(key)"/>
+  </appSettings>
+
+  <location path="Debug" xdt:Transform="Replace" xdt:Locator="Match(path)" >
+    <system.webServer>
+      <security >
+        <ipSecurity allowUnlisted="false" >
+          <clear/>
+        </ipSecurity>
+      </security>
+    </system.webServer>
+  </location>
+  <!--
+  <location path="Operation" xdt:Transform="Replace" xdt:Locator="Match(path)" >
+    <system.webServer>
+      <security >
+        <ipSecurity allowUnlisted="false" >
+          <clear/>
+        </ipSecurity>
+      </security>
+    </system.webServer>
+  </location>
+-->
+  <location path="Master" xdt:Transform="Replace" xdt:Locator="Match(path)" >
+    <system.webServer>
+      <security >
+        <ipSecurity allowUnlisted="false" >
+          <clear/>
+        </ipSecurity>
+      </security>
+    </system.webServer>
+  </location>
+
+  <location path="Kpi" xdt:Transform="Replace" xdt:Locator="Match(path)" >
+    <system.webServer>
+      <security >
+        <ipSecurity allowUnlisted="false" >
+          <clear/>
+        </ipSecurity>
+      </security>
+    </system.webServer>
+  </location>
+
+  <location path="Superviser" xdt:Transform="Replace" xdt:Locator="Match(path)" >
+    <system.webServer>
+      <security >
+        <ipSecurity allowUnlisted="false" >
+          <clear/>
+        </ipSecurity>
+      </security>
+    </system.webServer>
+  </location>
+  <!--
+  <location path="Api" xdt:Transform="Replace" xdt:Locator="Match(path)" >
+    <system.webServer>
+      <security >
+        <ipSecurity allowUnlisted="false" >
+          <clear/>
+        </ipSecurity>
+      </security>
+    </system.webServer>
+  </location>
+-->
+</configuration>

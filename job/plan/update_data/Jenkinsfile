@@ -10,8 +10,8 @@ pipeline {
     stage("環境情報の仮保存") {
       steps {
         script {
-          def json = load("../${JOB_NAME}/lib/json.groovy")
-          def CONSTS = load("../${JOB_NAME}/constant/main.groovy").getAll()
+          def json = load("lib/json.groovy")
+          def CONSTS = load("constant/main.groovy").getAll()
 
           def jsonData = [
             'master_tags': params.MASTER_TAGS,
@@ -23,6 +23,15 @@ pipeline {
           def validateParameter = load("lib/validateParameter.groovy")
           def (success, _transMasterTag, errorCode) = validateParameter.checkMasterTags(params.MASTER_TAGS)
           transMasterTag = _transMasterTag
+        }
+      }
+    }
+    stage("YAMLファイル作成") {
+      steps {
+        script {
+          def template = load("lib/template.groovy")
+          message = template.toString("yaml_configure.template")
+          echo message
         }
       }
     }
