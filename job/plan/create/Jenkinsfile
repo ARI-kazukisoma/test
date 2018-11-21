@@ -53,6 +53,18 @@ pipeline {
         }
       }
     }
+    stage("承認報告の通知") {
+      steps {
+        script {
+          def slack = load("lib/slack.groovy")
+          def CONSTS = load("constant/main.groovy")
+          def template = load("lib/template.groovy")
+          message = template.toString("approval_create_env.template", binding)
+          slack.notifyMessage('planner_channel', message)
+          sh "exit 1"
+        }
+      }
+    }
     stage("インフラ作成") {
       steps {
         script {
@@ -161,7 +173,7 @@ pipeline {
               ]
             ]
             // TODO (m.toga) 接続確認用の子ジョブを呼び出す
-            // build job: "", parameters: parameters
+            // build job: "connectivity", parameters: parameters
           } catch(Exception e) {
             def slack = load("lib/slack.groovy")
             def template = load("lib/template.groovy")
