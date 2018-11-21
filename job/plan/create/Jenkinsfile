@@ -185,6 +185,7 @@ pipeline {
             message = template.getSafetyError('SFY007')
             slack.errorMessage('admin_channel', message)
             slack.errorMessage('planner_channel', message)
+            error(message)
           }
         }
       }
