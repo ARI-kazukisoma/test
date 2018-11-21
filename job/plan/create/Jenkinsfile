@@ -65,7 +65,7 @@ pipeline {
             'target_env': inputParam.target_env
           ]
           message = template.toString("approval_create_env.template", binding)
-          slack.notifyMessage('planner_channel', message)
+          slack.notifyMessage('planner_channel', message, CONSTS)
           sh "exit 1"
         }
       }
