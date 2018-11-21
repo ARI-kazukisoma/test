@@ -39,7 +39,7 @@ pipeline {
           yaml = "aaaaa"
           filename = "${WORKSPACE}/${params.ENV.toLowerCase()}.yaml"
           writeFile(file: filename, text: yaml)
-          stash name: 'yaml_file', includes: '${params.ENV.toLowerCase()}.yaml'
+          stash name: 'yaml_file'
 
         }
       }
