@@ -26,37 +26,6 @@ pipeline {
         }
       }
     }
-    stage("YAMLファイル作成") {
-      steps {
-        script {
-          def template = load("lib/template.groovy")
-          def binding = [
-            'target_env': params.ENV.toLowerCase(),
-            'user': '${USERNAME}',
-            'pass': '${PASSWORD}',
-          ]
-          yaml = template.toString("yaml_configure.template", binding)
-          filename = "${WORKSPACE}/${params.ENV.toLowerCase()}.yaml"
-          writeFile(file: filename, text: yaml)
-        }
-      }
-    }
-    stage("YAMLファイル転送") {
-      steps {
-        script {
-          stash name: 'yaml_file'
-        }
-      }
-    }
-
-    stage("ファイル取得") {
-      steps {
-        node("fgodev-wk-01") {
-          unstash 'yaml_file'
-          sh "cat ${WORKSPACE}/${params.ENV.toLowerCase()}.yaml"
-        }
-      }
-    }
     stage("データ更新") {
       steps {
         // TODO (m.toga) ノードの設定は変更する必要がある
