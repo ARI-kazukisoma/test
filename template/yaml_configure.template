@@ -9,10 +9,10 @@ mysql:
  shards: 1
  common:
   name: fgo_game
-  host: fgodev-<% target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com
+  host: fgodev-<%= target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com
  shard0:
   name: fgo_game
-  host: fgodev-<% target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com
+  host: fgodev-<%= target_env %>.cluster-cwjtux3ue5ad.ap-northeast-1.rds.amazonaws.com
 redis:
- redis1: fgodev-<% target_env %>.rpuyv3.ng.0001.apne1.cache.amazonaws.com
- redis2: fgodev-<% target_env %>.rpuyv3.ng.0001.apne1.cache.amazonaws.com
+ redis1: fgodev-<%= target_env %>.rpuyv3.ng.0001.apne1.cache.amazonaws.com
+ redis2: fgodev-<%= target_env %>.rpuyv3.ng.0001.apne1.cache.amazonaws.com
