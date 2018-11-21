@@ -31,7 +31,7 @@ pipeline {
         script {
           def template = load("lib/template.groovy")
           def binding = [
-            'target_env': params.ENV
+            'target_env': params.ENV.toLowerCase()
           ]
           message = template.toString("yaml_configure.template", binding)
           echo message
