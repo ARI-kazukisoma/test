@@ -33,7 +33,7 @@ pipeline {
           def binding = [
             'target_env': params.ENV.toLowerCase(),
             'user': '${USERNAME}',
-            'password': '${PASSWORD}';
+            'pass': '${PASSWORD}';
           ]
           message = template.toString("yaml_configure.template", binding)
           echo message
